@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>VisualizationEditor</title>
+	<style>
+	*{ margin: 0; padding: 0; font-family: 微软雅黑; list-style: none; text-decoration: none; color: #000; }
+	.fl{ float: left; }
+	.fr{ float: right; }
+	.clear:after{ clear: both; display: block; content: ""; }
+	img{ vertical-align: top; }
+
+	.w1000{ width: 1000px; margin: 0 auto; }
+	.header{  }
+	.header img{ width: 40%; height: 80px; }
+	.header .title{ height: 80px; font-size: 50px; font-weight: bold; line-height: 80px; padding-left: 20px; }
+
+	.navwrap{ background: #73583e; }
+	.nav li{ float: left; }
+	.nav li a{ height: 60px; line-height: 60px; text-align: center; padding: 0 10px; color: #fff; }
+
+	.contentwrap{ background: #eee; }
+	.simpleDesc{ height: 40px; line-height: 40px; }
+
+	.small-img-list li{ float: left; }
+	.small-img-list li a{ display: block; width: 54px; height: 54px; padding: 10px; }
+
+	.right-desc .title{ font-size: 16px; line-height: 30px; font-weight: bold; }
+	.right-desc .desc{ color: #f00; font-size: 14px; }
+	.right-desc .jdprice{ line-height: 40px; }
+	.right-desc .price{ color: #f00; font-weight: bold; font-size: 16px; }
+	.right-desc .size-list li{ float: left; padding-top: 10px; padding-right: 20px; }
+	.right-desc .size-list li a{ display: block; border: 1px solid #ccc; width: 40px; height: 25px; font-size: 12px; line-height: 25px; text-align: center; }
+	</style>
+	<script src="jquery-2.2.4.js"></script>
+</head>
+<body>
+	<div class="header clear w1000">
+		<img src="img/liancang.jpg" alt="" class="fl">
+		<div class="title fl">乐步体育专营店</div>
+	</div>
+	<div class="navwrap">
+		<ul class="nav clear w1000">
+			<li><a href="javascript:;">首页</a></li>
+			<li><a href="javascript:;">全部分类</a></li>
+			<li><a href="javascript:;">霸王龙系列</a></li>
+			<li><a href="javascript:;">红双喜系列</a></li>
+		</ul>
+	</div>
+	<div class="contentwrap clear">
+		<div class="simpleDesc w1000">运动户外</div>
+		<div class="w1000">
+			<div class="left-img fl">
+				<div class="goodDetail">
+					<div class="big-img">
+						<img src="img/bat.jpg" alt="">
+					</div>
+					<ul class="small-img-list clear">
+						<li><a href="javascript:;" style="padding-left: 0;"><img src="img/bat-small.jpg" alt=""></a></li>
+						<li><a href="javascript:;"><img src="img/bat-small.jpg" alt=""></a></li>
+						<li><a href="javascript:;"><img src="img/bat-small.jpg" alt=""></a></li>
+						<li><a href="javascript:;"><img src="img/bat-small.jpg" alt=""></a></li>
+						<li><a href="javascript:;"><img src="img/bat-small.jpg" alt=""></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="right-desc fl">
+				<div class="title">世霸龙黑金钢棒球棒 加厚 防身 武器 车载钢棒球棒 防身棒球棍棍棒 25寸</div>
+				<div class="desc">6月17日至6月20日服饰家居跨万店3免1 <br/>砂冷酷黑，棒球棒，做工精致，工艺考究，现在买就送手胶。</div>
+				<div class="jdprice">京东价<span class="price">￥49.90</span></div>
+				<div class="size">
+					<div class="select-size">选择尺码</div>
+					<ul class="size-list clear">
+						<li><a href="javascript:;">25寸</a></li>
+						<li><a href="javascript:;">28寸</a></li>
+						<li><a href="javascript:;">30寸</a></li>
+						<li><a href="javascript:;">32寸</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>		
+	</div>
+</body>
+</html>
