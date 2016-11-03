@@ -1,0 +1,34 @@
+*{ margin: 0; padding: 0; list-style: none;}
+a{ text-decoration: none; color: #333;}
+input{ outline: none;}
+
+.il-par{ font-size: 0;}
+.il{ display: inline-block; font-size: 12px; vertical-align: top;}
+
+.clear{ clear: both;}
+.fl{ float: left;}
+.fr{ float: right;}
+
+.ft12{ font-size: 12px;}
+
+.wrap{ margin: 10px; border: 1px solid #ccc;}
+.wrap .top{ width: 100%; height: 30px; background: #eee; padding: 0 5px; box-sizing: border-box;}
+.wrap .top input[type="button"]{ width: 40px; height: 20px; margin-top: 5px;}
+
+.whole-style-wrap{ width: 100%;}
+.whole-style-wrap .whole-style-list{ border-bottom: 1px solid #ccc;}
+.whole-style-wrap .whole-style-list .item a{ display: block; width: 80px; height: 60px; text-align: center; line-height: 60px; border: 1px solid #ccc; margin: 5px;}
+
+.main-panel{ position: relative;}
+.main-panel .widget-list{ margin: 10px; margin-top: 0;}
+.main-panel .list-cate-item{ margin-bottom: 5px;}
+.main-panel .list-cate-item .name{ height: 30px; background: #eeefff; line-height: 30px; text-align: center;}
+.main-panel .list-cate-item .list{ width: 200px; }
+.main-panel .list-cate-item .list .item{ width: 50%; height: 40px; background: #fff; border: 1px solid #eee; box-sizing: border-box;}
+.main-panel .list-cate-item .list .item .txt{ display: block; line-height: 40px; text-align: center; }
+
+.main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 220px; position: relative;}
+.main-panel .widget-list{ position: absolute; left: 0; top: 0;}
+.main-panel .prop-list{ position: absolute; right: 0; top: 0; margin-right: 10px;}
+.main-panel .prop-list .item{ margin-bottom: 5px;}
+.main-panel .prop-list .item .txt{ width: 150px;}
