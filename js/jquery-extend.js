@@ -29,5 +29,7 @@ $.fn.extend({
             });
             return false;
         });
+
+        return this;
     }
 });

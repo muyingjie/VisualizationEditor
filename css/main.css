@@ -31,4 +31,8 @@ input{ outline: none;}
 .main-panel .widget-list{ position: absolute; left: 0; top: 0;}
 .main-panel .prop-list{ position: absolute; right: 0; top: 0; margin-right: 10px;}
 .main-panel .prop-list .item{ margin-bottom: 5px;}
+.main-panel .prop-list .item .name{ width: 50px;}
 .main-panel .prop-list .item .txt{ width: 150px;}
+
+/* 移动过程中创建出来的虚拟div */
+.moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute;}
