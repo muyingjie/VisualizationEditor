@@ -9,10 +9,12 @@ $(function () {
             BUSINESS: 3
         }
     };
+    //属性面板
     var $propList = $(".prop-list");
+    //设计器主窗口
     var $stage = $(".stage");
+    //当前编辑元素高亮窗口
     var $activeComponentFrame = $stage.find(".active-component-frame");
-    var $moveVirtualObj = null;
 
     getAllComponentCategories();
     function getAllComponentCategories(){
@@ -23,13 +25,11 @@ $(function () {
                 {
                     id: "1",
                     name: "图片",
-                    constructorNamePrefix: "Img",
-                    containerTagName: "div"
+                    constructorNamePrefix: "Img"
                 },{
                     id: "4",
                     name: "文字",
-                    constructorNamePrefix: "Txt",
-                    containerTagName: "div"
+                    constructorNamePrefix: "Txt"
                 },{
                     id: "2",
                     name: "视频"
@@ -47,7 +47,8 @@ $(function () {
                     name: "幻灯片"
                 },{
                     id: "2",
-                    name: "列表"
+                    name: "列表",
+                    constructorNamePrefix: "List"
                 },{
                     id: "3",
                     name: "弹窗"
@@ -82,75 +83,86 @@ $(function () {
             );
             $.each(cateObj.components, function (comIndex, comObj) {
                 var constrName = comObj.constructorNamePrefix ? comObj.constructorNamePrefix : "";
-                var containerTagName = comObj.containerTagName ? comObj.containerTagName : "";
-                var componentName = comObj.name;
+                var $componentCategoryObj = $("<a>").attr({
+                    "href": "javascript:;",
+                    "constructorName": constrName + "VEComponent"
+                }).addClass("txt").html(comObj.name);
                 $listCateItem.find(".list").append(
                     $("<li>").addClass("item il").append(
-                        $("<a>").attr({
-                            "href": "javascript:;",
-                            "constructorName": constrName + "VEComponent",
-                            "containerTagName": containerTagName,
-                            "componentName": componentName
-                        }).addClass("txt").html(comObj.name)
+                        $componentCategoryObj
                     )
                 );
+                //给每个类型的组件增加拖拽事件
+                addDragEffectToComponentCategory({
+                    $componentCategoryObj: $componentCategoryObj
+                });
             });
-
-            var componentCategoryDragConfig = {
-                $obj: $listCateItem.find(".list .txt"),
-                onDown: function(){
-                    $stage.on("mousemove.addComponent", function (e) {
-                        oComponentCategoryDrag.$moveVirtualObj.show();
-                    });
-                },
-                onUp: function (obj) {
-                    //鼠标不在中间设计面板stage中的话，直接退出
-                    if(!myj.isInObj(obj.e, $stage)){
-                        return;
-                    }
-                    var $drag = obj.$downObj;
-                    var e = obj.e;
-                    var l = e.pageX - $stage.offset().left;
-                    var t = e.pageY - $stage.offset().top;
-                    var constructorName = $drag.attr("constructorName");
-                    var containerTagName = $drag.attr("containerTagName");
-                    var componentName = $drag.attr("componentName");
-                    var constructorFn = window[constructorName];
-                    //实例化的元件是动态的，通过附加在DOM上的属性来判断
-                    var oComponent = new constructorFn();
-                    oComponent.setComponentTxt(componentName);
-                    var props = oComponent.getProperty();
-                    console.log(props);
-                    props.css.left.propVal = l + "px";
-                    props.css.top.propVal = t + "px";
-                    //渲染属性面板
-                    renderPropsPanel(props);
-                    //渲染设计面板
-                    var $component = renderDesignPanel({
-                        props: props,
-                        containerTagName: containerTagName
-                    });
-                    $component.addClass("componentContainer");
-                    //给面板中的每个元件增加拖动事件
-                    addDragEffectToComponent($component, oComponent);
-                    //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
-                    updatePropsPanel($component, oComponent);
-
-                    $stage.off("mousemove.addComponent");
-                },
-                isNeedMoveVirtualDomObj: true,
-                fnOperateMoveVirtualDomObj: function ($moveVirtualObj) {
-                    $moveVirtualObj.html("拖动至此处");
-                    $moveVirtualObj.hide();
-                }
-            };
-
-            var oComponentCategoryDrag = new MyjDrag(componentCategoryDragConfig);
-            $moveVirtualObj = oComponentCategoryDrag.$moveVirtualObj;
         });
     }
+
+    function addDragEffectToComponentCategory(config){
+        var $componentCategoryObj = config.$componentCategoryObj ? config.$componentCategoryObj : null;
+        if(!$componentCategoryObj){
+            console.log("addDragEffectToComponentCategory:没有接受到拖动DOM对象");
+            return;
+        }
+        //从down到move到up跟随鼠标出现的虚拟对象
+        var $moveVirtualObj = null;
+        //拖拽参数
+        var componentCategoryDragConfig = {
+            $obj: $componentCategoryObj,
+            onDown: function(){
+                $stage.on("mousemove.addComponent", function (e) {
+                    $moveVirtualObj.show();
+                });
+            },
+            onUp: function (obj) {
+                //鼠标不在中间设计面板stage中的话，直接退出
+                if(!myj.isInObj(obj.e, $stage)){
+                    return;
+                }
+                var $drag = obj.$downObj;
+
+                var constructorName = $drag.attr("constructorName");
+                var constructorFn = window[constructorName];
+                //实例化的元件是动态的，通过附加在DOM上的属性来判断
+                var oComponent = new constructorFn({
+                    componentName: "元件名"
+                });
+
+                var props = oComponent.controlItems;
+                console.log(props);
+                //初始化元件坐标
+                var e = obj.e;
+                var l = e.pageX - $stage.offset().left;
+                var t = e.pageY - $stage.offset().top;
+                props.css.left.propVal = l + "px";
+                props.css.top.propVal = t + "px";
+                //渲染属性面板
+                renderPropsPanel({
+                    instanceObj: oComponent
+                });
+                //渲染设计面板
+                renderDesignPanel({
+                    instanceObj: oComponent
+                });
+
+                $stage.off("mousemove.addComponent");
+            },
+            isNeedMoveVirtualDomObj: true,
+            fnOperateMoveVirtualDomObj: function ($moveVirtualObj) {
+                $moveVirtualObj.html("拖动至此处");
+                $moveVirtualObj.hide();
+            }
+        };
+
+        var oComponentCategoryDrag = new MyjDrag(componentCategoryDragConfig);
+        $moveVirtualObj = oComponentCategoryDrag.$moveVirtualObj;
+    }
     
-    function addDragEffectToComponent($component, oComponent){
+    function addDragEffectToComponent(config){
+        var oComponent = config.instanceObj;
+        var $component = oComponent.containerDOM;
         var disL;
         var disT;
         var stageL = $stage.offset().left;
@@ -242,7 +254,7 @@ $(function () {
                     $.each(prop.val, function (cssStyle, cssVal) {
                         if(cssVal){
                             $component[prop.name](cssStyle, cssVal);
-                            oComponent.setProperty({
+                            oComponent.setControlItem({
                                 propLevel1: prop.name,
                                 propLevel2: cssStyle,
                                 propVal: cssVal + "px"
@@ -250,8 +262,9 @@ $(function () {
                         }
                     });
                 });
-                var props = oComponent.getProperty();
-                renderPropsPanel(props);
+                renderPropsPanel({
+                    instanceObj: oComponent
+                });
             },
             onComponentMove: function (e) {
                 var x = e.pageX;
@@ -290,45 +303,17 @@ $(function () {
         var oComponentDrag = new MyjDrag(componentDragConfig);
     }
 
-    function renderPropsPanel(props) {
+    function renderPropsPanel(config) {
+        var instanceObj = config.instanceObj;
+        //获取属性控制项
+        var props = instanceObj.controlItems;
         $propList.html("");
         $.each(props, function (propCategoryName, propCategoryVal) {
-            //此处重复代码较多，根据后期需求确定，待优化
-            switch (propCategoryName){
-                case "attr":
-                    $.each(propCategoryVal, function (attrItemName, attrItem) {
-                        var $propItem = addOneProp({
-                            item: attrItem
-                        });
-                    });
-                    break;
-                case "css":
-                    $.each(propCategoryVal, function (cssItemName, cssItem) {
-                        var $propItem = addOneProp({
-                            item: cssItem
-                        });
-                    });
-                    break;
-                case "aloneExec":
-                    $.each(propCategoryVal, function (aloneExecName, aloneExecItem) {
-                        var $propItem = addOneProp({
-                            item: aloneExecItem
-                        });
-                    });
-                case "otherAttrs":
-                    $.each(propCategoryVal, function (otherItemName, otherItem) {
-                        switch (otherItemName){
-                            case "name":
-                                var $propItem = addOneProp({
-                                    item: otherItem
-                                });
-                                break;
-                        }
-                    });
-                    break;
-                default:
-
-            }
+            $.each(propCategoryVal, function (attrItemName, attrItem) {
+                var $propItem = addOneProp({
+                    item: attrItem
+                });
+            });
         });
     }
 
@@ -350,56 +335,59 @@ $(function () {
     }
 
     function renderDesignPanel(config){
-        var $component = addOneComponent(config);
-        return $component;
+        //向面板中添加元件
+        addOneComponent(config);
+        //给面板中的每个元件增加拖动事件
+        addDragEffectToComponent(config);
+        //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
+        updatePropsPanel(config);
     }
 
     function addOneComponent(config){
-        var props = config.props ? config.props : {};
-        var containerTagName = config.containerTagName ? config.containerTagName : "div";
-        var $componentContainer = $("<" + containerTagName + ">");
+        var oComponent = config.instanceObj;
+        if(!oComponent){
+            console.error("addOneComponent:找不到实例化对象参数");
+            return;
+        }
+        var props = oComponent.controlItems;
+        if(!props){
+            console.error("addOneComponent:找不到实例化对象下的props属性");
+            return;
+        }
+        var $componentContainer = oComponent.containerDOM;
         $.each(props, function (propCategoryName, propCategoryVal) {
-            switch (propCategoryName){
-                case "attr":
-                    $.each(propCategoryVal, function (attrItemName, attrItem) {
-                        var attrArg = {};
-                        attrArg[attrItemName] = attrItem.propVal;
-                        $componentContainer.attr(attrArg);
-                    });
-                    break;
-                case "css":
-                    $.each(propCategoryVal, function (cssItemName, cssItem) {
-                        var cssArg = {};
-                        cssArg[cssItemName] = cssItem.propVal;
-                        $componentContainer.css(cssArg);
-                    });
-                    break;
-                case "aloneExec":
-                    $.each(propCategoryVal, function (aloneExecName, aloneExecItem) {
-                        $componentContainer[aloneExecName](aloneExecItem.propVal);
-                    });
-                case "otherAttrs":
-                    $.each(propCategoryVal, function (otherItemName, otherItem) {
-                        switch (otherItemName){
-                            case "name":
-
-                                break;
-                        }
-                    });
-                    break;
-                default:
-
+            if(propCategoryName == "attr" || propCategoryName == "css"){
+                $.each(propCategoryVal, function (attrItemName, attrItem) {
+                    var attrArg = {};
+                    attrArg[attrItemName] = attrItem.propVal;
+                    $componentContainer[propCategoryName](attrArg);
+                });
+            }else if(propCategoryName == "aloneExec"){
+                $.each(propCategoryVal, function (aloneExecName, aloneExecItem) {
+                    $componentContainer[aloneExecName](aloneExecItem.propVal);
+                });
+            }else if(propCategoryName == "otherAttrs"){
+                $.each(propCategoryVal, function (otherItemName, otherItem) {
+                    switch (otherItemName){
+                        case "name":
+                            //对于元件名字的处理
+                            break;
+                    }
+                });
+            }else{
+                console.error("未处理的控制属性类型");
             }
         });
         $stage.append($componentContainer);
         return $componentContainer;
     }
 
-    function updatePropsPanel($component, oComponent){
+    function updatePropsPanel(config){
+        var oComponent = config.instanceObj;
+        var $component = oComponent.containerDOM;
         $component.click(function(){
-            var props = oComponent.getProperty();
             //渲染属性面板
-            renderPropsPanel(props);
+            renderPropsPanel(config);
             //当前选中项高亮显示
             //首先需要先让外框显示出来
             $activeComponentFrame.show();
