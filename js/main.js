@@ -11,7 +11,7 @@ $(function () {
     };
     var $propList = $(".prop-list");
     var $stage = $(".stage");
-    var isInStage = false;
+    var $activeComponentFrame = $stage.find(".active-component-frame");
     var $moveVirtualObj = null;
 
     getAllComponentCategories();
@@ -95,6 +95,7 @@ $(function () {
                     )
                 );
             });
+
             var componentCategoryDragConfig = {
                 $obj: $listCateItem.find(".list .txt"),
                 onDown: function(){
@@ -104,6 +105,9 @@ $(function () {
                 },
                 onUp: function (obj) {
                     //鼠标不在中间设计面板stage中的话，直接退出
+                    if(!myj.isInObj(obj.e, $stage)){
+                        return;
+                    }
                     var $drag = obj.$downObj;
                     var e = obj.e;
                     var l = e.pageX - $stage.offset().left;
@@ -128,7 +132,9 @@ $(function () {
                     });
                     $component.addClass("componentContainer");
                     //给面板中的每个元件增加拖动事件
-                    addDragEffectToComponent($component);                    
+                    addDragEffectToComponent($component, oComponent);
+                    //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
+                    updatePropsPanel($component, oComponent);
 
                     $stage.off("mousemove.addComponent");
                 },
@@ -144,7 +150,7 @@ $(function () {
         });
     }
     
-    function addDragEffectToComponent($component){
+    function addDragEffectToComponent($component, oComponent){
         var disL;
         var disT;
         var stageL = $stage.offset().left;
@@ -171,16 +177,16 @@ $(function () {
                 oldH = $component.height();
             },
             onMove: function (e) {
-                var absL;
-                var absT;
-                var absW;
-                var absH;
                 var x = e.pageX;
                 var y = e.pageY;
                 var l = $component.offset().left;
                 var t = $component.offset().top;
                 var r = l + $component.width();
                 var b = t + $component.height();
+                var absL;
+                var absT;
+                var absW;
+                var absH;
                 switch (cursorDirection){
                     case "e":
                         absW = oldW + (x - downX);
@@ -221,10 +227,31 @@ $(function () {
                         absT = e.pageY - stageT - disT;
                         break;
                 }
-                absL && $component.css({"left": absL});
-                absT && $component.css({"top": absT});
-                absW && $component.css({"width": absW});
-                absH && $component.css({"height": absH});
+
+                var modifiedProps = [{
+                    name: "css",
+                    val: {
+                        left: absL,
+                        top: absT,
+                        width: absW,
+                        height: absH
+                    }
+                }];
+
+                $.each(modifiedProps, function (index, prop) {
+                    $.each(prop.val, function (cssStyle, cssVal) {
+                        if(cssVal){
+                            $component[prop.name](cssStyle, cssVal);
+                            oComponent.setProperty({
+                                propLevel1: prop.name,
+                                propLevel2: cssStyle,
+                                propVal: cssVal + "px"
+                            });
+                        }
+                    });
+                });
+                var props = oComponent.getProperty();
+                renderPropsPanel(props);
             },
             onComponentMove: function (e) {
                 var x = e.pageX;
@@ -366,5 +393,21 @@ $(function () {
         });
         $stage.append($componentContainer);
         return $componentContainer;
+    }
+
+    function updatePropsPanel($component, oComponent){
+        $component.click(function(){
+            var props = oComponent.getProperty();
+            //渲染属性面板
+            renderPropsPanel(props);
+            //当前选中项高亮显示
+            //首先需要先让外框显示出来
+            $activeComponentFrame.show();
+            var l = parseInt($component.css("left")) - 1 + "px";
+            var t = parseInt($component.css("top")) - 1 + "px";
+            var w = $component.outerWidth();
+            var h = $component.outerHeight();
+            $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+        });
     }
 });

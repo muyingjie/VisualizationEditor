@@ -14,6 +14,18 @@
             var prototype = this.object(superType.prototype);
             prototype.constructor = subType;
             subType.prototype = prototype;
+        },
+        isInObj: function (e, $obj) {
+            var ex = e.pageX;
+            var ey = e.pageY;
+            var ow = $obj.width();
+            var oh = $obj.height();
+            var ol = $obj.offset().left;
+            var ot = $obj.offset().top;
+            var or = ol + ow;
+            var ob = ot + oh;
+
+            return ex > ol && ex < or && ey > ot && ey < ob;
         }
     });
     window.myj = myj;

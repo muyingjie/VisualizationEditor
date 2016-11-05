@@ -22,7 +22,11 @@ function VEComponent(config){
         },
         border: {
             propName: "边框",
-            propVal: config.border ? config.border : "2px solid #333"
+            propVal: config.border ? config.border : "none"
+        },
+        background: {
+            propName: "背景",
+            propVal: config.background ? config.background : "#eeeeff"
         },
         position: {
             propName: "定位",
@@ -51,6 +55,16 @@ VEComponent.prototype.getProperty = function () {
         }
     });
     return res;
+};
+VEComponent.prototype.setProperty = function (config) {
+    var propLevel1 = config.propLevel1;
+    var propLevel2 = config.propLevel2;
+    var propVal = config.propVal;
+    if(!propLevel1 || !propLevel2){
+        console.log("必须传入两级属性");
+        return;
+    }
+    this[propLevel1][propLevel2]["propVal"] = propVal;
 };
 VEComponent.prototype.setComponentTxt = function (txt) {
     this.aloneExec.text.propName = "文本";
