@@ -36,3 +36,4 @@ input{ outline: none;}
 
 /* 移动过程中创建出来的虚拟div */
 .moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute;}
+.componentContainer{}

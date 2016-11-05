@@ -14,9 +14,9 @@ $(function () {
     var isInStage = false;
     var $moveVirtualObj = null;
 
-    getAllComponents();
-    function getAllComponents(){
-        var components = [{
+    getAllComponentCategories();
+    function getAllComponentCategories(){
+        var componentCategories = [{
             categoryId: "1",
             categoryName: "页面组件",
             components: [
@@ -66,12 +66,12 @@ $(function () {
                 }
             ]
         }];
-        renderAllCompontents(components);
+        renderAllCompontentCategories(componentCategories);
     }
 
-    function renderAllCompontents(components){
+    function renderAllCompontentCategories(componentCategories){
         var $widgetList = $(".widget-list");
-        $.each(components, function (cateIndex, cateObj) {
+        $.each(componentCategories, function (cateIndex, cateObj) {
             var $listCateItem = $("<div>").addClass("list-cate-item").append(
                 $("<div>").addClass("name").html(cateObj.categoryName)
             ).append(
@@ -95,19 +95,19 @@ $(function () {
                     )
                 );
             });
-            var componentDragConfig = {
+            var componentCategoryDragConfig = {
                 $obj: $listCateItem.find(".list .txt"),
                 onDown: function(){
                     $stage.on("mousemove.addComponent", function (e) {
-                        dragRes.$moveVirtualObj.show();
+                        oComponentCategoryDrag.$moveVirtualObj.show();
                     });
                 },
                 onUp: function (obj) {
                     //鼠标不在中间设计面板stage中的话，直接退出
                     var $drag = obj.$downObj;
                     var e = obj.e;
-                    var l = e.clientX - $stage.offset().left;
-                    var t = e.clientY - $stage.offset().top;
+                    var l = e.pageX - $stage.offset().left;
+                    var t = e.pageY - $stage.offset().top;
                     var constructorName = $drag.attr("constructorName");
                     var containerTagName = $drag.attr("containerTagName");
                     var componentName = $drag.attr("componentName");
@@ -126,6 +126,9 @@ $(function () {
                         props: props,
                         containerTagName: containerTagName
                     });
+                    $component.addClass("componentContainer");
+                    //给面板中的每个元件增加拖动事件
+                    addDragEffectToComponent($component);                    
 
                     $stage.off("mousemove.addComponent");
                 },
@@ -136,9 +139,128 @@ $(function () {
                 }
             };
 
-            var dragRes = mDrag(componentDragConfig);
-            $moveVirtualObj = dragRes.$moveVirtualObj;
+            var oComponentCategoryDrag = new MyjDrag(componentCategoryDragConfig);
+            $moveVirtualObj = oComponentCategoryDrag.$moveVirtualObj;
         });
+    }
+    
+    function addDragEffectToComponent($component){
+        var disL;
+        var disT;
+        var stageL = $stage.offset().left;
+        var stageT = $stage.offset().top;
+        var magneticDistance = 10;
+        var cursorDirection = "";
+        var downX;
+        var downY;
+        var oldW;
+        var oldH;
+        var componentDragConfig = {
+            $obj: $component,
+            onDown: function (e) {
+                var l = $component.offset().left;
+                var t = $component.offset().top;
+                disL = e.pageX - l;
+                disT = e.pageY - t;
+
+                //down的时候x和y的坐标拖拽改变大小时用
+                downX = e.pageX;
+                downY = e.pageY;
+
+                oldW = $component.width();
+                oldH = $component.height();
+            },
+            onMove: function (e) {
+                var absL;
+                var absT;
+                var absW;
+                var absH;
+                var x = e.pageX;
+                var y = e.pageY;
+                var l = $component.offset().left;
+                var t = $component.offset().top;
+                var r = l + $component.width();
+                var b = t + $component.height();
+                switch (cursorDirection){
+                    case "e":
+                        absW = oldW + (x - downX);
+                        break;
+                    case "w":
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    case "s":
+                        absH = oldH + (y - downY);
+                        break;
+                    case "n":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        break;
+                    case "ne":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        absW = oldW + (x - downX);
+                        break;
+                    case "se":
+                        absH = oldH + (y - downY);
+                        absW = oldW + (x - downX);
+                        break;
+                    case "nw":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    case "sw":
+                        absH = oldH + (y - downY);
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    default:
+                        absL = e.pageX - stageL - disL;
+                        absT = e.pageY - stageT - disT;
+                        break;
+                }
+                absL && $component.css({"left": absL});
+                absT && $component.css({"top": absT});
+                absW && $component.css({"width": absW});
+                absH && $component.css({"height": absH});
+            },
+            onComponentMove: function (e) {
+                var x = e.pageX;
+                var y = e.pageY;
+                var l = $component.offset().left;
+                var t = $component.offset().top;
+                var r = l + $component.outerWidth();
+                var b = t + $component.outerHeight();
+
+                if(x - l < magneticDistance){
+                    if(y - t < magneticDistance){
+                        cursorDirection = "nw";
+                    }else if(b - y < magneticDistance){
+                        cursorDirection = "sw"
+                    }else{
+                        cursorDirection = "w";
+                    }
+                }else if(r - x < magneticDistance){
+                    if(y - t < magneticDistance){
+                        cursorDirection = "ne";
+                    }else if(b - y < magneticDistance){
+                        cursorDirection = "se";
+                    }else{
+                        cursorDirection = "e";
+                    }
+                }else if(y - t < magneticDistance){
+                    cursorDirection = "n";
+                }else if(b - y < magneticDistance){
+                    cursorDirection = "s";
+                }else{
+                    cursorDirection = "";
+                }
+                $component.css({"cursor": cursorDirection ? cursorDirection + "-resize" :"move"});
+            }
+        };
+        var oComponentDrag = new MyjDrag(componentDragConfig);
     }
 
     function renderPropsPanel(props) {

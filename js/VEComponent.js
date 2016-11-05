@@ -57,7 +57,7 @@ VEComponent.prototype.setComponentTxt = function (txt) {
     this.aloneExec.text.propVal = txt;
 };
 VEComponent.prototype.drag = function (config) {
-    mDrag(config);
+    //mDrag(config);
 };
 
 function TxtVEComponent(config){
