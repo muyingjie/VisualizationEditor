@@ -3,54 +3,57 @@
  */
 function VEComponent(config){
     config = config ? config : {};
-    this.componentName = "组件名";
-    this.containerClassName = "componentContainer";
-    //属性面板中可以控制的部分
-    this.controlItems = {
-        css: {
-            width: {
-                propName: "CSS宽",
-                propVal: config.width ? config.width : "100px"
+    var defaultConfig = {
+        componentName: "组件名",
+        containerClassName: "componentContainer",
+        controlItems: {
+            css: {
+                width: {
+                    propName: "CSS宽",
+                    propVal: "100px"
+                },
+                height: {
+                    propName: "CSS高",
+                    propVal: "100px"
+                },
+                left: {
+                    propName: "x坐标",
+                    propVal: "100px"
+                },
+                top: {
+                    propName: "y坐标",
+                    propVal: "100px"
+                },
+                border: {
+                    propName: "边框",
+                    propVal: "none"
+                },
+                background: {
+                    propName: "背景",
+                    propVal: "#eeeeff"
+                },
+                position: {
+                    propName: "定位",
+                    propVal: "absolute"
+                },
+                padding: {
+                    propName: "内边距",
+                    propVal: "0"
+                }
             },
-            height: {
-                propName: "CSS高",
-                propVal: config.height ? config.height : "100px"
-            },
-            left: {
-                propName: "x坐标",
-                propVal: config.left ? config.left : "100px"
-            },
-            top: {
-                propName: "y坐标",
-                propVal: config.top ? config.top : "100px"
-            },
-            border: {
-                propName: "边框",
-                propVal: config.border ? config.border : "none"
-            },
-            background: {
-                propName: "背景",
-                propVal: config.background ? config.background : "#eeeeff"
-            },
-            position: {
-                propName: "定位",
-                propVal: "absolute"
-            },
-            padding: {
-                propName: "内边距",
-                propVal: "0"
+            attr: {},
+            aloneExec: {},
+            otherAttrs: {
+                name : {
+                    propName: "元件名称",
+                    propVal: "111"
+                }
             }
         },
-        attr: {},
-        otherAttrs: {
-            name : {
-                propName: "元件名称",
-                propVal: "111"
-            }
-        },
-        aloneExec: {}
+        containerDOM: $("<div>")
     };
-    this.containerDOM = $("<div>");
+    $.extend(true, defaultConfig, config);
+    $.extend(true, this, defaultConfig);
     this.init();
 }
 VEComponent.prototype.init = function () {
@@ -73,10 +76,13 @@ function TxtVEComponent(config){
     VEComponent.apply(this, args);
 
     //一定要在继承过来的对象上去扩展，切记不可覆盖继承来的对象
-    this.controlItems.aloneExec.text = {
-        propName: "文本",
-        propVal: config.text ? config.text : "文本"
-    };
+    var text = this.controlItems.aloneExec.text;
+    if(!text){
+        this.controlItems.aloneExec.text = {
+            propName: "文本",
+            propVal: "文本"
+        };
+    }
 }
 
 function ImgVEComponent(config){
@@ -85,22 +91,107 @@ function ImgVEComponent(config){
     VEComponent.apply(this, args);
 
     this.containerDOM = $("<img>");
-    this.controlItems.attr.src = {
-        propName: "源",
-        propVal: config.src ? config.src : "img/liancang.jpg"
-    };
+    var src = this.controlItems.attr.src;
+    if(!src){
+        this.controlItems.attr.src = {
+            propName: "源",
+            propVal: "img/liancang.jpg"
+        };
+    }
 }
 
 function ListVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
     VEComponent.apply(this, args);
+
+    $.extend(true, this, {
+        controlItems: {
+            otherAttrs: {
+                rowNum: {
+                    propName: "行数",
+                    propVal: 5
+                }
+            },
+            css: {
+                width: {
+                    propVal :"200px"
+                },
+                height: {
+                    propVal: ""
+                }
+            }
+        }
+    });
+    var rowNum = this.controlItems.otherAttrs.rowNum.propVal;
+    this.childComponents = [];
+
+    var txtComponentConfig = {
+        controlItems: {
+            css: {
+                width: {
+                    propVal: "100%"
+                },
+                height: {
+                    propVal: "40px"
+                },
+                position: {
+                    propVal: "static"
+                }
+            }
+        }
+    };
+    var oChildComponent;
+    for(var i=0;i<rowNum;i++){
+        oChildComponent = new TxtVEComponent(txtComponentConfig);
+        this.childComponents.push(oChildComponent);
+    }
+}
+
+function TxtImgVerticalVEComponent(config){
+    config = config ? config : {};
+    var args = [].slice.call(arguments, 0);
+    VEComponent.apply(this, args);
+
+    $.extend(true, this, {
+        controlItems: {
+            css: {
+                height: {
+                    propVal: ""
+                }
+            }
+        }
+    });
+
+    var oImgComponent = new ImgVEComponent({
+        controlItems: {
+            css: {
+                position: {
+                    propVal: "static"
+                }
+            }
+        }
+    });
+    var oTxtComponent = new TxtVEComponent({
+        controlItems: {
+            css: {
+                position: {
+                    propVal: "static"
+                },
+                height: {
+                    propVal: "20px"
+                }
+            }
+        }
+    });
+    this.childComponents = [oImgComponent, oTxtComponent];
+
 }
 
 //继承方法
 inheritAllMethod();
 function inheritAllMethod(){
-    var constructors = [TxtVEComponent, ImgVEComponent, ListVEComponent];
+    var constructors = [TxtVEComponent, ImgVEComponent, ListVEComponent, TxtImgVerticalVEComponent];
     $.each(constructors, function (index, fnConstructor) {
         myj.inheritPrototype(fnConstructor, VEComponent);
     });

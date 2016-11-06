@@ -64,11 +64,12 @@
           <file leaf-file-name="VEComponent.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/VEComponent.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="441">
-                  <caret line="102" column="71" selection-start-line="102" selection-start-column="71" selection-end-line="102" selection-end-column="71" />
+                <state relative-caret-position="376">
+                  <caret line="181" column="34" selection-start-line="181" selection-start-column="34" selection-end-line="181" selection-end-column="34" />
                   <folding>
                     <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-                    <element signature="e#1308#1419#0" expanded="false" />
+                    <element signature="e#128#1473#0" expanded="false" />
+                    <element signature="e#251#1217#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -89,7 +90,7 @@
           <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/css/main.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="348">
+                <state relative-caret-position="627">
                   <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
                   <folding />
                 </state>
@@ -103,14 +104,15 @@
           <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="486">
-                  <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
+                <state relative-caret-position="343">
+                  <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
                   <folding>
-                    <element signature="e#1549#1742#0" expanded="false" />
-                    <element signature="e#1885#3104#0" expanded="false" />
-                    <element signature="e#6622#8241#0" expanded="false" />
-                    <element signature="e#10716#11130#0" expanded="false" />
-                    <element signature="e#11163#11662#0" expanded="false" />
+                    <element signature="e#1610#1803#0" expanded="false" />
+                    <element signature="e#5446#10760#0" expanded="false" />
+                    <element signature="e#6706#8325#0" expanded="false" />
+                    <element signature="e#10800#11214#0" expanded="false" />
+                    <element signature="e#11247#11746#0" expanded="false" />
+                    <element signature="e#12096#14019#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -269,12 +271,13 @@
       <workItem from="1478221225958" duration="26093000" />
       <workItem from="1478262166685" duration="12983000" />
       <workItem from="1478312562717" duration="12432000" />
-      <workItem from="1478338760171" duration="12300000" />
+      <workItem from="1478338760171" duration="15337000" />
+      <workItem from="1478403913206" duration="7805000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75222000" />
+    <option name="totallyTimeSpent" value="86064000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -366,11 +369,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/VEComponent.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1558">
+          <caret line="117" column="21" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
+          <folding>
+            <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/tool.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="27" column="60" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ve-index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="44" column="50" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="50" />
+          <folding>
+            <element signature="n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/MyjDrag.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-extend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/VEComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1159">
           <caret line="61" column="33" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
           <folding>
             <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-            <element signature="e#1308#1419#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -398,11 +475,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1549#1742#0" expanded="false" />
-            <element signature="e#1885#3104#0" expanded="false" />
-            <element signature="e#6622#8241#0" expanded="false" />
-            <element signature="e#10716#11130#0" expanded="false" />
-            <element signature="e#11163#11662#0" expanded="false" />
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -441,7 +519,8 @@
           <caret line="43" column="6" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
           <folding>
             <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-            <element signature="e#1308#1419#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -469,11 +548,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1549#1742#0" expanded="false" />
-            <element signature="e#1885#3104#0" expanded="false" />
-            <element signature="e#6622#8241#0" expanded="false" />
-            <element signature="e#10716#11130#0" expanded="false" />
-            <element signature="e#11163#11662#0" expanded="false" />
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -504,7 +584,8 @@
           <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
           <folding>
             <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-            <element signature="e#1308#1419#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -532,11 +613,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1549#1742#0" expanded="false" />
-            <element signature="e#1885#3104#0" expanded="false" />
-            <element signature="e#6622#8241#0" expanded="false" />
-            <element signature="e#10716#11130#0" expanded="false" />
-            <element signature="e#11163#11662#0" expanded="false" />
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -567,7 +649,8 @@
           <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
           <folding>
             <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-            <element signature="e#1308#1419#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -595,11 +678,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1549#1742#0" expanded="false" />
-            <element signature="e#1885#3104#0" expanded="false" />
-            <element signature="e#6622#8241#0" expanded="false" />
-            <element signature="e#10716#11130#0" expanded="false" />
-            <element signature="e#11163#11662#0" expanded="false" />
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -669,7 +753,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
+        <state relative-caret-position="627">
           <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
           <folding />
         </state>
@@ -677,25 +761,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
+        <state relative-caret-position="343">
+          <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
           <folding>
-            <element signature="e#1549#1742#0" expanded="false" />
-            <element signature="e#1885#3104#0" expanded="false" />
-            <element signature="e#6622#8241#0" expanded="false" />
-            <element signature="e#10716#11130#0" expanded="false" />
-            <element signature="e#11163#11662#0" expanded="false" />
+            <element signature="e#1610#1803#0" expanded="false" />
+            <element signature="e#5446#10760#0" expanded="false" />
+            <element signature="e#6706#8325#0" expanded="false" />
+            <element signature="e#10800#11214#0" expanded="false" />
+            <element signature="e#11247#11746#0" expanded="false" />
+            <element signature="e#12096#14019#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/VEComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="102" column="71" selection-start-line="102" selection-start-column="71" selection-end-line="102" selection-end-column="71" />
+        <state relative-caret-position="376">
+          <caret line="181" column="34" selection-start-line="181" selection-start-column="34" selection-end-line="181" selection-end-column="34" />
           <folding>
             <element signature="n#!!doc;n#VEComponent#0" expanded="false" />
-            <element signature="e#1308#1419#0" expanded="false" />
+            <element signature="e#128#1473#0" expanded="false" />
+            <element signature="e#251#1217#0" expanded="false" />
           </folding>
         </state>
       </provider>

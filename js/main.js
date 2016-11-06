@@ -44,7 +44,8 @@ $(function () {
             components:[
                 {
                     id: "1",
-                    name: "幻灯片"
+                    name: "幻灯片",
+                    constructorNamePrefix: "TxtImgVertical"
                 },{
                     id: "2",
                     name: "列表",
@@ -122,7 +123,7 @@ $(function () {
                     return;
                 }
                 var $drag = obj.$downObj;
-
+                //构造函数名
                 var constructorName = $drag.attr("constructorName");
                 var constructorFn = window[constructorName];
                 //实例化的元件是动态的，通过附加在DOM上的属性来判断
@@ -336,6 +337,9 @@ $(function () {
 
     function renderDesignPanel(config){
         //向面板中添加元件
+        $.extend(true, config, {
+            $parent: $stage
+        });
         addOneComponent(config);
         //给面板中的每个元件增加拖动事件
         addDragEffectToComponent(config);
@@ -378,7 +382,18 @@ $(function () {
                 console.error("未处理的控制属性类型");
             }
         });
-        $stage.append($componentContainer);
+        //查看当前元件是否有子元件，如果有子元件，则给其增加属性
+        var childDOMs = oComponent.childComponents;
+        if(childDOMs){
+            $.each(childDOMs, function (i, oChildComponent) {
+                addOneComponent({
+                    instanceObj: oChildComponent,
+                    $parent: oComponent.containerDOM
+                });
+            });
+        }
+        var $parent = config.$parent;
+        $parent.append($componentContainer);
         return $componentContainer;
     }
 
