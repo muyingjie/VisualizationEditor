@@ -187,6 +187,61 @@ function TxtImgVerticalVEComponent(config){
     this.childComponents = [oImgComponent, oTxtComponent];
 
 }
+function VerticalContainerVEComponent(config){
+    config = config ? config : {};
+    var args = [].slice.call(arguments, 0);
+    VEComponent.apply(this, args);
+
+    $.extend(true, this, {
+        controlItems: {
+            css: {
+                width: {
+                    propVal: "100%"
+                },
+                border: {
+                    propVal: "1px solid #333"
+                }
+            },
+            otherAttrs: {
+                colNum: {
+                    propName: "列数",
+                    propVal: 2
+                }
+            }
+        }
+    });
+
+    var veConfig = {
+        controlItems: {
+            css: {
+                width: {
+                    propVal: "50%"
+                },
+                height: {
+                    propVal: "100px"
+                },
+                margin: {
+                    propVal: "2px"
+                },
+                border: {
+                    propVal: "1px solid #000"
+                },
+                boxSizing: {
+                    propName: "盒模型类型",
+                    propVal: "border-box"
+                }
+            }
+        }
+    };
+    this.childComponents = [];
+    var colNum = this.controlItems.otherAttrs.colNum.propVal;
+    var oVEComponent;
+    for(var i=0;i<colNum;i++){
+        oVEComponent = new VEComponent(veConfig);
+        this.childComponents.push(oVEComponent);
+    }
+
+}
 
 //继承方法
 inheritAllMethod();
