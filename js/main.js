@@ -203,6 +203,8 @@ $(function () {
         var disT;
         var stageL = $stage.offset().left;
         var stageT = $stage.offset().top;
+        var stageW;
+        var stageH;
         var magneticDistance = 10;
         var cursorDirection = "";
         var downX;
@@ -223,6 +225,9 @@ $(function () {
 
                 oldW = $component.width();
                 oldH = $component.height();
+
+                stageW = $stage.width();
+                stageH = $stage.height();
             },
             onMove: function (e) {
                 var x = e.pageX;
@@ -276,6 +281,27 @@ $(function () {
                         break;
                 }
 
+                //拖拽限制范围
+                absW = (absW ? absW : oldW);
+                absH = (absH ? absH : oldH);
+                console.log(absL,absT,stageW,absW,stageH,absH);
+                if(absL < 0){
+                    absL = 0;
+                    return;
+                }
+                if(absT < 0){
+                    absT = 0;
+                    return;
+                }
+                if(absL > stageW - absW){
+                    absL = stageW - absW;
+                    return;
+                }
+                if(absT > stageH - absH){
+                    absT = stageH - absH;
+                    return;
+                }
+
                 var modifiedProps = [{
                     name: "css",
                     val: {
@@ -310,28 +336,30 @@ $(function () {
                 var r = l + $component.outerWidth();
                 var b = t + $component.outerHeight();
 
-                if(x - l < magneticDistance){
-                    if(y - t < magneticDistance){
-                        cursorDirection = "nw";
+                if(x - l > 0 && y - t > 0 && b - y > 0 && r - x > 0 && y - t > 0 && b - y > 0){
+                    if(x - l < magneticDistance){
+                        if(y - t < magneticDistance){
+                            cursorDirection = "nw";
+                        }else if(b - y < magneticDistance){
+                            cursorDirection = "sw"
+                        }else{
+                            cursorDirection = "w";
+                        }
+                    }else if(r - x < magneticDistance){
+                        if(y - t < magneticDistance){
+                            cursorDirection = "ne";
+                        }else if(b - y < magneticDistance){
+                            cursorDirection = "se";
+                        }else{
+                            cursorDirection = "e";
+                        }
+                    }else if(y - t < magneticDistance){
+                        cursorDirection = "n";
                     }else if(b - y < magneticDistance){
-                        cursorDirection = "sw"
+                        cursorDirection = "s";
                     }else{
-                        cursorDirection = "w";
+                        cursorDirection = "";
                     }
-                }else if(r - x < magneticDistance){
-                    if(y - t < magneticDistance){
-                        cursorDirection = "ne";
-                    }else if(b - y < magneticDistance){
-                        cursorDirection = "se";
-                    }else{
-                        cursorDirection = "e";
-                    }
-                }else if(y - t < magneticDistance){
-                    cursorDirection = "n";
-                }else if(b - y < magneticDistance){
-                    cursorDirection = "s";
-                }else{
-                    cursorDirection = "";
                 }
                 $component.css({"cursor": cursorDirection ? cursorDirection + "-resize" :"move"});
             }
