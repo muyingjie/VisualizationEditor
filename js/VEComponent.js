@@ -18,11 +18,11 @@ function VEComponent(config){
                 },
                 left: {
                     propName: "x坐标",
-                    propVal: "100px"
+                    propVal: "0"
                 },
                 top: {
                     propName: "y坐标",
-                    propVal: "100px"
+                    propVal: "0"
                 },
                 border: {
                     propName: "边框",
@@ -202,7 +202,7 @@ function VerticalContainerVEComponent(config){
                     propVal: ""
                 },
                 position: {
-                    propVal: "static"
+                    propVal: ""
                 }
             },
             otherAttrs: {
@@ -239,7 +239,7 @@ function VerticalContainerVEComponent(config){
                 },
                 position: {
                     propVal: "static"
-                },
+                }
             }
         }
     };
