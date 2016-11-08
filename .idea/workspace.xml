@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="858125a3-7440-4854-8720-4442b4efbb38" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/VEComponent.js" afterPath="$PROJECT_DIR$/js/VEComponent.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ve-index.html" afterPath="$PROJECT_DIR$/ve-index.html" />
     </list>
+=======
+    <list default="true" id="858125a3-7440-4854-8720-4442b4efbb38" name="Default" comment="" />
+>>>>>>> Stashed changes
     <ignored path="VisualizationEditor.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -157,7 +161,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -170,20 +174,14 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-      <pane id="Scratches" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="js-jscs-nodeInterpreter" value="D:\Program Files\nodejs\node.exe" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="last_opened_file_path" value="D:/Program Files (x86)/Git/bin/git.exe" />
+    <property name="last_opened_file_path" value="D:/wamp/apache/htdocs/mShop" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -255,13 +253,21 @@
       <workItem from="1478262166685" duration="12983000" />
       <workItem from="1478312562717" duration="12432000" />
       <workItem from="1478338760171" duration="15337000" />
+<<<<<<< Updated upstream
       <workItem from="1478403913206" duration="7805000" />
       <workItem from="1478517222784" duration="2857000" />
+=======
+      <workItem from="1478403913206" duration="8960000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="88921000" />
+=======
+    <option name="totallyTimeSpent" value="87219000" />
+>>>>>>> Stashed changes
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

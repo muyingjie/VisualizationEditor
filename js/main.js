@@ -17,58 +17,93 @@ $(function () {
     var $activeComponentFrame = $stage.find(".active-component-frame");
 
     getAllComponentCategories();
+    getAllContainerComponent();
     function getAllComponentCategories(){
-        var componentCategories = [{
-            categoryId: "1",
-            categoryName: "页面组件",
-            components: [
-                {
-                    id: "1",
-                    name: "图片",
-                    constructorNamePrefix: "Img"
-                },{
-                    id: "4",
-                    name: "文字",
-                    constructorNamePrefix: "Txt"
-                },{
-                    id: "2",
-                    name: "视频"
-                },{
-                    id: "3",
-                    name: "音频"
-                }
-            ]
-        },{
-            categoryId: "2",
-            categoryName: "标准组件",
-            components:[
-                {
-                    id: "1",
-                    name: "幻灯片",
-                    constructorNamePrefix: "TxtImgVertical"
-                },{
-                    id: "2",
-                    name: "列表",
-                    constructorNamePrefix: "List"
-                },{
-                    id: "3",
-                    name: "弹窗"
-                }
-            ]
-        },{
-            categoryId: "3",
-            categoryName: "业务组件",
-            components:[
-                {
-                    id: "1",
-                    name: "购物车"
-                },{
-                    id: "2",
-                    name: "留言板"
-                }
-            ]
-        }];
+        var componentCategories = [
+            {
+                categoryId: "1",
+                categoryName: "页面组件",
+                components: [
+                    {
+                        id: "1",
+                        name: "图片",
+                        constructorNamePrefix: "Img"
+                    },{
+                        id: "4",
+                        name: "文字",
+                        constructorNamePrefix: "Txt"
+                    },{
+                        id: "2",
+                        name: "视频"
+                    },{
+                        id: "3",
+                        name: "音频"
+                    }
+                ]
+            },{
+                categoryId: "2",
+                categoryName: "标准组件",
+                components:[
+                    {
+                        id: "1",
+                        name: "幻灯片",
+                        constructorNamePrefix: "TxtImgVertical"
+                    },{
+                        id: "2",
+                        name: "列表",
+                        constructorNamePrefix: "List"
+                    },{
+                        id: "3",
+                        name: "弹窗"
+                    }
+                ]
+            },{
+                categoryId: "3",
+                categoryName: "业务组件",
+                components:[
+                    {
+                        id: "1",
+                        name: "购物车"
+                    },{
+                        id: "2",
+                        name: "留言板"
+                    }
+                ]
+            }
+        ];
         renderAllCompontentCategories(componentCategories);
+    }
+
+    function getAllContainerComponent(){
+        var containerComponents = [
+            {
+                containerId: "1",
+                containerName: "两行"
+            },{
+                containerId: "2",
+                containerName: "两列",
+                constructorNamePrefix: "VerticalContainer"
+            }
+        ];
+        renderAllContainerComponents(containerComponents);
+    }
+
+    function renderAllContainerComponents(containerComponents){
+        var $wholeStyleList = $(".whole-style-list");
+        $.each(containerComponents, function (containerIndex, containerObj) {
+            var constrName = containerObj.constructorNamePrefix ? containerObj.constructorNamePrefix : "";
+            var $containerChild = $("<a>").attr({"href":"javascript:;","constructorName": constrName + "VEComponent"}).html(containerObj.containerName);
+            var $listContainerItem = $("<li>").addClass("item il").append(
+                $containerChild
+            );
+            $wholeStyleList.append(
+                $listContainerItem
+            );
+            //给每个类型的组件增加拖拽事件
+            addDragEffectToComponentCategory({
+                $componentCategoryObj: $containerChild
+            });
+        });
     }
 
     function renderAllCompontentCategories(componentCategories){

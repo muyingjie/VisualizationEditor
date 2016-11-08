@@ -198,8 +198,11 @@ function VerticalContainerVEComponent(config){
                 width: {
                     propVal: "100%"
                 },
-                border: {
-                    propVal: "1px solid #333"
+                height: {
+                    propVal: ""
+                },
+                position: {
+                    propVal: "static"
                 }
             },
             otherAttrs: {
@@ -210,8 +213,7 @@ function VerticalContainerVEComponent(config){
             }
         }
     });
-
-    var veConfig = {
+    var veColumnConfig = {
         controlItems: {
             css: {
                 width: {
@@ -220,33 +222,40 @@ function VerticalContainerVEComponent(config){
                 height: {
                     propVal: "100px"
                 },
-                margin: {
-                    propVal: "2px"
-                },
                 border: {
                     propVal: "1px solid #000"
                 },
                 boxSizing: {
                     propName: "盒模型类型",
                     propVal: "border-box"
-                }
+                },
+                display: {
+                    propName: "元素类型",
+                    propVal: "inline-block"
+                },
+                verticalAlign: {
+                    propName: "垂直布局方式",
+                    propVal: "top"
+                },
+                position: {
+                    propVal: "static"
+                },
             }
         }
     };
-    this.childComponents = [];
     var colNum = this.controlItems.otherAttrs.colNum.propVal;
     var oVEComponent;
+    this.childComponents = [];
     for(var i=0;i<colNum;i++){
-        oVEComponent = new VEComponent(veConfig);
+        oVEComponent = new VEComponent(veColumnConfig);
         this.childComponents.push(oVEComponent);
     }
-
 }
 
 //继承方法
 inheritAllMethod();
 function inheritAllMethod(){
-    var constructors = [TxtVEComponent, ImgVEComponent, ListVEComponent, TxtImgVerticalVEComponent];
+    var constructors = [TxtVEComponent, ImgVEComponent, ListVEComponent, TxtImgVerticalVEComponent, VerticalContainerVEComponent];
     $.each(constructors, function (index, fnConstructor) {
         myj.inheritPrototype(fnConstructor, VEComponent);
     });
