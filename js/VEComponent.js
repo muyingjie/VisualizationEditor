@@ -1,11 +1,16 @@
 /**
  * Created by yj on 2016/11/3.
  */
+var componentContainerClassName = "componentContainer";
+//容器类，用于存放其他被拖过来的元件时加上该类，注意是被拖过来的元件，而不是元件本身自带的childComponents
+var layoutContainerClassName = "layoutContainer";
 function VEComponent(config){
     config = config ? config : {};
     var defaultConfig = {
         componentName: "组件名",
-        containerClassName: "componentContainer",
+        containerClassName: componentContainerClassName,
+        canDragToMove: true,
+        canDragToScale: true,
         controlItems: {
             css: {
                 width: {
@@ -193,6 +198,8 @@ function VerticalContainerVEComponent(config){
     VEComponent.apply(this, args);
 
     $.extend(true, this, {
+        canDragToMove: false,
+        canDragToScale: false,
         controlItems: {
             css: {
                 width: {
@@ -214,6 +221,7 @@ function VerticalContainerVEComponent(config){
         }
     });
     var veColumnConfig = {
+        containerClassName: componentContainerClassName + " " + layoutContainerClassName,
         controlItems: {
             css: {
                 width: {
@@ -238,7 +246,7 @@ function VerticalContainerVEComponent(config){
                     propVal: "top"
                 },
                 position: {
-                    propVal: "static"
+                    propVal: "relative"
                 }
             }
         }

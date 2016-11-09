@@ -172,15 +172,15 @@ $(function () {
                 var e = obj.e;
                 var l = e.pageX - $stage.offset().left;
                 var t = e.pageY - $stage.offset().top;
-                props.css.left.propVal = l + "px";
-                props.css.top.propVal = t + "px";
                 //渲染属性面板
                 renderPropsPanel({
                     instanceObj: oComponent
                 });
                 //渲染设计面板
                 renderDesignPanel({
-                    instanceObj: oComponent
+                    instanceObj: oComponent,
+                    e: obj.e,
+                    $drag: $drag
                 });
 
                 $stage.off("mousemove.addComponent");
@@ -301,15 +301,26 @@ $(function () {
                     absT = stageH - absH;
                     return;
                 }
+                //通过判断对象身上有没有canDragToMove(是否允许拖动)和canDragToScale(是否允许拖拽改变大小)来有条件的改变被拖动的元素
 
-                var modifiedProps = [{
-                    name: "css",
-                    val: {
+                var canDragToMove = oComponent.canDragToMove;
+                var canDragToScale = oComponent.canDragToScale;
+                var needUpdateProps = {};
+                if(canDragToMove){
+                    $.extend(needUpdateProps, {
                         left: absL,
-                        top: absT,
+                        top: absT
+                    });
+                }
+                if(canDragToScale){
+                    $.extend(needUpdateProps, {
                         width: absW,
                         height: absH
-                    }
+                    });
+                }
+                var modifiedProps = [{
+                    name: "css",
+                    val: needUpdateProps
                 }];
 
                 $.each(modifiedProps, function (index, prop) {
@@ -399,10 +410,45 @@ $(function () {
     }
 
     function renderDesignPanel(config){
-        //向面板中添加元件
-        $.extend(true, config, {
-            $parent: $stage
+        //刚刚被拖进来的DOM元素
+        var $drag = config.$drag;
+        var isLayoutComponent = ($drag.attr("constructorName").indexOf("Container") !== -1);
+        var e = config.e;
+        //向面板中添加元件，需要跟踪当前位置是在哪个加了layoutComponent的元素身上
+        var $layoutComponent = $(".layoutContainer");
+        //第一个元件拖上来的时候是没有带有layoutContainer类的元素的
+        var $curContainer;
+        //如果放手点处在所有容器元素中的一个，就存到$curContainer中
+        $layoutComponent.each(function (i, layout) {
+            var $layout = $(layout);
+            if(myj.isInObj(e, $layout)){
+                $curContainer = $layout;
+                $.extend(true, config, {
+                    $parent: $layout
+                });
+            }
         });
+        //首先判断拖进来的是容器组件还是其他组件
+        if(isLayoutComponent){
+            //容器组件的分支
+            if(myj.isInObj(e, $stage)){
+                //如果放手点在$stage里面
+                $.extend(true, config, {
+                    $parent: $stage
+                });
+            }
+        }else{
+            //页面组件、标准组件、业务组件的分支
+            if($curContainer){
+                //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
+                $.extend(true, config, {
+                    $parent: $curContainer
+                });
+            }else{
+                return;
+            }
+        }
+
         addOneComponent(config);
         //给面板中的每个元件增加拖动事件
         addDragEffectToComponent(config);
@@ -473,7 +519,10 @@ $(function () {
             var t = parseInt($component.css("top")) - 1 + "px";
             var w = $component.outerWidth();
             var h = $component.outerHeight();
-            $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+            var curObjPositionVal = oComponent.controlItems.css.position.propVal;
+            if(curObjPositionVal !== "static" && curObjPositionVal !== ""){
+                $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+            }
         });
     }
 });
