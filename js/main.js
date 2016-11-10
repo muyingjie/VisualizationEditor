@@ -168,10 +168,6 @@ $(function () {
 
                 var props = oComponent.controlItems;
                 console.log(props);
-                //初始化元件坐标
-                var e = obj.e;
-                var l = e.pageX - $stage.offset().left;
-                var t = e.pageY - $stage.offset().top;
                 //渲染属性面板
                 renderPropsPanel({
                     instanceObj: oComponent
@@ -413,6 +409,7 @@ $(function () {
     function renderDesignPanel(config){
         //刚刚被拖进来的DOM元素
         var $drag = config.$drag;
+        var oComponent = config.instanceObj;
         var isLayoutComponent = ($drag.attr("constructorName").indexOf("Container") !== -1);
         var e = config.e;
         //向面板中添加元件，需要跟踪当前位置是在哪个加了layoutComponent的元素身上
@@ -441,6 +438,19 @@ $(function () {
                 //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
                 $.extend(true, config, {
                     $parent: $curContainer
+                });
+                //初始化该组件的x和y坐标
+                var l = e.pageX - $curContainer.offset().left;
+                var t = e.pageY - $curContainer.offset().top;
+                oComponent.setControlItem({
+                    propLevel1: "css",
+                    propLevel2: "left",
+                    propVal: l
+                });
+                oComponent.setControlItem({
+                    propLevel1: "css",
+                    propLevel2: "top",
+                    propVal: t
                 });
             }else{
                 return;
