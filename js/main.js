@@ -199,10 +199,11 @@ $(function () {
     function addDragEffectToComponent(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
+        var $parent = config.$parent;
         var disL;
         var disT;
-        var stageL = $stage.offset().left;
-        var stageT = $stage.offset().top;
+        var stageL = $parent.offset().left;
+        var stageT = $parent.offset().top;
         var stageW;
         var stageH;
         var magneticDistance = 10;
@@ -226,8 +227,8 @@ $(function () {
                 oldW = $component.width();
                 oldH = $component.height();
 
-                stageW = $stage.width();
-                stageH = $stage.height();
+                stageW = $parent.width();
+                stageH = $parent.height();
             },
             onMove: function (e) {
                 var x = e.pageX;
@@ -276,8 +277,8 @@ $(function () {
                         absW = oldW + (downX - x);
                         break;
                     default:
-                        absL = e.pageX - stageL - disL;
-                        absT = e.pageY - stageT - disT;
+                        absL = x - stageL - disL;
+                        absT = y - stageT - disT;
                         break;
                 }
 
@@ -423,9 +424,6 @@ $(function () {
             var $layout = $(layout);
             if(myj.isInObj(e, $layout)){
                 $curContainer = $layout;
-                $.extend(true, config, {
-                    $parent: $layout
-                });
             }
         });
         //首先判断拖进来的是容器组件还是其他组件
