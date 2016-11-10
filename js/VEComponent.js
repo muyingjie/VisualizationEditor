@@ -15,7 +15,8 @@ function VEComponent(config){
             css: {
                 width: {
                     propName: "CSS宽",
-                    propVal: "100px"
+                    propVal: "100px",
+                    interactiveStyle: "input"
                 },
                 height: {
                     propName: "CSS高",
@@ -74,11 +75,22 @@ VEComponent.prototype.setControlItem = function (config) {
     }
     this["controlItems"][propLevel1][propLevel2]["propVal"] = propVal;
 };
+VEComponent.prototype.setPropConfig = function(){
+
+};
+
+function PageVEComponent(config) {
+    config = config ? config : {};
+    var args = [].slice.call(arguments, 0);
+    VEComponent.apply(this, args);
+
+    this.controlItems.css.background.propVal = "#0ff";
+}
 
 function TxtVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
-    VEComponent.apply(this, args);
+    PageVEComponent.apply(this, args);
 
     //一定要在继承过来的对象上去扩展，切记不可覆盖继承来的对象
     var text = this.controlItems.aloneExec.text;
@@ -93,7 +105,7 @@ function TxtVEComponent(config){
 function ImgVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
-    VEComponent.apply(this, args);
+    PageVEComponent.apply(this, args);
 
     this.containerDOM = $("<img>");
     var src = this.controlItems.attr.src;
@@ -192,10 +204,15 @@ function TxtImgVerticalVEComponent(config){
     this.childComponents = [oImgComponent, oTxtComponent];
 
 }
-function VerticalContainerVEComponent(config){
+function ContainerVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
     VEComponent.apply(this, args);
+}
+function VerticalContainerVEComponent(config){
+    config = config ? config : {};
+    var args = [].slice.call(arguments, 0);
+    ContainerVEComponent.apply(this, args);
 
     $.extend(true, this, {
         canDragToMove: false,
@@ -228,7 +245,7 @@ function VerticalContainerVEComponent(config){
                     propVal: "50%"
                 },
                 height: {
-                    propVal: "100px"
+                    propVal: "400px"
                 },
                 border: {
                     propVal: "1px solid #000"
