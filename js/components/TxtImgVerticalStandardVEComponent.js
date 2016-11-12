@@ -17,6 +17,7 @@ function TxtImgVerticalStandardVEComponent(config){
     });
 
     var oImgComponent = new ImgBasicVEComponent({
+        containerClassName: componentContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {
                 position: {
@@ -26,6 +27,7 @@ function TxtImgVerticalStandardVEComponent(config){
         }
     });
     var oTxtComponent = new TxtBasicVEComponent({
+        containerClassName: componentContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {
                 position: {

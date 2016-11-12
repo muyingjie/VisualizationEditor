@@ -30,7 +30,7 @@ function VerticalContainerVEComponent(config){
         }
     });
     var veColumnConfig = {
-        containerClassName: componentContainerClassName + " " + layoutContainerClassName,
+        containerClassName: componentContainerClassName + " " + layoutContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {
                 width: {

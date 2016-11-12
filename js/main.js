@@ -387,10 +387,16 @@ $(function () {
 
     function renderPropsPanel(config) {
         var instanceObj = config.instanceObj;
+        var childComponents = instanceObj.childComponents;
         //获取属性控制项
         var props = instanceObj.controlItems;
         var containerDOM = instanceObj.containerDOM;
-        $propList.html("");
+        if(!containerDOM.hasClass("childComponent")){
+            $propList.html("");
+        }
+        $propList.append(
+            $("<h3>").html("元件")
+        );
         $.each(props, function (propCategoryName, propCategoryVal) {
             $.each(propCategoryVal, function (attrItemName, attrItem) {
                 var $propItem = addOneProp({
@@ -402,6 +408,13 @@ $(function () {
                 });
             });
         });
+        if(childComponents){
+            $.each(childComponents, function (i, oChildComponent) {
+                renderPropsPanel({
+                    instanceObj: oChildComponent
+                });
+            });
+        }
     }
 
     function addOneProp(config){

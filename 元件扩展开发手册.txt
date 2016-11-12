@@ -9,3 +9,10 @@ BasicVEComponent    StandardVEComponent     ContainerVEComponent
 1、在components文件夹下新建一个文件，建议以类名作为文件名，如果要创建一个容器元件类的话类名中一定要含有Container（注意大小写）
 2、在主页面中引入刚刚创建的js文件
 3、继承父类
+
+复合组件注意
+1、要给子元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + childComponentClassName
+2、要给容器元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + layoutContainerClassName
+3、如果既是子元素实例化对象，同时又是容器元素实例化对象，其containerClassName属性需赋值为componentContainerClassName + " " + layoutContainerClassName
+
+注：容器元素的父元素不是容器元素，容器元素是直接放其他元件的元素

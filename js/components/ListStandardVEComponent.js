@@ -28,6 +28,7 @@ function ListStandardVEComponent(config){
     this.childComponents = [];
 
     var txtComponentConfig = {
+        containerClassName: componentContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {
                 width: {

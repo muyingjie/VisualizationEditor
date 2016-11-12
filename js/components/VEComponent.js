@@ -4,6 +4,8 @@
 var componentContainerClassName = "componentContainer";
 //容器类，用于存放其他被拖过来的元件时加上该类，注意是被拖过来的元件，而不是元件本身自带的childComponents
 var layoutContainerClassName = "layoutContainer";
+//标识子元素
+var childComponentClassName = "childComponent";
 VEComponent.curZIndex = 1;
 function VEComponent(config){
     config = config ? config : {};
