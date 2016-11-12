@@ -1,0 +1,11 @@
+整体架构：
+                VEComponent
+                    |
+_____________________________________________
+|                   |                       |
+BasicVEComponent    StandardVEComponent     ContainerVEComponent
+
+扩展新组件的步骤
+1、在components文件夹下新建一个文件，建议以类名作为文件名，如果要创建一个容器元件类的话类名中一定要含有Container（注意大小写）
+2、在主页面中引入刚刚创建的js文件
+3、继承父类

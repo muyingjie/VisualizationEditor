@@ -25,11 +25,11 @@ $(function () {
                     {
                         id: "1",
                         name: "图片",
-                        constructorNamePrefix: "Img"
+                        constructorNamePrefix: "ImgBasic"
                     },{
                         id: "4",
                         name: "文字",
-                        constructorNamePrefix: "Txt"
+                        constructorNamePrefix: "TxtBasic"
                     },{
                         id: "2",
                         name: "视频"
@@ -45,11 +45,11 @@ $(function () {
                     {
                         id: "1",
                         name: "幻灯片",
-                        constructorNamePrefix: "TxtImgVertical"
+                        constructorNamePrefix: "TxtImgVerticalStandard"
                     },{
                         id: "2",
                         name: "列表",
-                        constructorNamePrefix: "List"
+                        constructorNamePrefix: "ListStandard"
                     },{
                         id: "3",
                         name: "弹窗"
@@ -281,19 +281,15 @@ $(function () {
                 absH = (absH ? absH : oldH);
                 if(absL < 0){
                     absL = 0;
-                    return;
                 }
                 if(absT < 0){
                     absT = 0;
-                    return;
                 }
                 if(absL > stageW - absW){
                     absL = stageW - absW;
-                    return;
                 }
                 if(absT > stageH - absH){
                     absT = stageH - absH;
-                    return;
                 }
                 //通过判断对象身上有没有canDragToMove(是否允许拖动)和canDragToScale(是否允许拖拽改变大小)来有条件的改变被拖动的元素
 
