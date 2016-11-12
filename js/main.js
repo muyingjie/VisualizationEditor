@@ -13,8 +13,6 @@ $(function () {
     var $propList = $(".prop-list");
     //设计器主窗口
     var $stage = $(".stage");
-    //当前编辑元素高亮窗口
-    var $activeComponentFrame = $stage.find(".active-component-frame");
 
     getAllComponentCategories();
     getAllContainerComponent();
@@ -166,17 +164,17 @@ $(function () {
                     componentName: "元件名"
                 });
 
-                var props = oComponent.controlItems;
-                console.log(props);
-                //渲染属性面板
-                renderPropsPanel({
-                    instanceObj: oComponent
-                });
                 //渲染设计面板
                 renderDesignPanel({
                     instanceObj: oComponent,
                     e: obj.e,
                     $drag: $drag
+                });
+
+                var props = oComponent.controlItems;
+                //渲染属性面板
+                renderPropsPanel({
+                    instanceObj: oComponent
                 });
 
                 $stage.off("mousemove.addComponent");
@@ -281,7 +279,6 @@ $(function () {
                 //拖拽限制范围
                 absW = (absW ? absW : oldW);
                 absH = (absH ? absH : oldH);
-                console.log(absL,absT,stageW,absW,stageH,absH);
                 if(absL < 0){
                     absL = 0;
                     return;
@@ -517,20 +514,29 @@ $(function () {
     function updatePropsPanel(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
-        $component.click(function(){
+        var $parent = config.$parent;
+        $component.click(function(e){
+            //将原来的元素移除
+            $(".active-component-frame").remove();
+            //活动元件的层级
+            var curComponentZIndex = oComponent.controlItems.css.zIndex.propVal;
+            var $activeComponentFrame = $("<div>").addClass("active-component-frame");
+            $parent.append(
+                $activeComponentFrame
+            );
             //渲染属性面板
             renderPropsPanel(config);
             //当前选中项高亮显示
-            //首先需要先让外框显示出来
-            $activeComponentFrame.show();
+            //设置其层级为比当前活动元件低的一个等级
+            $activeComponentFrame.css({"zIndex": --curComponentZIndex});
+
             var l = parseInt($component.css("left")) - 1 + "px";
             var t = parseInt($component.css("top")) - 1 + "px";
             var w = $component.outerWidth();
             var h = $component.outerHeight();
             var curObjPositionVal = oComponent.controlItems.css.position.propVal;
-            if(curObjPositionVal !== "static" && curObjPositionVal !== ""){
-                $activeComponentFrame.css({left:l, top:t, width: w,height: h});
-            }
+            $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+            e.stopPropagation();
         });
     }
 });

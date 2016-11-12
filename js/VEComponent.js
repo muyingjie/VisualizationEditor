@@ -4,6 +4,7 @@
 var componentContainerClassName = "componentContainer";
 //容器类，用于存放其他被拖过来的元件时加上该类，注意是被拖过来的元件，而不是元件本身自带的childComponents
 var layoutContainerClassName = "layoutContainer";
+VEComponent.curZIndex = 1;
 function VEComponent(config){
     config = config ? config : {};
     var defaultConfig = {
@@ -45,6 +46,10 @@ function VEComponent(config){
                 padding: {
                     propName: "内边距",
                     propVal: "0"
+                },
+                zIndex: {
+                    propName: "层级",
+                    propVal: "1"
                 }
             },
             attr: {},
@@ -64,6 +69,12 @@ function VEComponent(config){
 }
 VEComponent.prototype.init = function () {
     this.containerDOM.addClass(this.containerClassName);
+    //设置层级自增
+    this.setControlItem({
+        propLevel1: "css",
+        propLevel2: "zIndex",
+        propVal: VEComponent.curZIndex++
+    });
 };
 VEComponent.prototype.setControlItem = function (config) {
     var propLevel1 = config.propLevel1;
@@ -72,6 +83,9 @@ VEComponent.prototype.setControlItem = function (config) {
     if(!propLevel1 || !propLevel2){
         console.log("必须传入两级属性");
         return;
+    }
+    if(!this["controlItems"][propLevel1][propLevel2]){
+        this["controlItems"][propLevel1][propLevel2] = {};
     }
     this["controlItems"][propLevel1][propLevel2]["propVal"] = propVal;
 };

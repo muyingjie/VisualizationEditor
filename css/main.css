@@ -37,4 +37,4 @@ input{ outline: none;}
 /* 移动过程中创建出来的虚拟div */
 .moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute;}
 .componentContainer{}
-.active-component-frame{ display: none; position: absolute; border: 1px solid #03e; z-index: -1;}
+.active-component-frame{ position: absolute; border: 1px solid #03e; z-index: -1;}
