@@ -17,31 +17,87 @@ function VEComponent(config){
                 width: {
                     propName: "CSS宽",
                     propVal: "100px",
-                    interactiveStyle: "input"
+                    interactiveStyle: "input_text"
                 },
                 height: {
                     propName: "CSS高",
-                    propVal: "100px"
+                    propVal: "100px",
+                    interactiveStyle: "input_text"
                 },
                 left: {
                     propName: "x坐标",
-                    propVal: "0"
+                    propVal: "0",
+                    interactiveStyle: "input_text"
                 },
                 top: {
                     propName: "y坐标",
-                    propVal: "0"
+                    propVal: "0",
+                    interactiveStyle: "input_text"
                 },
-                border: {
-                    propName: "边框",
-                    propVal: "none"
+                borderWidth: {
+                    propName: "边框宽度",
+                    propVal: "2px",
+                    interactiveStyle: "input_text"
+                },
+                borderStyle: {
+                    propName: "边框样式",
+                    propVal: "solid",
+                    interactiveStyle: "select",
+                    interactiveVal: {
+                        "select": [
+                            {
+                                showVal: "无",
+                                propVal: "none"
+                            },
+                            {
+                                showVal: "实线",
+                                propVal: "solid"
+                            },
+                            {
+                                showVal: "虚线",
+                                propVal: "dashed"
+                            },
+                            {
+                                showVal: "点线",
+                                propVal: "dotted"
+                            }
+                        ]
+                    }
+                },
+                borderColor: {
+                    propName: "边框颜色",
+                    propVal: "#333",
+                    interactiveStyle: "input_text"
                 },
                 background: {
                     propName: "背景",
-                    propVal: "#eeeeff"
+                    propVal: "#eeeeff",
+                    interactiveStyle: "input_text"
                 },
                 position: {
                     propName: "定位",
-                    propVal: "absolute"
+                    propVal: "absolute",
+                    interactiveStyle: "select",
+                    interactiveVal: {
+                        "select": [
+                            {
+                                showVal: "绝对定位",
+                                propVal: "absolute"
+                            },
+                            {
+                                showVal: "相对定位",
+                                propVal: "relative"
+                            },
+                            {
+                                showVal: "固定定位",
+                                propVal: "fixed"
+                            },
+                            {
+                                showVal: "无",
+                                propVal: "static"
+                            }
+                        ]
+                    }
                 },
                 padding: {
                     propName: "内边距",

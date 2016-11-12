@@ -317,18 +317,11 @@ $(function () {
                     val: needUpdateProps
                 }];
 
-                $.each(modifiedProps, function (index, prop) {
-                    $.each(prop.val, function (cssStyle, cssVal) {
-                        if(cssVal){
-                            $component[prop.name](cssStyle, cssVal);
-                            oComponent.setControlItem({
-                                propLevel1: prop.name,
-                                propLevel2: cssStyle,
-                                propVal: cssVal + "px"
-                            });
-                        }
-                    });
+                componentBiDirectionalDataBinding({
+                    modifiedProps: modifiedProps,
+                    instanceObj: config.instanceObj
                 });
+
                 renderPropsPanel({
                     instanceObj: oComponent
                 });
@@ -372,30 +365,115 @@ $(function () {
         var oComponentDrag = new MyjDrag(componentDragConfig);
     }
 
+    function componentBiDirectionalDataBinding(config){
+        var modifiedProps = config.modifiedProps;
+        var oComponent = config.instanceObj;
+        var $component = oComponent.containerDOM;
+
+        $.each(modifiedProps, function (index, prop) {
+            var fnName = prop.name;
+            $.each(prop.val, function (cssStyle, cssVal) {
+                if(cssVal){
+                    if(fnName == "aloneExec"){
+                        $component[cssStyle](cssVal);
+                    }else if(fnName == "css" || fnName == "attr"){
+                        $component[fnName](cssStyle, cssVal);
+                    }
+                    oComponent.setControlItem({
+                        propLevel1: prop.name,
+                        propLevel2: cssStyle,
+                        propVal: cssVal + "px"
+                    });
+                }
+            });
+        });
+    }
+
     function renderPropsPanel(config) {
         var instanceObj = config.instanceObj;
         //获取属性控制项
         var props = instanceObj.controlItems;
+        var containerDOM = instanceObj.containerDOM;
         $propList.html("");
         $.each(props, function (propCategoryName, propCategoryVal) {
             $.each(propCategoryVal, function (attrItemName, attrItem) {
                 var $propItem = addOneProp({
-                    item: attrItem
+                    propFnName: propCategoryName,
+                    propItemName: attrItemName,
+                    item: attrItem,
+                    containerDOM: containerDOM,
+                    instanceObj: instanceObj
                 });
             });
         });
     }
 
     function addOneProp(config){
+        var propFnName = config.propFnName;
+        var propItemName = config.propItemName;
         var item = config.item ? config.item : {};
         var propName = item.propName ? item.propName : "";
         var propVal = item.propVal ? item.propVal : "";
+        var interactiveStyle = item.interactiveStyle ? item.interactiveStyle : "input_text";
+        var interactiveVal = item.interactiveVal ? item.interactiveVal : {};
+        var onPropValChangeAfter = item.onPropValChangeAfter ? item.onPropValChangeAfter : $.noop;
+        var $component = config.containerDOM;
+        var oComponent = config.instanceObj;
+        var $propItem;
+        var $propValItem;
 
-        var $propItem = $("<div>").addClass("item il-par").append(
+        switch (interactiveStyle){
+            case "input_text":
+                $propValItem = $("<input>").addClass("txt il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
+                    execAfterChange({
+                        e: e,
+                        changeVal: $(this).val()
+                    });
+                });
+                break;
+            case "select":
+                $propValItem = $("<select>");
+                $.each(interactiveVal[interactiveStyle], function (i, o) {
+                    $propValItem.append(
+                        $("<option>").attr({"value": o.propVal}).html(o.showVal)
+                    );
+                });
+                $propValItem.on("change", function (e) {
+                    execAfterChange({
+                        e: e,
+                        changeVal: $(this).val()
+                    });
+                });
+                if(propVal){
+                    $propValItem.find("option[value=" + propVal + "]").prop({"selected": true});
+                }
+                break;
+            default:
+                throw new Error("未知的属性交互类型错误");
+        }
+
+        function execAfterChange(config){
+            var needUpdateProps = {};
+            needUpdateProps[propItemName] = config.changeVal;
+
+            //修改实例化对象和DOM对象对应的属性或样式值
+            componentBiDirectionalDataBinding({
+                modifiedProps: [{
+                    name: propFnName,
+                    val: needUpdateProps
+                }],
+                instanceObj: oComponent
+            });
+            //执行外部传入的方法
+            onPropValChangeAfter(config);
+        }
+
+        $propItem = $("<div>").addClass("item il-par").append(
             $("<span>").addClass("name ft12 il").html(propName)
         ).append(
-            $("<input>").addClass("txt il").attr({"type":"text"}).val(propVal)
+            $propValItem
         );
+
         $propList.append(
             $propItem
         );
@@ -473,6 +551,28 @@ $(function () {
             return;
         }
         var $componentContainer = oComponent.containerDOM;
+
+        renderComponentProps(config);
+
+        //查看当前元件是否有子元件，如果有子元件，则给其增加属性
+        var childDOMs = oComponent.childComponents;
+        if(childDOMs){
+            $.each(childDOMs, function (i, oChildComponent) {
+                addOneComponent({
+                    instanceObj: oChildComponent,
+                    $parent: oComponent.containerDOM
+                });
+            });
+        }
+        var $parent = config.$parent;
+        $parent.append($componentContainer);
+        return $componentContainer;
+    }
+
+    function renderComponentProps(config){
+        var oComponent = config.instanceObj;
+        var props = oComponent.controlItems;
+        var $componentContainer = oComponent.containerDOM;
         $.each(props, function (propCategoryName, propCategoryVal) {
             if(propCategoryName == "attr" || propCategoryName == "css"){
                 $.each(propCategoryVal, function (attrItemName, attrItem) {
@@ -496,19 +596,6 @@ $(function () {
                 console.error("未处理的控制属性类型");
             }
         });
-        //查看当前元件是否有子元件，如果有子元件，则给其增加属性
-        var childDOMs = oComponent.childComponents;
-        if(childDOMs){
-            $.each(childDOMs, function (i, oChildComponent) {
-                addOneComponent({
-                    instanceObj: oChildComponent,
-                    $parent: oComponent.containerDOM
-                });
-            });
-        }
-        var $parent = config.$parent;
-        $parent.append($componentContainer);
-        return $componentContainer;
     }
 
     function updatePropsPanel(config){

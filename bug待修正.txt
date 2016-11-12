@@ -3,4 +3,8 @@
 3、先拖动到一边界上，再向另一边界拖动时无反应
 4、考虑使容器元件也可以拖动
 
-输入 弹框 单选 多选 下拉
+输入	input_text
+弹框	
+单选	input_radio
+多选	input_checkbox
+下拉	select

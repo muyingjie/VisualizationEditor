@@ -35,6 +35,6 @@ input{ outline: none;}
 .main-panel .prop-list .item .txt{ width: 150px;}
 
 /* 移动过程中创建出来的虚拟div */
-.moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute;}
+.moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute; z-index: 9999;}
 .componentContainer{}
 .active-component-frame{ position: absolute; border: 1px solid #03e; z-index: -1;}
