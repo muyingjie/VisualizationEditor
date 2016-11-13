@@ -39,9 +39,6 @@ function VerticalContainerVEComponent(config){
                 height: {
                     propVal: "400px"
                 },
-                border: {
-                    propVal: "1px solid #000"
-                },
                 boxSizing: {
                     propName: "盒模型类型",
                     propVal: "border-box"

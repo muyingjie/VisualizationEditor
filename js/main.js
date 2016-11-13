@@ -378,7 +378,7 @@ $(function () {
                     oComponent.setControlItem({
                         propLevel1: prop.name,
                         propLevel2: cssStyle,
-                        propVal: cssVal + "px"
+                        propVal: cssVal
                     });
                 }
             });
@@ -395,7 +395,7 @@ $(function () {
             $propList.html("");
         }
         $propList.append(
-            $("<h3>").html("元件")
+            $("<h3>").html(instanceObj.componentName)
         );
         $.each(props, function (propCategoryName, propCategoryVal) {
             $.each(propCategoryVal, function (attrItemName, attrItem) {
