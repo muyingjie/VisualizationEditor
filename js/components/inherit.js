@@ -8,13 +8,13 @@ function inheritAllMethod(){
     var constructors = [BasicVEComponent, StandardVEComponent, ContainerVEComponent];
     goThroughInherit(constructors, VEComponent);
 
-    var basicConstructors = [TxtBasicVEComponent, ImgBasicVEComponent];
+    var basicConstructors = [BasicTxtVEComponent, BasicImgVEComponent, BasicIconVEComponent];
     goThroughInherit(basicConstructors, BasicVEComponent);
 
-    var standardConstructors = [ListStandardVEComponent, TxtImgVerticalStandardVEComponent];
+    var standardConstructors = [StandardListVEComponent, StandardTxtImgVerticalVEComponent];
     goThroughInherit(standardConstructors, StandardVEComponent);
 
-    var containerConstructors = [VerticalContainerVEComponent];
+    var containerConstructors = [ContainerVerticalVEComponent];
     goThroughInherit(containerConstructors, ContainerVEComponent);
 }
 function goThroughInherit(constructors, parentConstructor){

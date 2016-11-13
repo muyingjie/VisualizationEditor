@@ -7,5 +7,5 @@ function BasicVEComponent(config) {
     var args = [].slice.call(arguments, 0);
     VEComponent.apply(this, args);
 
-    this.controlItems.css.background.propVal = "#0ff";
+    this.controlItems.css.backgroundColor.propVal = "#0ff";
 }

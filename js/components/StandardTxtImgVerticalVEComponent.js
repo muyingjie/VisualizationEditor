@@ -1,7 +1,7 @@
 /**
  * Created by yj on 2016/11/12.
  */
-function TxtImgVerticalStandardVEComponent(config){
+function StandardTxtImgVerticalVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
     StandardVEComponent.apply(this, args);
@@ -16,7 +16,7 @@ function TxtImgVerticalStandardVEComponent(config){
         }
     });
 
-    var oImgComponent = new ImgBasicVEComponent({
+    var oImgComponent = new BasicImgVEComponent({
         containerClassName: componentContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {

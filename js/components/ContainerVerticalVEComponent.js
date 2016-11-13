@@ -1,7 +1,7 @@
 /**
  * Created by yj on 2016/11/12.
  */
-function VerticalContainerVEComponent(config){
+function ContainerVerticalVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
     ContainerVEComponent.apply(this, args);

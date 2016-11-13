@@ -1,7 +1,7 @@
 /**
  * Created by yj on 2016/11/12.
  */
-function TxtBasicVEComponent(config){
+function BasicTxtVEComponent(config){
     config = config ? config : {};
     var args = [].slice.call(arguments, 0);
     BasicVEComponent.apply(this, args);

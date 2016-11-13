@@ -1,7 +1,7 @@
 /**
  * Created by yj on 2016/11/12.
  */
-function ImgBasicVEComponent(config){
+function BasicImgVEComponent(config){
     config = config ? config : {};
     $.extend(true, config, {
         containerDOM: $("<img>")

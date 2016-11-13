@@ -36,45 +36,140 @@ function VEComponent(config){
                     propVal: "0",
                     interactiveStyle: "input_text"
                 },
-                borderWidth: {
-                    propName: "边框宽度",
-                    propVal: "2px",
+                paddingTop: {
+                    propName: "内边距（上）",
+                    propVal: "0",
                     interactiveStyle: "input_text"
                 },
-                borderStyle: {
-                    propName: "边框样式",
-                    propVal: "solid",
+                paddingRight: {
+                    propName: "内边距（右）",
+                    propVal: "0",
+                    interactiveStyle: "input_text"
+                },
+                paddingBottom: {
+                    propName: "内边距（下）",
+                    propVal: "0",
+                    interactiveStyle: "input_text"
+                },
+                paddingLeft: {
+                    propName: "内边距（左）",
+                    propVal: "0",
+                    interactiveStyle: "input_text"
+                },
+                borderTop: {
+                    propName: "边框（上）",
+                    propVal: "none",
+                    interactiveStyle: "input_text"
+                },
+                borderRight: {
+                    propName: "边框（右）",
+                    propVal: "none",
+                    interactiveStyle: "input_text"
+                },
+                borderBottom: {
+                    propName: "边框（下）",
+                    propVal: "none",
+                    interactiveStyle: "input_text"
+                },
+                borderLeft: {
+                    propName: "边框（左）",
+                    propVal: "none",
+                    interactiveStyle: "input_text"
+                },
+                borderRadius: {
+                    propName: "边框圆角",
+                    propVal: "0",
+                    interactiveStyle: ""
+                },
+                marginTop: {
+                    propName: "外边距（上）",
+                    propVal: "0",
+                    interactiveStyle: ""
+                },
+                marginRight: {
+                    propName: "外边距（右）",
+                    propVal: "0",
+                    interactiveStyle: ""
+                },
+                marginBottom: {
+                    propName: "外边距（下）",
+                    propVal: "0",
+                    interactiveStyle: ""
+                },
+                marginLeft: {
+                    propName: "外边距（左）",
+                    propVal: "0",
+                    interactiveStyle: ""
+                },
+                // borderWidth: {
+                //     propName: "边框宽度",
+                //     propVal: "2px",
+                //     interactiveStyle: "input_text"
+                // },
+                // borderStyle: {
+                //     propName: "边框样式",
+                //     propVal: "none",
+                //     interactiveStyle: "select",
+                //     interactiveVal: {
+                //         "select": [
+                //             {
+                //                 showVal: "无",
+                //                 propVal: "none"
+                //             },
+                //             {
+                //                 showVal: "实线",
+                //                 propVal: "solid"
+                //             },
+                //             {
+                //                 showVal: "虚线",
+                //                 propVal: "dashed"
+                //             },
+                //             {
+                //                 showVal: "点线",
+                //                 propVal: "dotted"
+                //             }
+                //         ]
+                //     }
+                // },
+                // borderColor: {
+                //     propName: "边框颜色",
+                //     propVal: "#333",
+                //     interactiveStyle: "input_text"
+                // },
+                backgroundColor: {
+                    propName: "背景颜色",
+                    propVal: "#eeeeff",
+                    interactiveStyle: "input_text"
+                },
+                backgroundImage: {
+                    propName: "背景图片",
+                    propVal: "",
+                    interactiveStyle: "input_text"
+                },
+                backgroundRepeat: {
+                    propName: "背景平铺",
+                    propVal: "no-repeat",
                     interactiveStyle: "select",
                     interactiveVal: {
                         "select": [
                             {
-                                showVal: "无",
-                                propVal: "none"
+                                showVal: "不平铺",
+                                propVal: "no-repeat"
                             },
                             {
-                                showVal: "实线",
-                                propVal: "solid"
+                                showVal: "水平方向平铺",
+                                propVal: "repeat-x"
                             },
                             {
-                                showVal: "虚线",
-                                propVal: "dashed"
+                                showVal: "垂直方向平铺",
+                                propVal: "repeat-y"
                             },
                             {
-                                showVal: "点线",
-                                propVal: "dotted"
+                                showVal: "平铺",
+                                propVal: "repeat"
                             }
                         ]
                     }
-                },
-                borderColor: {
-                    propName: "边框颜色",
-                    propVal: "#333",
-                    interactiveStyle: "input_text"
-                },
-                background: {
-                    propName: "背景",
-                    propVal: "#eeeeff",
-                    interactiveStyle: "input_text"
                 },
                 position: {
                     propName: "定位",
@@ -100,10 +195,6 @@ function VEComponent(config){
                             }
                         ]
                     }
-                },
-                padding: {
-                    propName: "内边距",
-                    propVal: "0"
                 },
                 zIndex: {
                     propName: "层级",

@@ -11,6 +11,8 @@ $(function () {
     };
     //属性面板
     var $propList = $(".prop-list");
+    //每个元件的属性列表
+    var $oneComponentPropList;
     //设计器主窗口
     var $stage = $(".stage");
 
@@ -25,17 +27,21 @@ $(function () {
                     {
                         id: "1",
                         name: "图片",
-                        constructorNamePrefix: "ImgBasic"
+                        constructorNamePrefix: "BasicImg"
                     },{
                         id: "4",
                         name: "文字",
-                        constructorNamePrefix: "TxtBasic"
+                        constructorNamePrefix: "BasicTxt"
                     },{
                         id: "2",
                         name: "视频"
                     },{
                         id: "3",
                         name: "音频"
+                    },{
+                        id: "4",
+                        name: "图标",
+                        constructorNamePrefix: "BasicIcon"
                     }
                 ]
             },{
@@ -45,11 +51,11 @@ $(function () {
                     {
                         id: "1",
                         name: "幻灯片",
-                        constructorNamePrefix: "TxtImgVerticalStandard"
+                        constructorNamePrefix: "StandardTxtImgVertical"
                     },{
                         id: "2",
                         name: "列表",
-                        constructorNamePrefix: "ListStandard"
+                        constructorNamePrefix: "StandardList"
                     },{
                         id: "3",
                         name: "弹窗"
@@ -80,7 +86,7 @@ $(function () {
             },{
                 containerId: "2",
                 containerName: "两列",
-                constructorNamePrefix: "VerticalContainer"
+                constructorNamePrefix: "ContainerVertical"
             }
         ];
         renderAllContainerComponents(containerComponents);
@@ -163,15 +169,14 @@ $(function () {
                 var oComponent = new constructorFn({
                     componentName: "元件名"
                 });
+                oComponent.containerDOM.attr({"constructorName": constructorName});
 
                 //渲染设计面板
                 renderDesignPanel({
                     instanceObj: oComponent,
-                    e: obj.e,
-                    $drag: $drag
+                    e: obj.e
                 });
 
-                var props = oComponent.controlItems;
                 //渲染属性面板
                 renderPropsPanel({
                     instanceObj: oComponent
@@ -364,22 +369,28 @@ $(function () {
     function componentBiDirectionalDataBinding(config){
         var modifiedProps = config.modifiedProps;
         var oComponent = config.instanceObj;
+        var onPropValChangeAfter = config.onPropValChangeAfter;
         var $component = oComponent.containerDOM;
 
         $.each(modifiedProps, function (index, prop) {
             var fnName = prop.name;
             $.each(prop.val, function (cssStyle, cssVal) {
                 if(cssVal){
-                    if(fnName == "aloneExec"){
-                        $component[cssStyle](cssVal);
-                    }else if(fnName == "css" || fnName == "attr"){
-                        $component[fnName](cssStyle, cssVal);
-                    }
                     oComponent.setControlItem({
                         propLevel1: prop.name,
                         propLevel2: cssStyle,
                         propVal: cssVal
                     });
+                    onPropValChangeAfter && onPropValChangeAfter();
+                    if(fnName == "aloneExec"){
+                        $component[cssStyle](cssVal);
+                    }else if(fnName == "css" || fnName == "attr"){
+                        $component[fnName](cssStyle, cssVal);
+                    }else{
+                        renderDesignPanel({
+                            instanceObj: oComponent
+                        });
+                    }
                 }
             });
         });
@@ -394,16 +405,22 @@ $(function () {
         if(!containerDOM.hasClass("childComponent")){
             $propList.html("");
         }
-        $propList.append(
+        var $oneComponent = $("<div>").addClass("one-component").append(
             $("<h3>").html(instanceObj.componentName)
+        ).append(
+            $("<div>").addClass("one-component-propList")
+        );
+        $oneComponentPropList = $oneComponent.find(".one-component-propList").last();
+        $propList.append(
+            $oneComponent
         );
         $.each(props, function (propCategoryName, propCategoryVal) {
             $.each(propCategoryVal, function (attrItemName, attrItem) {
                 var $propItem = addOneProp({
-                    propFnName: propCategoryName,
-                    propItemName: attrItemName,
+                    propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
+                    propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
                     item: attrItem,
-                    containerDOM: containerDOM,
+                    containerDOM: containerDOM,//当前设置属性的元件对象
                     instanceObj: instanceObj
                 });
             });
@@ -431,6 +448,11 @@ $(function () {
         var $propItem;
         var $propValItem;
 
+        //初始化
+        execAfterChange({
+            changeVal: propVal
+        });
+
         switch (interactiveStyle){
             case "input_text":
                 $propValItem = $("<input>").addClass("txt il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
@@ -454,7 +476,7 @@ $(function () {
                     });
                 });
                 if(propVal){
-                    $propValItem.find("option[value=" + propVal + "]").prop({"selected": true});
+                    $propValItem.find("option[value='" + propVal + "']").prop({"selected": true});
                 }
                 break;
             default:
@@ -471,10 +493,13 @@ $(function () {
                     name: propFnName,
                     val: needUpdateProps
                 }],
-                instanceObj: oComponent
+                instanceObj: oComponent,
+                //传入双向绑定函数中，在双向绑定函数的实例化对象属性发生变化时触发
+                onPropValChangeAfter: function () {
+                    //执行外部传入的方法
+                    onPropValChangeAfter(config);
+                }
             });
-            //执行外部传入的方法
-            onPropValChangeAfter(config);
         }
 
         $propItem = $("<div>").addClass("item il-par").append(
@@ -483,7 +508,7 @@ $(function () {
             $propValItem
         );
 
-        $propList.append(
+        $oneComponentPropList.append(
             $propItem
         );
 
@@ -492,60 +517,70 @@ $(function () {
 
     function renderDesignPanel(config){
         //刚刚被拖进来的DOM元素
-        var $drag = config.$drag;
         var oComponent = config.instanceObj;
-        var isLayoutComponent = ($drag.attr("constructorName").indexOf("Container") !== -1);
+        var containerDOM = oComponent.containerDOM;
+        var constructorName = containerDOM.attr("constructorName");
+        var isLayoutComponent;
+        if(constructorName){
+            isLayoutComponent = (constructorName.indexOf("Container") !== -1);
+        }
         var e = config.e;
         //向面板中添加元件，需要跟踪当前位置是在哪个加了layoutComponent的元素身上
         var $layoutComponent = $(".layoutContainer");
         //第一个元件拖上来的时候是没有带有layoutContainer类的元素的
         var $curContainer;
-        //如果放手点处在所有容器元素中的一个，就存到$curContainer中
-        $layoutComponent.each(function (i, layout) {
-            var $layout = $(layout);
-            if(myj.isInObj(e, $layout)){
-                $curContainer = $layout;
-            }
-        });
-        //首先判断拖进来的是容器组件还是其他组件
-        if(isLayoutComponent){
-            //容器组件的分支
-            if(myj.isInObj(e, $stage)){
-                //如果放手点在$stage里面
-                $.extend(true, config, {
-                    $parent: $stage
-                });
-            }
-        }else{
-            //页面组件、标准组件、业务组件的分支
-            if($curContainer){
-                //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
-                $.extend(true, config, {
-                    $parent: $curContainer
-                });
-                //初始化该组件的x和y坐标
-                var l = e.pageX - $curContainer.offset().left;
-                var t = e.pageY - $curContainer.offset().top;
-                oComponent.setControlItem({
-                    propLevel1: "css",
-                    propLevel2: "left",
-                    propVal: l
-                });
-                oComponent.setControlItem({
-                    propLevel1: "css",
-                    propLevel2: "top",
-                    propVal: t
-                });
-            }else{
-                return;
-            }
-        }
 
-        addOneComponent(config);
-        //给面板中的每个元件增加拖动事件
-        addDragEffectToComponent(config);
-        //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
-        updatePropsPanel(config);
+        //当e存在时是从左侧元件面板上拖进来的
+        if(e){
+            //如果放手点处在所有容器元素中的一个，就存到$curContainer中
+            $layoutComponent.each(function (i, layout) {
+                var $layout = $(layout);
+                if(myj.isInObj(e, $layout)){
+                    $curContainer = $layout;
+                }
+            });
+            //首先判断拖进来的是容器组件还是其他组件
+            if(isLayoutComponent){
+                //容器组件的分支
+                if(myj.isInObj(e, $stage)){
+                    //如果放手点在$stage里面
+                    $.extend(true, config, {
+                        $parent: $stage
+                    });
+                }
+            }else{
+                //页面组件、标准组件、业务组件的分支
+                if($curContainer){
+                    //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
+                    $.extend(true, config, {
+                        $parent: $curContainer
+                    });
+                    //初始化该组件的x和y坐标
+                    var l = e.pageX - $curContainer.offset().left;
+                    var t = e.pageY - $curContainer.offset().top;
+                    oComponent.setControlItem({
+                        propLevel1: "css",
+                        propLevel2: "left",
+                        propVal: l
+                    });
+                    oComponent.setControlItem({
+                        propLevel1: "css",
+                        propLevel2: "top",
+                        propVal: t
+                    });
+                }else{
+                    return;
+                }
+            }
+            addOneComponent(config);
+            //给面板中的每个元件增加拖动事件
+            addDragEffectToComponent(config);
+            //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
+            updatePropsPanel(config);
+        }else{
+            //否则是由于修改右侧属性面板而导致的
+            addOneComponent(config);
+        }
     }
 
     function addOneComponent(config){
@@ -560,6 +595,7 @@ $(function () {
             return;
         }
         var $componentContainer = oComponent.containerDOM;
+        $componentContainer.find("*").remove();
 
         renderComponentProps(config);
 
@@ -574,7 +610,10 @@ $(function () {
             });
         }
         var $parent = config.$parent;
-        $parent.append($componentContainer);
+        //如果传入了父元素，代表是从元件列表中拖进来的，否则是由于属性列表的变化导致的
+        if($parent){
+            $parent.append($componentContainer);
+        }
         return $componentContainer;
     }
 
