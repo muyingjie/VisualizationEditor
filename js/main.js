@@ -595,7 +595,10 @@ $(function () {
             return;
         }
         var $componentContainer = oComponent.containerDOM;
-        $componentContainer.find("*").remove();
+        var constructorName = $componentContainer.attr("constructorName");
+        if((constructorName && (constructorName.indexOf("Container") == -1)) && !$componentContainer.hasClass("layoutContainer")){
+            $componentContainer.find("*").remove();
+        }
 
         renderComponentProps(config);
 
