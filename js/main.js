@@ -296,8 +296,14 @@ $(function () {
                 if(absT > stageH - absH){
                     absT = stageH - absH;
                 }
-                //通过判断对象身上有没有canDragToMove(是否允许拖动)和canDragToScale(是否允许拖拽改变大小)来有条件的改变被拖动的元素
-
+                //absL absT在拖动到边界之外时，上面四个if都不会成立，这两个值都会变成undefined，需要处理一下
+                var parseAbsL = parseInt(absL);
+                var parseAbsT = parseInt(absT);
+                var isParseAbsLNaN = isNaN(parseAbsL);
+                var isParseAbsTNaN = isNaN(parseAbsT);
+                //如果拖到了外围，直接返回
+                if(isParseAbsLNaN){ return; }
+                if(isParseAbsTNaN){ return; }
                 var canDragToMove = oComponent.canDragToMove;
                 var canDragToScale = oComponent.canDragToScale;
                 var needUpdateProps = {};
