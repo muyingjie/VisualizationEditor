@@ -15,6 +15,15 @@ $(function () {
     var $oneComponentPropList;
     //设计器主窗口
     var $stage = $(".stage");
+    //删除
+    var $del = $(".top input[name='delete']");
+    
+    $del.click(function () {
+        var $relatedDOM = $(".active-component-frame").data("relatedDOM");
+        $relatedDOM.remove();
+        //干掉$relatedDOM的同时也把$(".active-component-frame")干掉
+        $(".active-component-frame").remove();
+    });
 
     getAllComponentCategories();
     getAllContainerComponent();
@@ -664,7 +673,8 @@ $(function () {
             $(".active-component-frame").remove();
             //活动元件的层级
             var curComponentZIndex = oComponent.controlItems.css.zIndex.propVal;
-            var $activeComponentFrame = $("<div>").addClass("active-component-frame");
+            //关联DOM元素，为删除做准备
+            var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
             $parent.append(
                 $activeComponentFrame
             );
@@ -674,8 +684,8 @@ $(function () {
             //设置其层级为比当前活动元件低的一个等级
             $activeComponentFrame.css({"zIndex": --curComponentZIndex});
 
-            var l = parseInt($component.css("left")) - 1 + "px";
-            var t = parseInt($component.css("top")) - 1 + "px";
+            var l = parseInt($component.position()["left"]) - 1 + "px";
+            var t = parseInt($component.position()["top"]) - 1 + "px";
             var w = $component.outerWidth();
             var h = $component.outerHeight();
             var curObjPositionVal = oComponent.controlItems.css.position.propVal;
