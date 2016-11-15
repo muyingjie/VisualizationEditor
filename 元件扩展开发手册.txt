@@ -83,6 +83,19 @@ BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     Containe
     }
 
 附：VEComponent实例化对象所有属性：
+类属性（静态属性）：
+curZIndex           目前仅在内部用到
+
+实例化属性
+component           组件的名字
+containerClassName  在DOM元素上要加的类名
+canDragToMove       是否允许拖动
+canDragToScale      是否允许拖拽改变大小
+containerDOM        将在设计面板上添加的DOM元素，如果希望是其他类型元素，请务必在调用父类继承之前改变该属性的值
+controlItems
+
+
+
 
 注意：
 1、类被实例化时必须带上json参数
