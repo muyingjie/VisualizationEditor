@@ -26,7 +26,7 @@ function StandardTxtImgVerticalVEComponent(config){
             }
         }
     });
-    var oTxtComponent = new TxtBasicVEComponent({
+    var oTxtComponent = new BasicTxtVEComponent({
         containerClassName: componentContainerClassName + " " + childComponentClassName,
         controlItems: {
             css: {
