@@ -9,7 +9,6 @@ $(function () {
             BUSINESS: 3
         }
     };
-    var allData = [];
     //属性面板
     var $propList = $(".prop-list");
     //每个元件的属性列表
@@ -29,28 +28,65 @@ $(function () {
     });
 
     $save.click(function () {
-        getAllData($stage, allData);
+        collectAllData();
     });
 
-    function getAllData ($par, parArr){
-        var $componentContainer = $par.children(".componentContainer");
-        var containerData;
+    function collectAllData (){
+        var allData = [];
+        var $componentContainer = $stage.children(".componentContainer");
+        //循环stage下第一层componentContainer，容器元素的父元素
         $componentContainer.each(function (i, o) {
+            var containerData = {};
             var oPar = $(o).data("instanceObj");
             if(!oPar){
                 return;
             }
+            containerData["parent"] = extractSendData(oPar);
+            //循环容器元素
             var aOrgChildren = oPar.childComponents;
-            var aChildren = [];
-            containerData = {
-                "par": oPar,
-                "children": aChildren
-            };
-            parArr.push(containerData);
-            if(aOrgChildren){
-                getAllData($componentContainer, aChildren);
+            if(aOrgChildren && $.isArray(aOrgChildren) && aOrgChildren.length > 0){
+                containerData["children"] = [];
+                $.each(aOrgChildren, function (i1, o1) {
+                    var layoutData = {};
+                    layoutData["parent"] = o1;
+
+                    //遍历容器元素下的元件元素
+                    var $componentsOflayout = o1.containerDOM.children(".componentContainer");
+                    if($componentsOflayout.length > 0){
+                        layoutData["children"] = [];
+                        $componentsOflayout.each(function(i2, o2) {
+                            var componentData = {};
+                            var oComponent = $(o2).data("instanceObj");
+                            componentData["parent"] = extractSendData(oComponent);
+                            //复合元件元素
+                            if(oComponent.childComponents){
+                                componentData["children"] = [];
+                                $.each(oComponent.childComponents, function (i3, o3) {
+                                    var componentChildrenData = {};
+                                    componentChildrenData["parent"] = extractSendData(o3);
+                                    componentData["children"].push(componentChildrenData);
+                                });
+                            }
+                            layoutData["children"].push(componentData);
+                        });
+                    }
+                    containerData["children"].push(layoutData);
+                });
             }
+            allData.push(containerData);
         });
+        console.log(JSON.stringify(allData, 4));
+    }
+
+    function extractSendData(oComponent) {
+        return {
+            componentName: oComponent.componentName,
+            containerClassName: oComponent.containerClassName,
+            canDragToMove: oComponent.canDragToMove,
+            canDragToScale: oComponent.canDragToScale,
+            containerDOMTagName: oComponent.containerDOM.get(0).tagName.toLowerCase(),
+            controlItems: oComponent.controlItems
+        };
     }
 
     getAllComponentCategories();

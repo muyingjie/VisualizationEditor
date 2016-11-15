@@ -87,7 +87,7 @@ BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     Containe
 curZIndex           目前仅在内部用到
 
 实例化属性
-component           组件的名字
+componentName       组件的名字
 containerClassName  在DOM元素上要加的类名
 canDragToMove       是否允许拖动
 canDragToScale      是否允许拖拽改变大小
