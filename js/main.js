@@ -417,7 +417,7 @@ $(function () {
         //获取属性控制项
         var props = instanceObj.controlItems;
         var containerDOM = instanceObj.containerDOM;
-        if(!containerDOM.hasClass("childComponent")){
+        if(!containerDOM.hasClass(childComponentClassName)){
             $propList.html("");
         }
         var $oneComponent = $("<div>").addClass("one-component").append(
@@ -611,7 +611,7 @@ $(function () {
         }
         var $componentContainer = oComponent.containerDOM;
         var constructorName = $componentContainer.attr("constructorName");
-        if((constructorName && (constructorName.indexOf("Container") == -1)) && !$componentContainer.hasClass("layoutContainer")){
+        if((constructorName && (constructorName.indexOf("Container") == -1)) && !$componentContainer.hasClass(layoutContainerClassName)){
             $componentContainer.find("*").remove();
         }
 

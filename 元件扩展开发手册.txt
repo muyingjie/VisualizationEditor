@@ -84,10 +84,13 @@ BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     Containe
 
 附：VEComponent实例化对象所有属性：
 
+注意：
+1、类被实例化时必须带上json参数
 
-复合组件注意
+复合组件注意：
 1、要给子元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + childComponentClassName
 2、要给容器元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + layoutContainerClassName
 3、如果既是子元素实例化对象，同时又是容器元素实例化对象，其containerClassName属性需赋值为componentContainerClassName + " " + layoutContainerClassName
 
-注：容器元素的父元素不是容器元素，容器元素是直接放其他元件的元素
+容器组件注意：
+1、容器元素的父元素不是容器元素，容器元素是直接放其他元件的元素
