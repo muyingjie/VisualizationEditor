@@ -9,6 +9,7 @@ $(function () {
             BUSINESS: 3
         }
     };
+    var allData = [];
     //属性面板
     var $propList = $(".prop-list");
     //每个元件的属性列表
@@ -17,6 +18,8 @@ $(function () {
     var $stage = $(".stage");
     //删除
     var $del = $(".top input[name='delete']");
+    //保存
+    var $save = $(".top input[name='save']");
     
     $del.click(function () {
         var $relatedDOM = $(".active-component-frame").data("relatedDOM");
@@ -24,6 +27,31 @@ $(function () {
         //干掉$relatedDOM的同时也把$(".active-component-frame")干掉
         $(".active-component-frame").remove();
     });
+
+    $save.click(function () {
+        getAllData($stage, allData);
+    });
+
+    function getAllData ($par, parArr){
+        var $componentContainer = $par.children(".componentContainer");
+        var containerData;
+        $componentContainer.each(function (i, o) {
+            var oPar = $(o).data("instanceObj");
+            if(!oPar){
+                return;
+            }
+            var aOrgChildren = oPar.childComponents;
+            var aChildren = [];
+            containerData = {
+                "par": oPar,
+                "children": aChildren
+            };
+            parArr.push(containerData);
+            if(aOrgChildren){
+                getAllData($componentContainer, aChildren);
+            }
+        });
+    }
 
     getAllComponentCategories();
     getAllContainerComponent();
@@ -178,7 +206,7 @@ $(function () {
                 var oComponent = new constructorFn({
                     componentName: "元件名"
                 });
-                oComponent.containerDOM.attr({"constructorName": constructorName});
+                oComponent.containerDOM.attr({"constructorName": constructorName}).data("instanceObj", oComponent);
 
                 //渲染设计面板
                 renderDesignPanel({
