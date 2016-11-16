@@ -48,7 +48,7 @@ $(function () {
                 containerData["children"] = [];
                 $.each(aOrgChildren, function (i1, o1) {
                     var layoutData = {};
-                    layoutData["parent"] = o1;
+                    layoutData["parent"] = extractSendData(o1);
 
                     //遍历容器元素下的元件元素
                     var $componentsOflayout = o1.containerDOM.children(".componentContainer");
