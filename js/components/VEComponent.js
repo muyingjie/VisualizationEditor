@@ -104,22 +104,22 @@ function VEComponent(config){
                     groupItems: {
                         borderTop: {
                             propName: "上",
-                            propVal: "none",
+                            propVal: "0",
                             interactiveStyle: "input_text"
                         },
                         borderRight: {
                             propName: "右",
-                            propVal: "none",
+                            propVal: "0",
                             interactiveStyle: "input_text"
                         },
                         borderBottom: {
                             propName: "下",
-                            propVal: "none",
+                            propVal: "0",
                             interactiveStyle: "input_text"
                         },
                         borderLeft: {
                             propName: "左",
-                            propVal: "none",
+                            propVal: "0",
                             interactiveStyle: "input_text"
                         },
                         borderRadius: {
@@ -252,10 +252,41 @@ function VEComponent(config){
                             propVal: "1"
                         }
                     }
+                },
+                {
+                    groupName: "显示方式",
+                    typeName: "display",
+                    isShow: true,
+                    groupItems: {
+                        display: {
+                            propName: "显示方式",
+                            propVal: "block"
+                        }
+                    }
+                },
+                {
+                    groupName: "其他",
+                    typeName: "other",
+                    isShow: true,
+                    groupItems: {}
                 }
             ],
-            attr: [],
-            aloneExec: [],
+            attr: [
+                {
+                    groupName: "其他",
+                    typeName: "other",
+                    isShow: true,
+                    groupItems: {}
+                }
+            ],
+            aloneExec: [
+                {
+                    groupName: "其他",
+                    typeName: "other",
+                    isShow: true,
+                    groupItems: {}
+                }
+            ],
             otherAttrs: [
                 {
                     groupName: "自定义",
@@ -267,6 +298,12 @@ function VEComponent(config){
                             propVal: "111"
                         }
                     }
+                },
+                {
+                    groupName: "其他",
+                    typeName: "other",
+                    isShow: true,
+                    groupItems: {}
                 }
             ]
         },
@@ -299,6 +336,7 @@ VEComponent.prototype.setControlItem = function () {
         var onPropValChangeAfter = config.onPropValChangeAfter;
         var props = _this.controlItems;
         var isHaveCorrespondingProp = false;
+        var otherAttrs = props["otherAttrs"];
         if(!propLevel1 || !propLevel2){
             console.log("必须传入两级属性");
             return;
@@ -311,17 +349,27 @@ VEComponent.prototype.setControlItem = function () {
                         if(attrItemName == propLevel2){
                             isHaveCorrespondingProp = true;
                             oLevel2["propVal"] = propVal;
+                            propName && (oLevel2["propName"] = propName);
+                            isShow && (oLevel2["isShow"] = isShow);
+                            interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
+                            interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
+                            onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
                         }
-                        propName && (oLevel2["propName"] = propName);
-                        isShow && (oLevel2["isShow"] = isShow);
-                        interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
-                        interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
-                        onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
                     });
                 });
             }
         });
-        console.error("超类中没有该属性" + propLevel2);
+        if(!isHaveCorrespondingProp){
+            $.each(props[propLevel1], function (i, o) {
+                //如果没有找到，就加到其他里面
+                if(o.typeName == "other"){
+                    o.groupItems[propLevel2] = {
+                        propName: propName,
+                        propVal: propVal
+                    };
+                }
+            });
+        }
     });
 };
 VEComponent.prototype.getControlItem = function (config) {
@@ -337,13 +385,13 @@ VEComponent.prototype.getControlItem = function (config) {
         if(propCategoryName == propLevel1){
             $.each(propCategoryVal, function (propCategoryGroupIndex, propCategoryGroup) {
                 var groupItems = propCategoryGroup.groupItems;
-                if(!groupItems[propLevel2]){
-                    return false;
-                }else{
-                    resVal = groupItems[propLevel2];
-                }
+                $.each(groupItems, function (attr, oProp) {
+                    if(attr == propLevel2){
+                        resVal = oProp;
+                    }
+                });
             });
         }
     });
-    return resVal;
+    return resVal ? resVal : {};
 };
