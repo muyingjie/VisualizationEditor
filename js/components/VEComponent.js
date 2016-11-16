@@ -15,200 +15,260 @@ function VEComponent(config){
         canDragToMove: true,
         canDragToScale: true,
         controlItems: {
-            css: {
-                width: {
-                    propName: "CSS宽",
-                    propVal: "100px",
-                    interactiveStyle: "input_text"
-                },
-                height: {
-                    propName: "CSS高",
-                    propVal: "100px",
-                    interactiveStyle: "input_text"
-                },
-                left: {
-                    propName: "x坐标",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                top: {
-                    propName: "y坐标",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                paddingTop: {
-                    propName: "内边距（上）",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                paddingRight: {
-                    propName: "内边距（右）",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                paddingBottom: {
-                    propName: "内边距（下）",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                paddingLeft: {
-                    propName: "内边距（左）",
-                    propVal: "0",
-                    interactiveStyle: "input_text"
-                },
-                borderTop: {
-                    propName: "边框（上）",
-                    propVal: "none",
-                    interactiveStyle: "input_text"
-                },
-                borderRight: {
-                    propName: "边框（右）",
-                    propVal: "none",
-                    interactiveStyle: "input_text"
-                },
-                borderBottom: {
-                    propName: "边框（下）",
-                    propVal: "none",
-                    interactiveStyle: "input_text"
-                },
-                borderLeft: {
-                    propName: "边框（左）",
-                    propVal: "none",
-                    interactiveStyle: "input_text"
-                },
-                borderRadius: {
-                    propName: "边框圆角",
-                    propVal: "0",
-                    interactiveStyle: ""
-                },
-                marginTop: {
-                    propName: "外边距（上）",
-                    propVal: "0",
-                    interactiveStyle: ""
-                },
-                marginRight: {
-                    propName: "外边距（右）",
-                    propVal: "0",
-                    interactiveStyle: ""
-                },
-                marginBottom: {
-                    propName: "外边距（下）",
-                    propVal: "0",
-                    interactiveStyle: ""
-                },
-                marginLeft: {
-                    propName: "外边距（左）",
-                    propVal: "0",
-                    interactiveStyle: ""
-                },
-                // borderWidth: {
-                //     propName: "边框宽度",
-                //     propVal: "2px",
-                //     interactiveStyle: "input_text"
-                // },
-                // borderStyle: {
-                //     propName: "边框样式",
-                //     propVal: "none",
-                //     interactiveStyle: "select",
-                //     interactiveVal: {
-                //         "select": [
-                //             {
-                //                 showVal: "无",
-                //                 propVal: "none"
-                //             },
-                //             {
-                //                 showVal: "实线",
-                //                 propVal: "solid"
-                //             },
-                //             {
-                //                 showVal: "虚线",
-                //                 propVal: "dashed"
-                //             },
-                //             {
-                //                 showVal: "点线",
-                //                 propVal: "dotted"
-                //             }
-                //         ]
-                //     }
-                // },
-                // borderColor: {
-                //     propName: "边框颜色",
-                //     propVal: "#333",
-                //     interactiveStyle: "input_text"
-                // },
-                backgroundColor: {
-                    propName: "背景颜色",
-                    propVal: "#eeeeff",
-                    interactiveStyle: "input_text"
-                },
-                backgroundImage: {
-                    propName: "背景图片",
-                    propVal: "",
-                    interactiveStyle: "input_text"
-                },
-                backgroundRepeat: {
-                    propName: "背景平铺",
-                    propVal: "no-repeat",
-                    interactiveStyle: "select",
-                    interactiveVal: {
-                        "select": [
-                            {
-                                showVal: "不平铺",
-                                propVal: "no-repeat"
-                            },
-                            {
-                                showVal: "水平方向平铺",
-                                propVal: "repeat-x"
-                            },
-                            {
-                                showVal: "垂直方向平铺",
-                                propVal: "repeat-y"
-                            },
-                            {
-                                showVal: "平铺",
-                                propVal: "repeat"
-                            }
-                        ]
+            css: [
+                {
+                    groupName: "尺寸位置",
+                    typeName: "size",
+                    isShow: true,
+                    groupItems: {
+                        width: {
+                            propName: "宽",
+                            propVal: "100px",
+                            interactiveStyle: "input_text"
+                        },
+                        height: {
+                            propName: "高",
+                            propVal: "100px",
+                            interactiveStyle: "input_text"
+                        },
+                        left: {
+                            propName: "X轴",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        top: {
+                            propName: "Y轴",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        }
                     }
                 },
-                position: {
-                    propName: "定位",
-                    propVal: "absolute",
-                    interactiveStyle: "select",
-                    interactiveVal: {
-                        "select": [
-                            {
-                                showVal: "绝对定位",
-                                propVal: "absolute"
-                            },
-                            {
-                                showVal: "相对定位",
-                                propVal: "relative"
-                            },
-                            {
-                                showVal: "固定定位",
-                                propVal: "fixed"
-                            },
-                            {
-                                showVal: "无",
-                                propVal: "static"
-                            }
-                        ]
+                {
+                    groupName: "内边距",
+                    typeName: "padding",
+                    isShow: true,
+                    groupItems: {
+                        paddingTop: {
+                            propName: "上",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        paddingRight: {
+                            propName: "右",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        paddingBottom: {
+                            propName: "下",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        paddingLeft: {
+                            propName: "左",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        }
                     }
                 },
-                zIndex: {
-                    propName: "层级",
-                    propVal: "1"
+                {
+                    groupName: "外边距",
+                    typeName: "margin",
+                    isShow: true,
+                    groupItems: {
+                        marginTop: {
+                            propName: "上",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        marginRight: {
+                            propName: "右",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        marginBottom: {
+                            propName: "下",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        },
+                        marginLeft: {
+                            propName: "左",
+                            propVal: "0",
+                            interactiveStyle: "input_text"
+                        }
+                    }
+                },
+                {
+                    groupName: "边框",
+                    typeName: "border",
+                    isShow: true,
+                    groupItems: {
+                        borderTop: {
+                            propName: "上",
+                            propVal: "none",
+                            interactiveStyle: "input_text"
+                        },
+                        borderRight: {
+                            propName: "右",
+                            propVal: "none",
+                            interactiveStyle: "input_text"
+                        },
+                        borderBottom: {
+                            propName: "下",
+                            propVal: "none",
+                            interactiveStyle: "input_text"
+                        },
+                        borderLeft: {
+                            propName: "左",
+                            propVal: "none",
+                            interactiveStyle: "input_text"
+                        },
+                        borderRadius: {
+                            propName: "圆角",
+                            propVal: "0",
+                            interactiveStyle: ""
+                        },
+                        borderWidth: {
+                            propName: "线粗",
+                            propVal: "2px",
+                            interactiveStyle: "input_text"
+                        },
+                        borderStyle: {
+                            propName: "样式",
+                            propVal: "none",
+                            interactiveStyle: "select",
+                            interactiveVal: {
+                                "select": [
+                                    {
+                                        showVal: "无",
+                                        propVal: "none"
+                                    },
+                                    {
+                                        showVal: "实线",
+                                        propVal: "solid"
+                                    },
+                                    {
+                                        showVal: "虚线",
+                                        propVal: "dashed"
+                                    },
+                                    {
+                                        showVal: "点线",
+                                        propVal: "dotted"
+                                    }
+                                ]
+                            }
+                        },
+                        borderColor: {
+                            propName: "颜色",
+                            propVal: "#333",
+                            interactiveStyle: "input_text"
+                        }
+                    }
+                },
+                {
+                    groupName: "背景",
+                    typeName: "bg",
+                    isShow: true,
+                    groupItems: {
+                        backgroundColor: {
+                            propName: "颜色",
+                            propVal: "#eeeeff",
+                            interactiveStyle: "input_text"
+                        },
+                        backgroundImage: {
+                            propName: "图片",
+                            propVal: "",
+                            interactiveStyle: "input_text"
+                        },
+                        backgroundRepeat: {
+                            propName: "平铺",
+                            propVal: "no-repeat",
+                            interactiveStyle: "select",
+                            interactiveVal: {
+                                "select": [
+                                    {
+                                        showVal: "不平铺",
+                                        propVal: "no-repeat"
+                                    },
+                                    {
+                                        showVal: "水平方向平铺",
+                                        propVal: "repeat-x"
+                                    },
+                                    {
+                                        showVal: "垂直方向平铺",
+                                        propVal: "repeat-y"
+                                    },
+                                    {
+                                        showVal: "平铺",
+                                        propVal: "repeat"
+                                    }
+                                ]
+                            }
+                        },
+                        backgroundPosition: {
+                            propName: "坐标",
+                            propVal: ""
+                        }
+                    }
+                },
+                {
+                    groupName: "私有",
+                    typeName: "private",
+                    isShow: true,
+                    groupItems: {
+                        position: {
+                            propName: "定位",
+                            propVal: "absolute",
+                            interactiveStyle: "select",
+                            interactiveVal: {
+                                "select": [
+                                    {
+                                        showVal: "绝对定位",
+                                        propVal: "absolute"
+                                    },
+                                    {
+                                        showVal: "相对定位",
+                                        propVal: "relative"
+                                    },
+                                    {
+                                        showVal: "固定定位",
+                                        propVal: "fixed"
+                                    },
+                                    {
+                                        showVal: "无",
+                                        propVal: "static"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    groupName: "层级",
+                    typeName: "zIndex",
+                    isShow: true,
+                    groupItems: {
+                        zIndex: {
+                            propName: "层级",
+                            propVal: "1"
+                        }
+                    }
                 }
-            },
-            attr: {},
-            aloneExec: {},
-            otherAttrs: {
-                name : {
-                    propName: "元件名称",
-                    propVal: "111"
+            ],
+            attr: [],
+            aloneExec: [],
+            otherAttrs: [
+                {
+                    groupName: "自定义",
+                    typeName: "self",
+                    isShow: true,
+                    groupItems: {
+                        name: {
+                            propName: "元件名称",
+                            propVal: "111"
+                        }
+                    }
                 }
-            }
+            ]
         },
         containerDOM: $("<div>")
     };
@@ -237,29 +297,53 @@ VEComponent.prototype.setControlItem = function () {
         var interactiveStyle = config.interactiveStyle;
         var interactiveVal = config.interactiveVal;
         var onPropValChangeAfter = config.onPropValChangeAfter;
+        var props = _this.controlItems;
+        var isHaveCorrespondingProp = false;
         if(!propLevel1 || !propLevel2){
             console.log("必须传入两级属性");
             return;
         }
-        if(!_this["controlItems"][propLevel1][propLevel2]){
-            _this["controlItems"][propLevel1][propLevel2] = {};
-        }
-        var oLevel2 = _this["controlItems"][propLevel1][propLevel2];
-        propName && (oLevel2["propName"] = propName);
-        isShow && (oLevel2["isShow"] = isShow);
-        interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
-        interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
-        onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
-
-        oLevel2["propVal"] = propVal;
+        $.each(props, function (propCategoryName, propCategoryVal) {
+            if(propCategoryName == propLevel1){
+                $.each(propCategoryVal, function (propCategoryGroupIndex, propCategoryGroup) {
+                    $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
+                        var oLevel2 = attrItem;
+                        if(attrItemName == propLevel2){
+                            isHaveCorrespondingProp = true;
+                            oLevel2["propVal"] = propVal;
+                        }
+                        propName && (oLevel2["propName"] = propName);
+                        isShow && (oLevel2["isShow"] = isShow);
+                        interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
+                        interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
+                        onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
+                    });
+                });
+            }
+        });
+        console.error("超类中没有该属性" + propLevel2);
     });
 };
 VEComponent.prototype.getControlItem = function (config) {
     var propLevel1 = config.propLevel1;
     var propLevel2 = config.propLevel2;
+    var props = this.controlItems;
+    var resVal;
     if(!propLevel1 || !propLevel2){
         console.log("必须传入两级属性");
         return;
     }
-    return this["controlItems"][propLevel1][propLevel2];
+    $.each(props, function (propCategoryName, propCategoryVal) {
+        if(propCategoryName == propLevel1){
+            $.each(propCategoryVal, function (propCategoryGroupIndex, propCategoryGroup) {
+                var groupItems = propCategoryGroup.groupItems;
+                if(!groupItems[propLevel2]){
+                    return false;
+                }else{
+                    resVal = groupItems[propLevel2];
+                }
+            });
+        }
+    });
+    return resVal;
 };

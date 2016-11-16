@@ -39,3 +39,17 @@ input{ outline: none;}
 .moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute; z-index: 9999;}
 .componentContainer{}
 .active-component-frame{ position: absolute; border: 1px solid #03e; z-index: -1;}
+
+
+/*.one-component-propList{width:300px;height: auto;}*/
+.one-component-propList .row{height:auto;padding:6px;background:#eee;margin:5px 0px; }
+.one-component-propList .row h5{font-size:12px;padding: 0px;margin: 0px;height:20px;color:#666;}
+.one-component-propList .row .area{height: auto;padding:3px 0px;display: inline-block;margin: 0px;line-height:22px;}
+.one-component-propList .row .area label{display: inline-block;text-align: right}
+.one-component-propList .row .area .label1{color:#666;font-size:12px;width:50px;}
+.one-component-propList .row .area .label2{color:#666;font-size:12px;width:50px;}
+.one-component-propList .row .area .label4{color:#666;font-size:12px;width:20px;}
+.one-component-propList .row .area .input2{color:#666;font-size:12px;width:76px;}
+.one-component-propList .row .area .input4{color:#666;font-size:12px;width:34px;}
+.one-component-propList .row .area .select1{color:#666;font-sze:12px;width:220px;}
+.one-component-propList .row .area .select2{color:#666;font-sze:12px;width:76px;}

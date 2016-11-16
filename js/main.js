@@ -484,26 +484,37 @@ $(function () {
         if(!containerDOM.hasClass(childComponentClassName)){
             $propList.html("");
         }
-        var $oneComponent = $("<div>").addClass("one-component").append(
-            $("<h3>").html(instanceObj.componentName)
+        var $oneComponentPropList = $("<div>").addClass("one-component-propList");
+        var $oneComponent = $("<fieldset>").addClass("one-component").append(
+            $("<legend>").html(instanceObj.componentName)
         ).append(
-            $("<div>").addClass("one-component-propList")
+            $oneComponentPropList
         );
-        $oneComponentPropList = $oneComponent.find(".one-component-propList").last();
         $propList.append(
             $oneComponent
         );
-        $.each(props, function (propCategoryName, propCategoryVal) {
-            $.each(propCategoryVal, function (attrItemName, attrItem) {
-                var $propItem = addOneProp({
-                    propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
-                    propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
-                    item: attrItem,
-                    containerDOM: containerDOM,//当前设置属性的元件对象
-                    instanceObj: instanceObj
+        $.each(props, function (propCategoryName, propCategoryGroups) {
+            $.each(propCategoryGroups, function (propCategoryGroupIndex, propCategoryGroup) {
+                var $categoryGroupRow = $("<div>").addClass("row");
+                $categoryGroupRow.append(
+                    $("<h5>").text(propCategoryGroup.groupName)
+                );
+                //循环组内各属性
+                $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
+                    //属性key和value的循环遍历
+                    var $propItem = addOneProp({
+                        propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
+                        propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
+                        item: attrItem,
+                        containerDOM: containerDOM,//当前设置属性的元件对象
+                        instanceObj: instanceObj
+                    });
+                    $categoryGroupRow.append($propItem);
                 });
+                $oneComponentPropList.append($categoryGroupRow);
             });
         });
+
         if(childComponents){
             $.each(childComponents, function (i, oChildComponent) {
                 renderPropsPanel({
@@ -534,7 +545,7 @@ $(function () {
 
         switch (interactiveStyle){
             case "input_text":
-                $propValItem = $("<input>").addClass("txt il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
+                $propValItem = $("<input>").addClass("input4 il").attr({"type":"text"}).css({"width": "40px"}).val(propVal).on("input propertyChange", function(e){
                     execAfterChange({
                         e: e,
                         changeVal: $(this).val()
@@ -542,7 +553,7 @@ $(function () {
                 });
                 break;
             case "select":
-                $propValItem = $("<select>");
+                $propValItem = $("<select>").css({"width": "40px"});
                 $.each(interactiveVal[interactiveStyle], function (i, o) {
                     $propValItem.append(
                         $("<option>").attr({"value": o.propVal}).html(o.showVal)
@@ -581,14 +592,10 @@ $(function () {
             });
         }
 
-        $propItem = $("<div>").addClass("item il-par").append(
-            $("<span>").addClass("name ft12 il").html(propName)
+        $propItem = $("<div>").addClass("area il-par").append(
+            $("<label>").addClass("label4 il").html(propName)
         ).append(
             $propValItem
-        );
-
-        $oneComponentPropList.append(
-            $propItem
         );
 
         return $propItem;
@@ -704,27 +711,30 @@ $(function () {
         var props = oComponent.controlItems;
         var $componentContainer = oComponent.containerDOM;
         $.each(props, function (propCategoryName, propCategoryVal) {
-            if(propCategoryName == "attr" || propCategoryName == "css"){
-                $.each(propCategoryVal, function (attrItemName, attrItem) {
-                    var attrArg = {};
-                    attrArg[attrItemName] = attrItem.propVal;
-                    $componentContainer[propCategoryName](attrArg);
-                });
-            }else if(propCategoryName == "aloneExec"){
-                $.each(propCategoryVal, function (aloneExecName, aloneExecItem) {
-                    $componentContainer[aloneExecName](aloneExecItem.propVal);
-                });
-            }else if(propCategoryName == "otherAttrs"){
-                $.each(propCategoryVal, function (otherItemName, otherItem) {
-                    switch (otherItemName){
-                        case "name":
-                            //对于元件名字的处理
-                            break;
-                    }
-                });
-            }else{
-                console.error("未处理的控制属性类型");
-            }
+            $.each(propCategoryVal, function (propCategoryGroupIndex, propCategoryGroup) {
+                if(propCategoryName == "attr" || propCategoryName == "css"){
+                    $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
+                        var attrArg = {};
+                        attrArg[attrItemName] = attrItem.propVal;
+                        $componentContainer[propCategoryName](attrArg);
+                    });
+                }else if(propCategoryName == "aloneExec"){
+                    $.each(propCategoryGroup.groupItems, function (aloneExecName, aloneExecItem) {
+                        $componentContainer[aloneExecName](aloneExecItem.propVal);
+                    });
+                }else if(propCategoryName == "otherAttrs"){
+                    $.each(propCategoryGroup.groupItems, function (otherItemName, otherItem) {
+                        switch (otherItemName){
+                            case "name":
+                                //对于元件名字的处理
+                                break;
+                        }
+                    });
+                }else{
+                    console.error("未处理的控制属性类型");
+                }
+            });
+
         });
     }
 

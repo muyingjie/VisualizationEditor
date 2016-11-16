@@ -51,6 +51,10 @@ function ContainerVerticalVEComponent(config){
             propLevel1: "css",
             propLevel2: "position",
             propVal: "relative"
+        },{
+            propLevel1: "css",
+            propLevel2: "display",
+            propVal: "inline-block"
         });
         this.childComponents.push(oVEComponent);
     }
