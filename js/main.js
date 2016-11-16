@@ -736,7 +736,11 @@ $(function () {
             //将原来的元素移除
             $(".active-component-frame").remove();
             //活动元件的层级
-            var curComponentZIndex = oComponent.controlItems.css.zIndex.propVal;
+            // var curComponentZIndex = oComponent.controlItems.css.zIndex.propVal;
+            var curComponentZIndex = oComponent.getControlItem({
+                propLevel1: "css",
+                propLevel2: "zIndex"
+            });
             //关联DOM元素，为删除做准备
             var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
             $parent.append(
@@ -752,7 +756,11 @@ $(function () {
             var t = parseInt($component.position()["top"]) - 1 + "px";
             var w = $component.outerWidth();
             var h = $component.outerHeight();
-            var curObjPositionVal = oComponent.controlItems.css.position.propVal;
+            // var curObjPositionVal = oComponent.controlItems.css.position.propVal;
+            var curObjPositionVal = oComponent.getControlItem({
+                propLevel1: "css",
+                propLevel2: "position"
+            });
             $activeComponentFrame.css({left:l, top:t, width: w,height: h});
             e.stopPropagation();
         });

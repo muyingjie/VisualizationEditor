@@ -225,16 +225,41 @@ VEComponent.prototype.init = function () {
         propVal: VEComponent.curZIndex++
     });
 };
-VEComponent.prototype.setControlItem = function (config) {
+VEComponent.prototype.setControlItem = function () {
+    var args = [].slice.call(arguments);
+    var _this = this;
+    $.each(args, function (i, config) {
+        var propLevel1 = config.propLevel1;
+        var propLevel2 = config.propLevel2;
+        var propVal = config.propVal;
+        var propName = config.propName;
+        var isShow = config.isShow;
+        var interactiveStyle = config.interactiveStyle;
+        var interactiveVal = config.interactiveVal;
+        var onPropValChangeAfter = config.onPropValChangeAfter;
+        if(!propLevel1 || !propLevel2){
+            console.log("必须传入两级属性");
+            return;
+        }
+        if(!_this["controlItems"][propLevel1][propLevel2]){
+            _this["controlItems"][propLevel1][propLevel2] = {};
+        }
+        var oLevel2 = _this["controlItems"][propLevel1][propLevel2];
+        propName && (oLevel2["propName"] = propName);
+        isShow && (oLevel2["isShow"] = isShow);
+        interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
+        interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
+        onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
+
+        oLevel2["propVal"] = propVal;
+    });
+};
+VEComponent.prototype.getControlItem = function (config) {
     var propLevel1 = config.propLevel1;
     var propLevel2 = config.propLevel2;
-    var propVal = config.propVal;
     if(!propLevel1 || !propLevel2){
         console.log("必须传入两级属性");
         return;
     }
-    if(!this["controlItems"][propLevel1][propLevel2]){
-        this["controlItems"][propLevel1][propLevel2] = {};
-    }
-    this["controlItems"][propLevel1][propLevel2]["propVal"] = propVal;
+    return this["controlItems"][propLevel1][propLevel2];
 };

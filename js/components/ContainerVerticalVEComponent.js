@@ -8,60 +8,50 @@ function ContainerVerticalVEComponent(config){
 
     $.extend(true, this, {
         canDragToMove: false,
-        canDragToScale: false,
-        controlItems: {
-            css: {
-                width: {
-                    propVal: "100%"
-                },
-                height: {
-                    propVal: ""
-                },
-                position: {
-                    propVal: ""
-                }
-            },
-            otherAttrs: {
-                colNum: {
-                    propName: "列数",
-                    propVal: 2
-                }
-            }
-        }
+        canDragToScale: false
+    });
+    this.setControlItem({
+        propLevel1: "css",
+        propLevel2: "width",
+        propVal: "100%"
+    },{
+        propLevel1: "css",
+        propLevel2: "height",
+        propVal: ""
+    },{
+        propLevel1: "css",
+        propLevel2: "position",
+        propVal: ""
+    },{
+        propLevel1: "otherAttrs",
+        propLevel2: "colNum",
+        propName: "列数",
+        propVal: 2
     });
     var veColumnConfig = {
         containerClassName: componentContainerClassName + " " + layoutContainerClassName + " " + childComponentClassName,
-        controlItems: {
-            css: {
-                width: {
-                    propVal: "50%"
-                },
-                height: {
-                    propVal: "400px"
-                },
-                boxSizing: {
-                    propName: "盒模型类型",
-                    propVal: "border-box"
-                },
-                display: {
-                    propName: "元素类型",
-                    propVal: "inline-block"
-                },
-                verticalAlign: {
-                    propName: "垂直布局方式",
-                    propVal: "top"
-                },
-                position: {
-                    propVal: "relative"
-                }
-            }
-        }
     };
-    var colNum = this.controlItems.otherAttrs.colNum.propVal;
+    var colNum = this.getControlItem({
+        propLevel1: "otherAttrs",
+        propLevel2: "colNum"
+    }).propVal;
     var oVEComponent;
     this.childComponents = [];
     for(var i=0;i<colNum;i++){
         oVEComponent = new VEComponent(veColumnConfig);
+        oVEComponent.setControlItem({
+            propLevel1: "css",
+            propLevel2: "width",
+            propVal: 1 / colNum * 100 + "%"
+        },{
+            propLevel1: "css",
+            propLevel2: "height",
+            propVal: "400px"
+        },{
+            propLevel1: "css",
+            propLevel2: "position",
+            propVal: "relative"
+        });
         this.childComponents.push(oVEComponent);
     }
 }

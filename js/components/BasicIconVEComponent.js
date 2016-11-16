@@ -11,7 +11,9 @@ function BasicIconVEComponent(config){
 
     var _this = this;
     this.canDragToScale = false;
-    this.controlItems.otherAttrs.selectIconCategory = {
+    this.setControlItem({
+        propLevel1: "otherAttrs",
+        propLevel2: "selectIconCategory",
         propName: "标签类别",
         propVal: "img/warning.png",
         interactiveStyle: "select",
@@ -33,5 +35,5 @@ function BasicIconVEComponent(config){
 
             _this.containerDOM.attr({"src": changeVal});
         }
-    };
+    });
 }

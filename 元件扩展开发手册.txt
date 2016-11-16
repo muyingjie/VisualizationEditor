@@ -98,7 +98,8 @@ controlItems
 
 
 注意：
-1、类被实例化时必须带上json参数
+1、类被实例化时必须传入参数，该参数类型必须为json对象
+2、强烈建议使用超类的setControlItem方法设置类属性，不建议通过直接修改属性的方式设置其值
 
 复合组件注意：
 1、要给子元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + childComponentClassName

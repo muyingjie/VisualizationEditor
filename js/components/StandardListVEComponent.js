@@ -7,55 +7,53 @@ function StandardListVEComponent(config){
     StandardVEComponent.apply(this, args);
 
     var _this = this;
-    $.extend(true, this, {
-        controlItems: {
-            otherAttrs: {
-                rowNum: {
-                    propName: "行数",
-                    propVal: 5,
-                    onPropValChangeAfter: function (config) {
-                        var e = config.e;
-                        var changeVal = parseInt(config.changeVal);
+    _this.setControlItem({
+        propLevel1: "otherAttrs",
+        propLevel2: "rowNum",
+        propVal: 5,
+        onPropValChangeAfter: function (config) {
+            var e = config.e;
+            var changeVal = parseInt(config.changeVal);
 
-                        addListItem();
-                    }
-                }
-            },
-            css: {
-                width: {
-                    propVal :"200px"
-                },
-                height: {
-                    propVal: ""
-                }
-            }
+            addListItem();
         }
+    }, {
+        propLevel1: "css",
+        propLevel2: "width",
+        propVal: "200px"
+    }, {
+        propLevel1: "css",
+        propLevel2: "height",
+        propVal: ""
     });
 
     addListItem();
     function addListItem(){
-        var rowNum = _this.controlItems.otherAttrs.rowNum.propVal;
+        var rowNum = _this.getControlItem({
+            propLevel1: "otherAttrs",
+            propLevel2: "rowNum"
+        }).propVal;
         _this.childComponents = [];
 
         var txtComponentConfig = {
-            containerClassName: componentContainerClassName + " " + childComponentClassName,
-            controlItems: {
-                css: {
-                    width: {
-                        propVal: "100%"
-                    },
-                    height: {
-                        propVal: "40px"
-                    },
-                    position: {
-                        propVal: "static"
-                    }
-                }
-            }
+            containerClassName: componentContainerClassName + " " + childComponentClassName
         };
         var oChildComponent;
         for(var i=0;i<rowNum;i++){
             oChildComponent = new BasicTxtVEComponent(txtComponentConfig);
+            oChildComponent.setControlItem({
+                propLevel1: "css",
+                propLevel2: "width",
+                propVal: "100%"
+            },{
+                propLevel1: "css",
+                propLevel2: "height",
+                propVal: "40px"
+            },{
+                propLevel1: "css",
+                propLevel2: "position",
+                propVal: "static"
+            });
             _this.childComponents.push(oChildComponent);
         }
     }

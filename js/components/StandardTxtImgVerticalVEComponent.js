@@ -6,38 +6,31 @@ function StandardTxtImgVerticalVEComponent(config){
     var args = [].slice.call(arguments, 0);
     StandardVEComponent.apply(this, args);
 
-    $.extend(true, this, {
-        controlItems: {
-            css: {
-                height: {
-                    propVal: ""
-                }
-            }
-        }
+    this.setControlItem({
+        propLevel1: "css",
+        propLevel2: "height",
+        propVal: ""
     });
 
     var oImgComponent = new BasicImgVEComponent({
-        containerClassName: componentContainerClassName + " " + childComponentClassName,
-        controlItems: {
-            css: {
-                position: {
-                    propVal: "static"
-                }
-            }
-        }
+        containerClassName: componentContainerClassName + " " + childComponentClassName
+    });
+    oImgComponent.setControlItem({
+        propLevel1: "css",
+        propLevel2: "position",
+        propVal: "static"
     });
     var oTxtComponent = new BasicTxtVEComponent({
-        containerClassName: componentContainerClassName + " " + childComponentClassName,
-        controlItems: {
-            css: {
-                position: {
-                    propVal: "static"
-                },
-                height: {
-                    propVal: "20px"
-                }
-            }
-        }
+        containerClassName: componentContainerClassName + " " + childComponentClassName
+    });
+    oTxtComponent.setControlItem({
+        propLevel1: "css",
+        propLevel2: "position",
+        propVal: "static"
+    },{
+        propLevel1: "css",
+        propLevel2: "height",
+        propVal: "20px"
     });
     this.childComponents = [oImgComponent, oTxtComponent];
 
