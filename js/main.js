@@ -495,23 +495,25 @@ $(function () {
         );
         $.each(props, function (propCategoryName, propCategoryGroups) {
             $.each(propCategoryGroups, function (propCategoryGroupIndex, propCategoryGroup) {
-                var $categoryGroupRow = $("<div>").addClass("row");
-                $categoryGroupRow.append(
-                    $("<h5>").text(propCategoryGroup.groupName)
-                );
-                //循环组内各属性
-                $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
-                    //属性key和value的循环遍历
-                    var $propItem = addOneProp({
-                        propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
-                        propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
-                        item: attrItem,
-                        containerDOM: containerDOM,//当前设置属性的元件对象
-                        instanceObj: instanceObj
+                if(propCategoryGroup.isShow){
+                    var $categoryGroupRow = $("<div>").addClass("row");
+                    $categoryGroupRow.append(
+                        $("<h5>").text(propCategoryGroup.groupName)
+                    );
+                    //循环组内各属性
+                    $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
+                        //属性key和value的循环遍历
+                        var $propItem = addOneProp({
+                            propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
+                            propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
+                            item: attrItem,
+                            containerDOM: containerDOM,//当前设置属性的元件对象
+                            instanceObj: instanceObj
+                        });
+                        $categoryGroupRow.append($propItem);
                     });
-                    $categoryGroupRow.append($propItem);
-                });
-                $oneComponentPropList.append($categoryGroupRow);
+                    $oneComponentPropList.append($categoryGroupRow);
+                }
             });
         });
 
@@ -553,7 +555,7 @@ $(function () {
                 });
                 break;
             case "select":
-                $propValItem = $("<select>").css({"width": "40px"});
+                $propValItem = $("<select>").addClass("input4 il").css({"width": "40px"});
                 $.each(interactiveVal[interactiveStyle], function (i, o) {
                     $propValItem.append(
                         $("<option>").attr({"value": o.propVal}).html(o.showVal)
@@ -592,8 +594,8 @@ $(function () {
             });
         }
 
-        $propItem = $("<div>").addClass("area il-par").append(
-            $("<label>").addClass("label4 il").html(propName)
+        $propItem = $("<div>").addClass("area il-par pr8").append(
+            $("<label>").addClass("label4 il pr5").html(propName)
         ).append(
             $propValItem
         );

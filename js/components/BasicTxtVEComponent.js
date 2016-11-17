@@ -11,7 +11,7 @@ function BasicTxtVEComponent(config){
         propLevel1: "aloneExec",
         propLevel2: "text"
     });
-    if(!text){
+    if(!text.propVal){
         this.setControlItem({
             propLevel1: "aloneExec",
             propLevel2: "text",

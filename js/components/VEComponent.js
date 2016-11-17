@@ -213,7 +213,7 @@ function VEComponent(config){
                 {
                     groupName: "私有",
                     typeName: "private",
-                    isShow: true,
+                    isShow: false,
                     groupItems: {
                         position: {
                             propName: "定位",
@@ -245,7 +245,7 @@ function VEComponent(config){
                 {
                     groupName: "层级",
                     typeName: "zIndex",
-                    isShow: true,
+                    isShow: false,
                     groupItems: {
                         zIndex: {
                             propName: "层级",
@@ -256,7 +256,7 @@ function VEComponent(config){
                 {
                     groupName: "显示方式",
                     typeName: "display",
-                    isShow: true,
+                    isShow: false,
                     groupItems: {
                         display: {
                             propName: "显示方式",
@@ -267,7 +267,7 @@ function VEComponent(config){
                 {
                     groupName: "其他",
                     typeName: "other",
-                    isShow: true,
+                    isShow: false,
                     groupItems: {}
                 }
             ],
@@ -328,12 +328,6 @@ VEComponent.prototype.setControlItem = function () {
     $.each(args, function (i, config) {
         var propLevel1 = config.propLevel1;
         var propLevel2 = config.propLevel2;
-        var propVal = config.propVal;
-        var propName = config.propName;
-        var isShow = config.isShow;
-        var interactiveStyle = config.interactiveStyle;
-        var interactiveVal = config.interactiveVal;
-        var onPropValChangeAfter = config.onPropValChangeAfter;
         var props = _this.controlItems;
         var isHaveCorrespondingProp = false;
         var otherAttrs = props["otherAttrs"];
@@ -348,12 +342,7 @@ VEComponent.prototype.setControlItem = function () {
                         var oLevel2 = attrItem;
                         if(attrItemName == propLevel2){
                             isHaveCorrespondingProp = true;
-                            oLevel2["propVal"] = propVal;
-                            propName && (oLevel2["propName"] = propName);
-                            isShow && (oLevel2["isShow"] = isShow);
-                            interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
-                            interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
-                            onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
+                            setProp(config, oLevel2);
                         }
                     });
                 });
@@ -363,14 +352,26 @@ VEComponent.prototype.setControlItem = function () {
             $.each(props[propLevel1], function (i, o) {
                 //如果没有找到，就加到其他里面
                 if(o.typeName == "other"){
-                    o.groupItems[propLevel2] = {
-                        propName: propName,
-                        propVal: propVal
-                    };
+                    setProp(config, o.groupItems[propLevel2] = {});
                 }
             });
         }
     });
+    function setProp(config, oLevel2){
+        var propVal = config.propVal;
+        var propName = config.propName;
+        var isShow = config.isShow;
+        var interactiveStyle = config.interactiveStyle;
+        var interactiveVal = config.interactiveVal;
+        var onPropValChangeAfter = config.onPropValChangeAfter;
+
+        oLevel2["propVal"] = propVal;
+        propName && (oLevel2["propName"] = propName);
+        isShow && (oLevel2["isShow"] = isShow);
+        interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
+        interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
+        onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
+    }
 };
 VEComponent.prototype.getControlItem = function (config) {
     var propLevel1 = config.propLevel1;
