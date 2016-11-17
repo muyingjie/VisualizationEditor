@@ -244,6 +244,12 @@ $(function () {
                 });
                 oComponent.containerDOM.attr({"constructorName": constructorName}).data("instanceObj", oComponent);
 
+                //为复合元件中的子元件也加上constructorName属性
+                var aComponentChild = oComponent.childComponents;
+                $.each(aComponentChild, function (i, oChild) {
+                    oChild.containerDOM.attr({"constructorName": myj.getFunctionName(oChild.constructor)});
+                });
+
                 //渲染设计面板
                 renderDesignPanel({
                     instanceObj: oComponent,
@@ -609,6 +615,7 @@ $(function () {
         var containerDOM = oComponent.containerDOM;
         var constructorName = containerDOM.attr("constructorName");
         var isLayoutComponent;
+        var $parent;
         if(constructorName){
             isLayoutComponent = (constructorName.indexOf("Container") !== -1);
         }
@@ -632,17 +639,13 @@ $(function () {
                 //容器组件的分支
                 if(myj.isInObj(e, $stage)){
                     //如果放手点在$stage里面
-                    $.extend(true, config, {
-                        $parent: $stage
-                    });
+                    $parent = $stage;
                 }
             }else{
                 //页面组件、标准组件、业务组件的分支
                 if($curContainer){
                     //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
-                    $.extend(true, config, {
-                        $parent: $curContainer
-                    });
+                    $parent = $curContainer;
                     //初始化该组件的x和y坐标
                     var l = e.pageX - $curContainer.offset().left;
                     var t = e.pageY - $curContainer.offset().top;
@@ -662,12 +665,30 @@ $(function () {
             }
             addOneComponent(config);
             //给面板中的每个元件增加拖动事件
+            $.extend(true, config, {
+                $parent: $parent
+            });
             addDragEffectToComponent(config);
             //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
             updatePropsPanel(config);
         }else{
             //否则是由于修改右侧属性面板而导致的
             addOneComponent(config);
+        }
+
+        //查看当前元件是否有子元件，如果有子元件，则给其增加属性
+        var childDOMs = oComponent.childComponents;
+        if(childDOMs){
+            $.each(childDOMs, function (i, oChildComponent) {
+                renderDesignPanel({
+                    instanceObj: oChildComponent,
+                    e: e
+                });
+            });
+        }
+        //如果传入了父元素，代表是从元件列表中拖进来的，否则是由于属性列表的变化导致的
+        if($parent){
+            $parent.append(containerDOM);
         }
     }
 
@@ -689,22 +710,6 @@ $(function () {
         }
 
         renderComponentProps(config);
-
-        //查看当前元件是否有子元件，如果有子元件，则给其增加属性
-        var childDOMs = oComponent.childComponents;
-        if(childDOMs){
-            $.each(childDOMs, function (i, oChildComponent) {
-                addOneComponent({
-                    instanceObj: oChildComponent,
-                    $parent: oComponent.containerDOM
-                });
-            });
-        }
-        var $parent = config.$parent;
-        //如果传入了父元素，代表是从元件列表中拖进来的，否则是由于属性列表的变化导致的
-        if($parent){
-            $parent.append($componentContainer);
-        }
         return $componentContainer;
     }
 

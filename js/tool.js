@@ -26,6 +26,12 @@
             var ob = ot + oh;
 
             return ex > ol && ex < or && ey > ot && ey < ob;
+        },
+        getFunctionName: function (fn){
+            var tmp = fn.toString();
+            var re = /function\s*(\w*)/i;
+            var matches = re.exec(tmp);
+            return matches[1];
         }
     });
     window.myj = myj;
