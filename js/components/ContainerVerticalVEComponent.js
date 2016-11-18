@@ -23,6 +23,26 @@ function ContainerVerticalVEComponent(config){
         propLevel2: "position",
         propVal: ""
     },{
+        propLevel1: "css",
+        propLevel2: "paddingTop",
+        propVal: "10px"
+    },{
+        propLevel1: "css",
+        propLevel2: "paddingRight",
+        propVal: "10px"
+    },{
+        propLevel1: "css",
+        propLevel2: "paddingBottom",
+        propVal: "10px"
+    },{
+        propLevel1: "css",
+        propLevel2: "paddingLeft",
+        propVal: "10px"
+    },{
+        propLevel1: "css",
+        propLevel2: "boxSizing",
+        propVal: "border-box"
+    },{
         propLevel1: "otherAttrs",
         propLevel2: "colNum",
         propName: "列数",
@@ -55,6 +75,14 @@ function ContainerVerticalVEComponent(config){
             propLevel1: "css",
             propLevel2: "display",
             propVal: "inline-block"
+        },{
+            propLevel1: "css",
+            propLevel2: "backgroundColor",
+            propVal: "#eeeeff"
+        },{
+            propLevel1: "css",
+            propLevel2: "boxSizing",
+            propVal: "border-box"
         });
         this.childComponents.push(oVEComponent);
     }

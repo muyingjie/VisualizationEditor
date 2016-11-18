@@ -171,7 +171,7 @@ function VEComponent(config){
                     groupItems: {
                         backgroundColor: {
                             propName: "颜色",
-                            propVal: "#eeeeff",
+                            propVal: "#efefef",
                             interactiveStyle: "input_text"
                         },
                         backgroundImage: {
@@ -261,6 +261,17 @@ function VEComponent(config){
                         display: {
                             propName: "显示方式",
                             propVal: "block"
+                        }
+                    }
+                },
+                {
+                    groupName: "盒模型类型",
+                    typeName: "boxSizing",
+                    isShow: false,
+                    groupItems: {
+                        boxSizing: {
+                            propName: "盒模型类型",
+                            propVal: "content-box"
                         }
                     }
                 },

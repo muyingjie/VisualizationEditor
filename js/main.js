@@ -246,9 +246,11 @@ $(function () {
 
                 //为复合元件中的子元件也加上constructorName属性
                 var aComponentChild = oComponent.childComponents;
-                $.each(aComponentChild, function (i, oChild) {
-                    oChild.containerDOM.attr({"constructorName": myj.getFunctionName(oChild.constructor)});
-                });
+                if(aComponentChild){
+                    $.each(aComponentChild, function (i, oChild) {
+                        oChild.containerDOM.attr({"constructorName": myj.getFunctionName(oChild.constructor)});
+                    });
+                }
 
                 //渲染设计面板
                 renderDesignPanel({
@@ -487,9 +489,9 @@ $(function () {
         //获取属性控制项
         var props = instanceObj.controlItems;
         var containerDOM = instanceObj.containerDOM;
-        if(!containerDOM.hasClass(childComponentClassName)){
+        // if(!containerDOM.hasClass(childComponentClassName)){
             $propList.html("");
-        }
+        // }
         var $oneComponentPropList = $("<div>").addClass("one-component-propList");
         var $oneComponent = $("<fieldset>").addClass("one-component").append(
             $("<legend>").html(instanceObj.componentName)
@@ -523,13 +525,13 @@ $(function () {
             });
         });
 
-        if(childComponents){
-            $.each(childComponents, function (i, oChildComponent) {
-                renderPropsPanel({
-                    instanceObj: oChildComponent
-                });
-            });
-        }
+        // if(childComponents){
+        //     $.each(childComponents, function (i, oChildComponent) {
+        //         renderPropsPanel({
+        //             instanceObj: oChildComponent
+        //         });
+        //     });
+        // }
     }
 
     function addOneProp(config){
@@ -615,7 +617,7 @@ $(function () {
         var containerDOM = oComponent.containerDOM;
         var constructorName = containerDOM.attr("constructorName");
         var isLayoutComponent;
-        var $parent;
+        var $parent = config.$parent;
         if(constructorName){
             isLayoutComponent = (constructorName.indexOf("Container") !== -1);
         }
@@ -663,17 +665,23 @@ $(function () {
                     return;
                 }
             }
-            addOneComponent(config);
+            updateOneComponent(config);
             //给面板中的每个元件增加拖动事件
             $.extend(true, config, {
                 $parent: $parent
             });
             addDragEffectToComponent(config);
             //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
-            updatePropsPanel(config);
+            addClickToUpdatePropsPanel(config);
         }else{
-            //否则是由于修改右侧属性面板而导致的
-            addOneComponent(config);
+            //如果这里的$parent定义了，证明是复合元素递归进来的
+            if($parent){
+                updateOneComponent(config);
+                addClickToUpdatePropsPanel(config);
+            }else{
+                //否则是由于修改右侧属性面板而导致的
+                updateOneComponent(config);
+            }
         }
 
         //查看当前元件是否有子元件，如果有子元件，则给其增加属性
@@ -682,7 +690,7 @@ $(function () {
             $.each(childDOMs, function (i, oChildComponent) {
                 renderDesignPanel({
                     instanceObj: oChildComponent,
-                    e: e
+                    $parent: containerDOM
                 });
             });
         }
@@ -692,7 +700,7 @@ $(function () {
         }
     }
 
-    function addOneComponent(config){
+    function updateOneComponent(config){
         var oComponent = config.instanceObj;
         if(!oComponent){
             console.error("addOneComponent:找不到实例化对象参数");
@@ -705,9 +713,9 @@ $(function () {
         }
         var $componentContainer = oComponent.containerDOM;
         var constructorName = $componentContainer.attr("constructorName");
-        if((constructorName && (constructorName.indexOf("Container") == -1)) && !$componentContainer.hasClass(layoutContainerClassName)){
-            $componentContainer.find("*").remove();
-        }
+        // if((constructorName && (constructorName.indexOf("Container") == -1)) && !$componentContainer.hasClass(layoutContainerClassName)){
+        //     $componentContainer.find("*").remove();
+        // }
 
         renderComponentProps(config);
         return $componentContainer;
@@ -745,7 +753,7 @@ $(function () {
         });
     }
 
-    function updatePropsPanel(config){
+    function addClickToUpdatePropsPanel(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
         var $parent = config.$parent;
@@ -757,7 +765,7 @@ $(function () {
             var curComponentZIndex = oComponent.getControlItem({
                 propLevel1: "css",
                 propLevel2: "zIndex"
-            });
+            }).propVal;
             //关联DOM元素，为删除做准备
             var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
             $parent.append(
