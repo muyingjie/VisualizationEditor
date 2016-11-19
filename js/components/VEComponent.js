@@ -325,6 +325,19 @@ function VEComponent(config){
     this.init();
 }
 VEComponent.prototype.init = function () {
+    //设置isShow默认为true
+    $.each(this.controlItems, function (categoryName, categoryList) {
+        $.each(categoryList, function (groupIndex, group) {
+            if(group.isShow == undefined){
+                group.isShow = true;
+            }
+            $.each(group.groupItems, function (name, attr) {
+                if(attr.isShow == undefined){
+                    attr.isShow = true;
+                }
+            });
+        });
+    });
     this.containerDOM.addClass(this.containerClassName);
     //设置层级自增
     this.setControlItem({
@@ -375,6 +388,9 @@ VEComponent.prototype.setControlItem = function () {
         var interactiveStyle = config.interactiveStyle;
         var interactiveVal = config.interactiveVal;
         var onPropValChangeAfter = config.onPropValChangeAfter;
+        //关联属性，点击交互方式会有
+        var relatedProp = config.relatedProp;
+        var onBtnClick = config.onBtnClick;
 
         oLevel2["propVal"] = propVal;
         propName && (oLevel2["propName"] = propName);
@@ -382,6 +398,8 @@ VEComponent.prototype.setControlItem = function () {
         interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
         interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
         onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
+        relatedProp && (oLevel2["relatedProp"] = relatedProp);
+        onBtnClick && (oLevel2["onBtnClick"] = onBtnClick);
     }
 };
 VEComponent.prototype.getControlItem = function (config) {

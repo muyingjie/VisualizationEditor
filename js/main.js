@@ -517,17 +517,21 @@ $(function () {
                         $("<h5>").text(propCategoryGroup.groupName)
                     );
                     //循环组内各属性
-                    $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
-                        //属性key和value的循环遍历
-                        var $propItem = addOneProp({
-                            propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
-                            propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
-                            item: attrItem,
-                            containerDOM: containerDOM,//当前设置属性的元件对象
-                            instanceObj: instanceObj
+                    if(propCategoryGroup.isShow){
+                        $.each(propCategoryGroup.groupItems, function (attrItemName, attrItem) {
+                            //属性key和value的循环遍历
+                            if(attrItem.isShow){
+                                var $propItem = addOneProp({
+                                    propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
+                                    propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
+                                    item: attrItem,
+                                    containerDOM: containerDOM,//当前设置属性的元件对象
+                                    instanceObj: instanceObj
+                                });
+                                $categoryGroupRow.append($propItem);
+                            }
                         });
-                        $categoryGroupRow.append($propItem);
-                    });
+                    }
                     $oneComponentPropList.append($categoryGroupRow);
                 }
             });
@@ -551,6 +555,8 @@ $(function () {
         var interactiveStyle = item.interactiveStyle ? item.interactiveStyle : "input_text";
         var interactiveVal = item.interactiveVal ? item.interactiveVal : {};
         var onPropValChangeAfter = item.onPropValChangeAfter ? item.onPropValChangeAfter : $.noop;
+        var onBtnClick = item.onBtnClick ? item.onBtnClick : $.noop;
+        var relatedProp = item.relatedProp ? item.relatedProp : "";
         var $component = config.containerDOM;
         var oComponent = config.instanceObj;
         var $propItem;
@@ -565,15 +571,31 @@ $(function () {
 
         switch (interactiveStyle){
             case "input_text":
-                $propValItem = $("<input>").addClass("input4 il").attr({"type":"text"}).css({"width": "40px"}).val(propVal).on("input propertyChange", function(e){
+                $propValItem = $("<input>").addClass("input4 il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
                     execAfterChange({
                         e: e,
                         changeVal: $(this).val()
                     });
                 });
                 break;
+            case "input_button":
+                $propValItem = $("<input>").addClass("input2 il").attr({"type": "button"}).val(propVal).on("click", function (e) {
+                    onBtnClick && onBtnClick();
+                    if(relatedProp){
+                        execAfterChange({
+                            e: e,
+                            changeVal: oComponent.getControlItem({
+                                propLevel1: "otherAttrs",
+                                propLevel2: relatedProp
+                            }).propVal
+                        });
+                    }else{
+                        console.log("该点击事件没有关联属性");
+                    }
+                });
+                break;
             case "select":
-                $propValItem = $("<select>").addClass("input4 il").css({"width": "40px"});
+                $propValItem = $("<select>").addClass("input4 il");
                 $.each(interactiveVal[interactiveStyle], function (i, o) {
                     $propValItem.append(
                         $("<option>").attr({"value": o.propVal}).html(o.showVal)
@@ -740,7 +762,7 @@ $(function () {
         if($parent){
             $parent.append(containerDOM);
             //给DOM对象增加高亮框
-            highLightCurComponent(config);
+            //highLightCurComponent(config);
         }
     }
 
@@ -790,9 +812,6 @@ $(function () {
                                 //对于元件名字的处理
                                 break;
                             default:
-                                onPropValChangeAfter && onPropValChangeAfter({
-                                    changeVal: otherItem.propVal
-                                });
                                 break;
                         }
                     });
