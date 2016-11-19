@@ -641,6 +641,7 @@ $(function () {
         var $curContainer;
         //当容器有嵌套关系时，元素放手时有可能处在很多个容器里面
         var a$curContainer = [];
+        var curContainerConstructorName;
 
         //当e存在时是从左侧元件面板上拖进来的
         if(e){
@@ -665,6 +666,13 @@ $(function () {
             }else{
                 //页面组件、标准组件、业务组件、定位容器组件的分支
                 if($curContainer){
+                    //定位容器组件不允许嵌套
+                    curContainerConstructorName = $curContainer.attr("constructorName");
+                    if(isLayoutPositionComponent){
+                        if(curContainerConstructorName.indexOf("Container") != -1 && curContainerConstructorName.indexOf("Position") != -1){
+                            return;
+                        }
+                    }
                     //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
                     $parent = $curContainer;
                     //初始化该组件的x和y坐标
@@ -692,9 +700,11 @@ $(function () {
             addDragEffectToComponent(config);
             //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
             addClickToUpdatePropsPanel(config);
+            //给DOM对象增加高亮框
+            highLightCurComponent(config);
         }else{
-            //如果这里的$parent定义了，证明是复合元素递归进来的
             if($parent){
+                //如果这里的$parent定义了，证明是复合元素递归进来的
                 updateOneComponent(config);
                 addClickToUpdatePropsPanel(config);
             }else{
@@ -713,9 +723,11 @@ $(function () {
                 });
             });
         }
-        //如果传入了父元素，代表是从元件列表中拖进来的，否则是由于属性列表的变化导致的
+        //从元件列表中拖进来时$parent有值，子元素递归$parent也会有值，否则是由于属性列表的变化导致的
         if($parent){
             $parent.append(containerDOM);
+            //给DOM对象增加高亮框
+            highLightCurComponent(config);
         }
     }
 
@@ -736,6 +748,7 @@ $(function () {
         //     $componentContainer.find("*").remove();
         // }
 
+        //给DOM元素添加样式、属性等
         renderComponentProps(config);
         return $componentContainer;
     }
@@ -778,35 +791,42 @@ $(function () {
         var $parent = config.$parent;
         $component.click(function(e){
             //将原来的元素移除
-            $(".active-component-frame").remove();
-            //活动元件的层级
-            // var curComponentZIndex = oComponent.controlItems.css.zIndex.propVal;
-            var curComponentZIndex = oComponent.getControlItem({
-                propLevel1: "css",
-                propLevel2: "zIndex"
-            }).propVal;
-            //关联DOM元素，为删除做准备
-            var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
-            $parent.append(
-                $activeComponentFrame
-            );
-            //渲染属性面板
-            renderPropsPanel(config);
-            //当前选中项高亮显示
-            //设置其层级为比当前活动元件低的一个等级
-            $activeComponentFrame.css({"zIndex": --curComponentZIndex});
-
-            var l = parseInt($component.position()["left"]) - 1 + "px";
-            var t = parseInt($component.position()["top"]) - 1 + "px";
-            var w = $component.outerWidth();
-            var h = $component.outerHeight();
-            // var curObjPositionVal = oComponent.controlItems.css.position.propVal;
-            var curObjPositionVal = oComponent.getControlItem({
-                propLevel1: "css",
-                propLevel2: "position"
-            });
-            $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+            highLightCurComponent(config);
             e.stopPropagation();
         });
+    }
+
+    function highLightCurComponent(config){
+        var oComponent = config.instanceObj;
+        var $component = oComponent.containerDOM;
+        var $parent = config.$parent;
+
+        $(".active-component-frame").remove();
+        //活动元件的层级
+        var curComponentZIndex = oComponent.getControlItem({
+            propLevel1: "css",
+            propLevel2: "zIndex"
+        }).propVal;
+        //关联DOM元素，为删除做准备
+        var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
+        $parent.append(
+            $activeComponentFrame
+        );
+        //渲染属性面板
+        renderPropsPanel(config);
+        //当前选中项高亮显示
+        //设置其层级为比当前活动元件低的一个等级
+        $activeComponentFrame.css({"zIndex": --curComponentZIndex});
+
+        var l = parseInt($component.position()["left"]) - 1 + "px";
+        var t = parseInt($component.position()["top"]) - 1 + "px";
+        var w = $component.outerWidth();
+        var h = $component.outerHeight();
+
+        var curObjPositionVal = oComponent.getControlItem({
+            propLevel1: "css",
+            propLevel2: "position"
+        });
+        $activeComponentFrame.css({left:l, top:t, width: w,height: h});
     }
 });
