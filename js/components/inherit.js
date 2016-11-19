@@ -14,7 +14,7 @@ function inheritAllMethod(){
     var standardConstructors = [StandardListVEComponent, StandardTxtImgVerticalVEComponent];
     goThroughInherit(standardConstructors, StandardVEComponent);
 
-    var containerConstructors = [ContainerVerticalVEComponent];
+    var containerConstructors = [ContainerVerticalVEComponent, ContainerPositionVEComponent];
     goThroughInherit(containerConstructors, ContainerVEComponent);
 }
 function goThroughInherit(constructors, parentConstructor){

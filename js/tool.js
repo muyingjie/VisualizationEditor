@@ -32,6 +32,20 @@
             var re = /function\s*(\w*)/i;
             var matches = re.exec(tmp);
             return matches[1];
+        },
+        getTopContainer: function (a$curContainer) {
+            var $firstCurContainer = a$curContainer[0];
+            var l = $firstCurContainer.offset().left;
+            var t = $firstCurContainer.offset().top;
+            var $finalCurContainer = $firstCurContainer;
+            $.each(a$curContainer, function (i, $curContainer) {
+                var curL = $curContainer.offset().left;
+                var curT = $curContainer.offset().top;
+                if(curL >= l && curT >= t){
+                    $finalCurContainer = $curContainer;
+                }
+            });
+            return $finalCurContainer;
         }
     });
     window.myj = myj;

@@ -160,6 +160,10 @@ $(function () {
                 containerId: "2",
                 containerName: "两列",
                 constructorNamePrefix: "ContainerVertical"
+            },{
+                containerId: "3",
+                containerName: "定位容器",
+                constructorNamePrefix: "ContainerPosition"
             }
         ];
         renderAllContainerComponents(containerComponents);
@@ -282,8 +286,8 @@ $(function () {
         var $parent = config.$parent;
         var disL;
         var disT;
-        var stageL = $parent.offset().left;
-        var stageT = $parent.offset().top;
+        var stageL;
+        var stageT;
         var stageW;
         var stageH;
         var magneticDistance = 10;
@@ -306,6 +310,10 @@ $(function () {
 
                 oldW = $component.width();
                 oldH = $component.height();
+
+                //引入定位容器之后，由于定位容器也可以拖动，而定位容器也可以作父级，因此父级的坐标是可变的
+                stageL = $parent.offset().left;
+                stageT = $parent.offset().top;
 
                 stageW = $parent.width();
                 stageH = $parent.height();
@@ -549,9 +557,9 @@ $(function () {
         var $propValItem;
 
         //初始化
-        execAfterChange({
-            changeVal: propVal
-        });
+        // execAfterChange({
+        //     changeVal: propVal
+        // });
 
         switch (interactiveStyle){
             case "input_text":
@@ -617,15 +625,22 @@ $(function () {
         var containerDOM = oComponent.containerDOM;
         var constructorName = containerDOM.attr("constructorName");
         var isLayoutComponent;
+        var isLayoutPositionComponent;
         var $parent = config.$parent;
         if(constructorName){
             isLayoutComponent = (constructorName.indexOf("Container") !== -1);
+            //如果是容器元素，则进一步判断是否为定位容器
+            if(isLayoutComponent){
+                isLayoutPositionComponent = (constructorName.indexOf("Position") !== -1);
+            }
         }
         var e = config.e;
         //向面板中添加元件，需要跟踪当前位置是在哪个加了layoutComponent的元素身上
         var $layoutComponent = $(".layoutContainer");
         //第一个元件拖上来的时候是没有带有layoutContainer类的元素的
         var $curContainer;
+        //当容器有嵌套关系时，元素放手时有可能处在很多个容器里面
+        var a$curContainer = [];
 
         //当e存在时是从左侧元件面板上拖进来的
         if(e){
@@ -633,18 +648,22 @@ $(function () {
             $layoutComponent.each(function (i, layout) {
                 var $layout = $(layout);
                 if(myj.isInObj(e, $layout)){
-                    $curContainer = $layout;
+                    a$curContainer.push($layout);
                 }
             });
+            if(a$curContainer.length > 0){
+                //如果放手点处在多个中需要确定最终的容器组件
+                $curContainer = myj.getTopContainer(a$curContainer);
+            }
             //首先判断拖进来的是容器组件还是其他组件
-            if(isLayoutComponent){
-                //容器组件的分支
+            if(isLayoutComponent && !isLayoutPositionComponent){
+                //容器组件但不是定位容器组件的分支
                 if(myj.isInObj(e, $stage)){
                     //如果放手点在$stage里面
                     $parent = $stage;
                 }
             }else{
-                //页面组件、标准组件、业务组件的分支
+                //页面组件、标准组件、业务组件、定位容器组件的分支
                 if($curContainer){
                     //如果存在一个存放该类组件的容器组件（即类名中含有layoutContainer的组件）而且放手点也正好在这所有容器组件里面中的一个（其实就是$curContainer）
                     $parent = $curContainer;
