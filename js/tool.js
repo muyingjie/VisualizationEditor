@@ -46,6 +46,15 @@
                 }
             });
             return $finalCurContainer;
+        },
+        arrIndexOf: function (item, arr){
+            var resIndex = -1;
+            $.each(arr, function (i, o) {
+                if(o == item){
+                    resIndex = i;
+                }
+            });
+            return resIndex;
         }
     });
     window.myj = myj;

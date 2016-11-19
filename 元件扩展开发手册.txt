@@ -54,6 +54,7 @@ BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     Containe
             ]
         },
         onPropValChangeAfter: function(config){
+            //初始化时不会传入e对象
             var e = config.e;
             var changeVal = config.changeVal;
         }
@@ -77,6 +78,7 @@ BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     Containe
             ]
         },
         onPropValChangeAfter: function (config) {
+            //初始化时不会传入e对象
             var e = config.e;
             var changeVal = config.changeVal;
         }

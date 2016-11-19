@@ -556,10 +556,12 @@ $(function () {
         var $propItem;
         var $propValItem;
 
-        //初始化
-        // execAfterChange({
-        //     changeVal: propVal
-        // });
+        //初始化 只有otherAttrs类型的属性需要对其进行初始化
+        // if(propFnName == "otherAttrs"){
+        //     execAfterChange({
+        //         changeVal: propVal
+        //     });
+        // }
 
         switch (interactiveStyle){
             case "input_text":
@@ -591,6 +593,7 @@ $(function () {
                 throw new Error("未知的属性交互类型错误");
         }
 
+        //将属性的改变反应到DOM对象上
         function execAfterChange(config){
             var needUpdateProps = {};
             needUpdateProps[propItemName] = config.changeVal;
@@ -608,6 +611,18 @@ $(function () {
                     onPropValChangeAfter(config);
                 }
             });
+            //如果修改宽或高，需要改变高亮框大小
+            var changeHighLightFrameAttrs = [
+                "width", "height",
+                "left", "right", "top", "bottom",
+                "paddingLeft","paddingRight","paddingTop","paddingBottom"
+            ];
+            //加上高亮框后会使属性输入框失去焦点
+            // if(myj.arrIndexOf(propItemName, changeHighLightFrameAttrs) != -1){
+            //     highLightCurComponent({
+            //         instanceObj: oComponent
+            //     });
+            // }
         }
 
         $propItem = $("<div>").addClass("area il-par pr8").append(
@@ -700,8 +715,6 @@ $(function () {
             addDragEffectToComponent(config);
             //给面板中的每个元件增加点击事件，点击时刷新右边属性列表
             addClickToUpdatePropsPanel(config);
-            //给DOM对象增加高亮框
-            highLightCurComponent(config);
         }else{
             if($parent){
                 //如果这里的$parent定义了，证明是复合元素递归进来的
@@ -771,9 +784,15 @@ $(function () {
                     });
                 }else if(propCategoryName == "otherAttrs"){
                     $.each(propCategoryGroup.groupItems, function (otherItemName, otherItem) {
+                        var onPropValChangeAfter = otherItem.onPropValChangeAfter;
                         switch (otherItemName){
                             case "name":
                                 //对于元件名字的处理
+                                break;
+                            default:
+                                onPropValChangeAfter && onPropValChangeAfter({
+                                    changeVal: otherItem.propVal
+                                });
                                 break;
                         }
                     });
@@ -788,7 +807,6 @@ $(function () {
     function addClickToUpdatePropsPanel(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
-        var $parent = config.$parent;
         $component.click(function(e){
             //将原来的元素移除
             highLightCurComponent(config);
@@ -799,7 +817,7 @@ $(function () {
     function highLightCurComponent(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
-        var $parent = config.$parent;
+        var $parent = config.$parent ? config.$parent : $component.parent();
 
         $(".active-component-frame").remove();
         //活动元件的层级
