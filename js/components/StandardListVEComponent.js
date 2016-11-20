@@ -18,6 +18,7 @@ function StandardListVEComponent(config){
         propLevel2: "add",
         propName: "添加",
         propVal: "添加一行",
+        buttonTxt: "添加一行",
         interactiveStyle: "input_button",
         relatedProp: "rowNum",
         isShow: true,
@@ -36,12 +37,32 @@ function StandardListVEComponent(config){
         onPropValChangeAfter: function (config) {
             var $component = _this.containerDOM;
             var $componentChilds = $component.children();
-            var oLastComponentChild = $componentChilds[$componentChilds.length - 1];
-            console.log(oLastComponentChild);
+            var $lastComponentChild = $($componentChilds[$componentChilds.length - 1]);
+            var oLastComponentChild = $lastComponentChild.data("instanceObj");
+
+            var $lastComponentChildChild = $lastComponentChild.children();
+            var oContainerPositionVEComponent = new ContainerPositionVEComponent({
+                componentName: "容器"
+            });
+            var newComponentControlItems = $.extend(true, {}, oLastComponentChild.controlItems);
+            oContainerPositionVEComponent.controlItems = newComponentControlItems;
+            oContainerPositionVEComponent.childComponents = [];
+            _this.childComponents.push(oContainerPositionVEComponent);
+            $lastComponentChildChild.each(function (i, o){
+                var oComponent = $(o).data("instanceObj");
+                var constructorName = oComponent.constructor;
+                var oChild = new constructorName({
+                    componentName: "容器内元件"
+                });
+                var newComponentControlItems = $.extend(true, {}, oComponent.controlItems);
+                oChild.controlItems = newComponentControlItems;
+                oContainerPositionVEComponent.childComponents.push(oChild);
+            });
+            // console.log(oLastComponentChild);
             // for(var i=0;i<config.changeVal;i++){
-                $component.append(
-                    $(oLastComponentChild).clone(true)
-                );
+            //     $component.append(
+            //         $(oLastComponentChild).clone(true)
+            //     );
             // }
         }
     }, {

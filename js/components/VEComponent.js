@@ -23,22 +23,26 @@ function VEComponent(config){
                     groupItems: {
                         width: {
                             propName: "宽",
-                            propVal: "100px",
+                            propVal: "50px",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         height: {
                             propName: "高",
-                            propVal: "100px",
+                            propVal: "30px",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         left: {
                             propName: "X轴",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         top: {
                             propName: "Y轴",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         }
                     }
@@ -51,21 +55,25 @@ function VEComponent(config){
                         paddingTop: {
                             propName: "上",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         paddingRight: {
                             propName: "右",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         paddingBottom: {
                             propName: "下",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         paddingLeft: {
                             propName: "左",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         }
                     }
@@ -78,21 +86,25 @@ function VEComponent(config){
                         marginTop: {
                             propName: "上",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         marginRight: {
                             propName: "右",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         marginBottom: {
                             propName: "下",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         marginLeft: {
                             propName: "左",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         }
                     }
@@ -105,36 +117,43 @@ function VEComponent(config){
                         borderTop: {
                             propName: "上",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         borderRight: {
                             propName: "右",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         borderBottom: {
                             propName: "下",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         borderLeft: {
                             propName: "左",
                             propVal: "0",
+                            classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         borderRadius: {
                             propName: "圆角",
                             propVal: "0",
+                            classSize: "2",
                             interactiveStyle: ""
                         },
                         borderWidth: {
                             propName: "线粗",
-                            propVal: "2px",
+                            propVal: "1px",
+                            classSize: "2",
                             interactiveStyle: "input_text"
                         },
                         borderStyle: {
                             propName: "样式",
                             propVal: "none",
+                            classSize: "2",
                             interactiveStyle: "select",
                             interactiveVal: {
                                 "select": [
@@ -160,6 +179,7 @@ function VEComponent(config){
                         borderColor: {
                             propName: "颜色",
                             propVal: "#333",
+                            classSize: "2",
                             interactiveStyle: "input_text"
                         }
                     }
@@ -172,16 +192,19 @@ function VEComponent(config){
                         backgroundColor: {
                             propName: "颜色",
                             propVal: "#efefef",
+                            classSize: "2",
                             interactiveStyle: "input_text"
                         },
                         backgroundImage: {
                             propName: "图片",
                             propVal: "",
+                            classSize: "2",
                             interactiveStyle: "input_text"
                         },
                         backgroundRepeat: {
                             propName: "平铺",
                             propVal: "no-repeat",
+                            classSize: "2",
                             interactiveStyle: "select",
                             interactiveVal: {
                                 "select": [
@@ -206,7 +229,8 @@ function VEComponent(config){
                         },
                         backgroundPosition: {
                             propName: "坐标",
-                            propVal: ""
+                            propVal: "",
+                            classSize: "2"
                         }
                     }
                 },
@@ -393,6 +417,7 @@ VEComponent.prototype.setControlItem = function () {
         //关联属性，点击交互方式会有
         var relatedProp = config.relatedProp;
         var onBtnClick = config.onBtnClick;
+        var buttonTxt = config.buttonTxt;
 
         oLevel2["propVal"] = propVal;
         propName && (oLevel2["propName"] = propName);
@@ -403,6 +428,7 @@ VEComponent.prototype.setControlItem = function () {
         relatedProp && (oLevel2["relatedProp"] = relatedProp);
         onBtnClick && (oLevel2["onBtnClick"] = onBtnClick);
         onPropValCreateAfter && (oLevel2["onPropValCreateAfter"] = onPropValCreateAfter);
+        buttonTxt && (oLevel2["buttonTxt"] = buttonTxt);
     }
 };
 VEComponent.prototype.getControlItem = function (config) {

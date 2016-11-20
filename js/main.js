@@ -22,6 +22,17 @@ $(function () {
     
     $del.click(function () {
         var $relatedDOM = $(".active-component-frame").data("relatedDOM");
+        var oRelatedComponent = $relatedDOM.data("instanceObj");
+        var $relatedDOMParent = $relatedDOM.parent();
+        var oRelatedParentComponent = $relatedDOMParent.data("instanceObj");
+        var aRelatedParentChildComponents = oRelatedParentComponent.childComponents;
+        $.each(aRelatedParentChildComponents, function (i, o) {
+            if(oRelatedComponent === o){
+                aRelatedParentChildComponents.splice(i, 1);
+            }
+        });
+
+        //DOM上的删除
         $relatedDOM.remove();
         //干掉$relatedDOM的同时也把$(".active-component-frame")干掉
         $(".active-component-frame").remove();
@@ -482,9 +493,7 @@ $(function () {
                     }else if(fnName == "css" || fnName == "attr"){
                         $component[fnName](cssStyle, cssVal);
                     }else{
-                        renderDesignPanel({
-                            instanceObj: oComponent
-                        });
+                        renderDesignPanel(config);
                     }
                 }
             });
@@ -564,6 +573,10 @@ $(function () {
         var onPropValChangeAfter = item.onPropValChangeAfter ? item.onPropValChangeAfter : $.noop;
         var onBtnClick = item.onBtnClick ? item.onBtnClick : $.noop;
         var relatedProp = item.relatedProp ? item.relatedProp : "";
+        var classSize = item.classSize ? item.classSize : "1";
+        var buttonTxt = item.buttonTxt ? item.buttonTxt : "";
+        var inputClassName = "input" + classSize + " ";
+        var labelClassName = "label" + classSize + " ";
         var $component = config.containerDOM;
         var oComponent = config.instanceObj;
         var $propItem;
@@ -578,7 +591,7 @@ $(function () {
 
         switch (interactiveStyle){
             case "input_text":
-                $propValItem = $("<input>").addClass("input4 il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
+                $propValItem = $("<input>").addClass(inputClassName + "il").attr({"type":"text"}).val(propVal).on("input propertyChange", function(e){
                     execAfterChange({
                         e: e,
                         changeVal: $(this).val()
@@ -586,7 +599,7 @@ $(function () {
                 });
                 break;
             case "input_button":
-                $propValItem = $("<input>").addClass("input2 il").attr({"type": "button"}).val(propVal).on("click", function (e) {
+                $propValItem = $("<input>").addClass(inputClassName + "il").attr({"type": "button"}).val(buttonTxt).on("click", function (e) {
                     onBtnClick && onBtnClick();
                     if(relatedProp){
                         execAfterChange({
@@ -602,7 +615,7 @@ $(function () {
                 });
                 break;
             case "select":
-                $propValItem = $("<select>").addClass("input4 il");
+                $propValItem = $("<select>").addClass(inputClassName + "il");
                 $.each(interactiveVal[interactiveStyle], function (i, o) {
                     $propValItem.append(
                         $("<option>").attr({"value": o.propVal}).html(o.showVal)
@@ -624,6 +637,7 @@ $(function () {
 
         //将属性的改变反应到DOM对象上
         function execAfterChange(config){
+            var propItemName = relatedProp ? relatedProp : propItemName;
             var needUpdateProps = {};
             needUpdateProps[propItemName] = config.changeVal;
 
@@ -655,7 +669,7 @@ $(function () {
         }
 
         $propItem = $("<div>").addClass("area il-par pr8").append(
-            $("<label>").addClass("label4 il pr5").html(propName)
+            $("<label>").addClass(labelClassName + "il pr5").html(propName)
         ).append(
             $propValItem
         );
@@ -667,6 +681,10 @@ $(function () {
         //刚刚被拖进来的DOM元素
         var oComponent = config.instanceObj;
         var containerDOM = oComponent.containerDOM;
+        //给DOM元素附加实例化对象，在此主要针对递归进来的元素
+        if(!containerDOM.data("instanceObj")){
+            containerDOM.data("instanceObj", oComponent);
+        }
         var constructorName = containerDOM.attr("constructorName");
         var isLayoutComponent;
         var isLayoutPositionComponent;
@@ -701,14 +719,14 @@ $(function () {
                 $curContainer = myj.getTopContainer(a$curContainer);
             }
             //首先判断拖进来的是容器组件还是其他组件
+            //容器组件但不是定位容器组件的分支
             if(isLayoutComponent && !isLayoutPositionComponent){
-                //容器组件但不是定位容器组件的分支
                 if(myj.isInObj(e, $stage)){
                     //如果放手点在$stage里面
                     $parent = $stage;
                 }
+            //页面组件、标准组件、业务组件、定位容器组件的分支
             }else{
-                //页面组件、标准组件、业务组件、定位容器组件的分支
                 if($curContainer){
                     //定位容器组件不允许嵌套
                     curContainerConstructorName = $curContainer.attr("constructorName");
@@ -732,6 +750,12 @@ $(function () {
                         propLevel2: "top",
                         propVal: t
                     });
+                    var oParentComponent = $curContainer.data("instanceObj");
+                    var oParentChildComponents = oParentComponent.childComponents;
+                    if(!oParentChildComponents){
+                        oParentChildComponents = [];
+                    }
+                    oParentChildComponents.push(oComponent);
                 }else{
                     return;
                 }
@@ -751,6 +775,9 @@ $(function () {
                 addClickToUpdatePropsPanel(config);
             }else{
                 //否则是由于修改右侧属性面板而导致的
+                $.extend(true, config, {
+                    isEnterByModifyPropPanel: true
+                });
                 updateOneComponent(config);
             }
         }
@@ -774,12 +801,19 @@ $(function () {
     }
 
     function updateOneComponent(config){
+        //是否从修改属性面板进入到这里
+        var isEnterByModifyPropPanel = config.isEnterByModifyPropPanel;
         var oComponent = config.instanceObj;
         if(!oComponent){
             console.error("addOneComponent:找不到实例化对象参数");
             return;
         }
-        var props = oComponent.controlItems;
+        var props;
+        if(isEnterByModifyPropPanel){
+            props = config.modifiedProps;
+        }else{
+            props = oComponent.controlItems;
+        }
         if(!props){
             console.error("addOneComponent:找不到实例化对象下的props属性");
             return;

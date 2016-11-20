@@ -1,6 +1,7 @@
 *{ margin: 0; padding: 0; list-style: none;}
 a{ text-decoration: none; color: #333;}
-input{ outline: none;}
+input{ outline: none; border: 1px solid #ccc;}
+select{ outline: none;}
 
 .il-par{ font-size: 0;}
 .il{ display: inline-block; font-size: 12px; vertical-align: top;}
@@ -53,7 +54,14 @@ input{ outline: none;}
 .one-component-propList .row .area .label1{color:#666;font-size:12px;width:50px;}
 .one-component-propList .row .area .label2{color:#666;font-size:12px;width:50px;}
 .one-component-propList .row .area .label4{color:#666;font-size:12px;}
+.one-component-propList .row .area .input1{color:#666;font-size:12px;width:220px;}
 .one-component-propList .row .area .input2{color:#666;font-size:12px;width:76px;}
 .one-component-propList .row .area .input4{color:#666;font-size:12px;width:34px;}
 .one-component-propList .row .area .select1{color:#666;font-sze:12px;width:220px;}
 .one-component-propList .row .area .select2{color:#666;font-sze:12px;width:76px;}
+.one-component-propList .row .customize{height: auto;padding:3px 0px;display:block;margin: 0px;line-height:22px;text-align: center;}
+.one-component-propList .row .customize .plus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block; }
+.one-component-propList .row .customize .minus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block;}
+.one-component-propList .row .customize label{color:#666;font-size:12px;width:50px;display: inline-block;text-align: right}
+.one-component-propList .row .customize input{color:#666;font-size:12px;width:76px;}
+.one-component-propList .row .sel{background:#D6E4E4; }
