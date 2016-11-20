@@ -16,7 +16,8 @@ function BasicTxtVEComponent(config){
             propLevel1: "aloneExec",
             propLevel2: "text",
             propName: "文本",
-            propVal: "文本"
+            propVal: "文本",
+            isShow: true
         })
     }
 }

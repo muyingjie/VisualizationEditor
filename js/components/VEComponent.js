@@ -235,6 +235,33 @@ function VEComponent(config){
                     }
                 },
                 {
+                    groupName: "文字",
+                    typeName: "font",
+                    isShow: true,
+                    groupItems: {
+                        fontFamily: {
+                            propName: "字体",
+                            propVal: "微软雅黑",
+                            classSize: "2"
+                        },
+                        fontSize: {
+                            propName: "字号",
+                            propVal: "12px",
+                            classSize: "2"
+                        },
+                        lineHeight: {
+                            propName: "行高",
+                            propVal: "14px",
+                            classSize: "2"
+                        },
+                        color: {
+                            propName: "颜色",
+                            propVal: "#f00",
+                            classSize: "2"
+                        }
+                    }
+                },
+                {
                     groupName: "私有",
                     typeName: "private",
                     isShow: false,

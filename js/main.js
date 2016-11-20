@@ -870,7 +870,8 @@ $(function () {
     function addClickToUpdatePropsPanel(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
-        $component.click(function(e){
+        $component.off("click.highlight");
+        $component.on("click.highlight", function(e){
             //将原来的元素移除
             highLightCurComponent(config);
             e.stopPropagation();
