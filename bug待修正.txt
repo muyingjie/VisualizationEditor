@@ -32,3 +32,7 @@
 单选	input_radio
 多选	input_checkbox
 下拉	select
+
+疑问：
+1、元件名称展示位置
+2、

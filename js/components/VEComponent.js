@@ -363,7 +363,7 @@ function VEComponent(config){
                     }
                 },
                 {
-                    groupName: "其他",
+                    groupName: "元件",
                     typeName: "other",
                     isShow: true,
                     groupItems: {}
@@ -445,10 +445,12 @@ VEComponent.prototype.setControlItem = function () {
         var relatedProp = config.relatedProp;
         var onBtnClick = config.onBtnClick;
         var buttonTxt = config.buttonTxt;
+        var classSize = config.classSize;
 
-        oLevel2["propVal"] = propVal;
+        oLevel2["propVal"] = (propVal != undefined) ? propVal : "";
         propName && (oLevel2["propName"] = propName);
-        isShow && (oLevel2["isShow"] = isShow);
+        // isShow && (oLevel2["isShow"] = isShow);
+        oLevel2["isShow"] = (isShow != undefined) ? isShow : true;
         interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
         interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
         onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
@@ -456,6 +458,8 @@ VEComponent.prototype.setControlItem = function () {
         onBtnClick && (oLevel2["onBtnClick"] = onBtnClick);
         onPropValCreateAfter && (oLevel2["onPropValCreateAfter"] = onPropValCreateAfter);
         buttonTxt && (oLevel2["buttonTxt"] = buttonTxt);
+        //classSize不能用三目
+        classSize && (oLevel2["classSize"] = classSize);
     }
 };
 VEComponent.prototype.getControlItem = function (config) {

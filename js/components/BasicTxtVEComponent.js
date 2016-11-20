@@ -20,4 +20,16 @@ function BasicTxtVEComponent(config){
             isShow: true
         })
     }
+    //文本元件特有属性
+    this.setControlItem({
+        propLevel1: "otherAttrs",
+        propLevel2: "clickEvent",
+        propName: "点击事件",
+        classSize: "2"
+    },{
+        propLevel1: "otherAttrs",
+        propLevel2: "componentAssignment",
+        propName: "元件赋值",
+        classSize: "2"
+    });
 }
