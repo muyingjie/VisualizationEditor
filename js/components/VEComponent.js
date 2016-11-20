@@ -306,7 +306,8 @@ function VEComponent(config){
                     groupItems: {
                         name: {
                             propName: "元件名称",
-                            propVal: "111"
+                            propVal: "111",
+                            isShow: false
                         }
                     }
                 },
@@ -388,6 +389,7 @@ VEComponent.prototype.setControlItem = function () {
         var interactiveStyle = config.interactiveStyle;
         var interactiveVal = config.interactiveVal;
         var onPropValChangeAfter = config.onPropValChangeAfter;
+        var onPropValCreateAfter = config.onPropValCreateAfter;
         //关联属性，点击交互方式会有
         var relatedProp = config.relatedProp;
         var onBtnClick = config.onBtnClick;
@@ -400,6 +402,7 @@ VEComponent.prototype.setControlItem = function () {
         onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
         relatedProp && (oLevel2["relatedProp"] = relatedProp);
         onBtnClick && (oLevel2["onBtnClick"] = onBtnClick);
+        onPropValCreateAfter && (oLevel2["onPropValCreateAfter"] = onPropValCreateAfter);
     }
 };
 VEComponent.prototype.getControlItem = function (config) {

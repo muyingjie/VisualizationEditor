@@ -537,6 +537,13 @@ $(function () {
             });
         });
 
+        //对渲染结果进行处理，将空框去掉
+        $oneComponentPropList.children(".row").each(function (i, o){
+            if($(o).children(".area").length == 0){
+                $(o).remove();
+            }
+        });
+
         // if(childComponents){
         //     $.each(childComponents, function (i, oChildComponent) {
         //         renderPropsPanel({
@@ -806,12 +813,13 @@ $(function () {
                     });
                 }else if(propCategoryName == "otherAttrs"){
                     $.each(propCategoryGroup.groupItems, function (otherItemName, otherItem) {
-                        var onPropValChangeAfter = otherItem.onPropValChangeAfter;
+                        var onPropValCreateAfter = otherItem.onPropValCreateAfter;
                         switch (otherItemName){
                             case "name":
                                 //对于元件名字的处理
                                 break;
                             default:
+                                onPropValCreateAfter && onPropValCreateAfter();
                                 break;
                         }
                     });

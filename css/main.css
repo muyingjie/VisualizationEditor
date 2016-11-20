@@ -32,7 +32,7 @@ input{ outline: none;}
 
 .main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 350px 10px 250px; padding: 10px; position: relative;}
 .main-panel .widget-list{ position: absolute; left: 0; top: 0;}
-.main-panel .prop-list-wrap{ position: absolute; right: 0; top: 0; margin-right: 10px; width: 330px; height: 600px; overflow-y: scroll;}
+.main-panel .prop-list-wrap{ position: absolute; right: 0; top: 0; margin-right: 10px; width: 330px; height: 600px; overflow-y: auto;}
 .main-panel .prop-list{ }
 .main-panel .prop-list .one-component{ border:1px solid #ccc; padding: 5px;width:300px;}
 .main-panel .prop-list .item{ margin-bottom: 5px;}

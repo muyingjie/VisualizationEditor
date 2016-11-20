@@ -16,6 +16,7 @@ function BasicIconVEComponent(config){
         propLevel2: "selectIconCategory",
         propName: "标签类别",
         propVal: "img/warning.png",
+        isShow: true,
         interactiveStyle: "select",
         interactiveVal: {
             "select": [
@@ -28,6 +29,13 @@ function BasicIconVEComponent(config){
                     propVal: "img/warning.png"
                 }
             ]
+        },
+        onPropValCreateAfter: function (){
+            var val = _this.getControlItem({
+                propLevel1: "otherAttrs",
+                propLevel2: "selectIconCategory"
+            }).propVal;
+            _this.containerDOM.attr({"src": val});
         },
         onPropValChangeAfter: function (config) {
             var e = config.e;
