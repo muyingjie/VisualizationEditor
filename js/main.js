@@ -637,7 +637,9 @@ $(function () {
 
         //将属性的改变反应到DOM对象上
         function execAfterChange(config){
-            var propItemName = relatedProp ? relatedProp : propItemName;
+            if(relatedProp){
+                propItemName = relatedProp;
+            }
             var needUpdateProps = {};
             needUpdateProps[propItemName] = config.changeVal;
 
