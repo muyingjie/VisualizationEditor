@@ -421,6 +421,7 @@ $(function () {
                 }
                 var modifiedProps = [{
                     name: "css",
+                    groupTypeName: "size",
                     val: needUpdateProps
                 }];
 
@@ -477,27 +478,58 @@ $(function () {
         var oComponent = config.instanceObj;
         var onPropValChangeAfter = config.onPropValChangeAfter;
         var $component = oComponent.containerDOM;
-
+        //将修改的属性结构组织成renderComponentProps函数所能接受的结构，即实例化对象的controlItems属性对应的结构
+        var extractedControlItems = {};
         $.each(modifiedProps, function (index, prop) {
             var fnName = prop.name;
-            $.each(prop.val, function (cssStyle, cssVal) {
-                if(cssVal){
+            var groupTypeName = prop.groupTypeName;
+            var group = getGroup(fnName, groupTypeName);
+            if(!extractedControlItems[fnName]){
+                extractedControlItems[fnName] = [];
+            }
+            var groupItems = {};
+            extractedControlItems[fnName].push({
+                groupName: group.groupName,
+                typeName: group.typeName,
+                isShow: group.isShow,
+                groupItems: groupItems
+            });
+            $.each(prop.val, function (attrName, attrVal) {
+                groupItems[attrName] = oComponent.getControlItem({
+                    propLevel1: fnName,
+                    propLevel2: attrName
+                });
+
+                if(attrVal){
                     oComponent.setControlItem({
-                        propLevel1: prop.name,
-                        propLevel2: cssStyle,
-                        propVal: cssVal
+                        propLevel1: fnName,
+                        propLevel2: attrName,
+                        propVal: attrVal
                     });
-                    onPropValChangeAfter && onPropValChangeAfter();
-                    if(fnName == "aloneExec"){
-                        $component[cssStyle](cssVal);
-                    }else if(fnName == "css" || fnName == "attr"){
-                        $component[fnName](cssStyle, cssVal);
-                    }else{
-                        renderDesignPanel(config);
-                    }
                 }
             });
         });
+        $.extend(true, config, {
+            extractedControlItems: extractedControlItems
+        });
+        renderDesignPanel(config);
+
+        function getGroup(fnName, groupTypeName){
+            var res;
+            $.each(oComponent.controlItems, function (name, groups) {
+                if(fnName == name){
+                    $.each(groups, function (i, group) {
+                        if(group.typeName == groupTypeName){
+                            res = group;
+                        }
+                    });
+                }
+            });
+            if(!res){
+                console.error("未找到对应组");
+            }
+            return res;
+        }
     }
 
     function renderPropsPanel(config) {
@@ -528,6 +560,7 @@ $(function () {
                             if(attrItem.isShow){
                                 var $propItem = addOneProp({
                                     propFnName: propCategoryName,//方法名，attr css aloneExec otherAttrs
+                                    propGroupTypeName: propCategoryGroup.typeName,
                                     propItemName: attrItemName,//方法下面具体的子属性或子方法，例如attr下可以设置href src，css下可以设置left top width等等
                                     item: attrItem,
                                     containerDOM: containerDOM,//当前设置属性的元件对象
@@ -559,6 +592,7 @@ $(function () {
     }
 
     function addOneProp(config){
+        var propGroupTypeName = config.propGroupTypeName;
         var propFnName = config.propFnName;
         var propItemName = config.propItemName;
         var item = config.item ? config.item : {};
@@ -631,8 +665,9 @@ $(function () {
                 throw new Error("未知的属性交互类型错误");
         }
 
-        //将属性的改变反应到DOM对象上
+        //属性的改变对其他属性的影响 和 对该属性对应的DOM对象的影响
         function execAfterChange(config){
+            //对于有关联属性的，取关联属性（主要针对按钮交互类型的属性）
             if(relatedProp){
                 propItemName = relatedProp;
             }
@@ -643,6 +678,7 @@ $(function () {
             componentBiDirectionalDataBinding({
                 modifiedProps: [{
                     name: propFnName,
+                    groupTypeName: propGroupTypeName,
                     val: needUpdateProps
                 }],
                 instanceObj: oComponent,
@@ -829,9 +865,8 @@ $(function () {
 
     //将实例化对象上controlItmes相关属性渲染到DOM元素上 或者将修改了的属性渲染到DOM上
     function renderComponentProps(config){
-        console.log(config);
         var oComponent = config.instanceObj;
-        var props = oComponent.controlItems;
+        var props = config.extractedControlItems ? config.extractedControlItems : oComponent.controlItems;
         var $componentContainer = oComponent.containerDOM;
         $.each(props, function (propCategoryName, propCategoryVal) {
             $.each(propCategoryVal, function (propCategoryGroupIndex, propCategoryGroup) {
@@ -840,12 +875,12 @@ $(function () {
                         var attrArg = {};
                         attrArg[attrItemName] = attrItem.propVal;
                         $componentContainer[propCategoryName](attrArg);
-                        execPropValCreateFn(attrItem);
+                        execPropValChangeFn(attrItem);
                     });
                 }else if(propCategoryName == "aloneExec"){
                     $.each(propCategoryGroup.groupItems, function (aloneExecName, aloneExecItem) {
                         $componentContainer[aloneExecName](aloneExecItem.propVal);
-                        execPropValCreateFn(aloneExecItem);
+                        execPropValChangeFn(aloneExecItem);
                     });
                 }else if(propCategoryName == "otherAttrs"){
                     $.each(propCategoryGroup.groupItems, function (otherItemName, otherItem) {
@@ -862,16 +897,16 @@ $(function () {
                             default:
                                 break;
                         }
-                        execPropValCreateFn(otherItem);
+                        execPropValChangeFn(otherItem);
                     });
                 }else{
                     console.error("未处理的控制属性类型");
                 }
             });
         });
-        function execPropValCreateFn(item){
-            var onPropValCreateAfter = item.onPropValCreateAfter;
-            onPropValCreateAfter && onPropValCreateAfter();
+        function execPropValChangeFn(item){
+            var onPropValChangeAfter = item.onPropValChangeAfter;
+            onPropValChangeAfter && onPropValChangeAfter();
         }
     }
 
