@@ -755,7 +755,7 @@ $(function () {
                     var oParentComponent = $curContainer.data("instanceObj");
                     var oParentChildComponents = oParentComponent.childComponents;
                     if(!oParentChildComponents){
-                        oParentChildComponents = [];
+                        oParentChildComponents = oParentComponent.childComponents = [];
                     }
                     oParentChildComponents.push(oComponent);
                 }else{
