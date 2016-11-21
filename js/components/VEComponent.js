@@ -9,6 +9,7 @@ var childComponentClassName = "childComponent";
 VEComponent.curZIndex = 1;
 function VEComponent(config){
     config = config ? config : {};
+    var _this = this;
     var defaultConfig = {
         componentName: "组件名",
         containerClassName: componentContainerClassName,
@@ -138,11 +139,29 @@ function VEComponent(config){
                             classSize: "4",
                             interactiveStyle: "input_text"
                         },
+                        borderSetStyle: {
+                            propName: "设置方式",
+                            propVal: "1",
+                            classSize: "1",
+                            interactiveStyle: "select",
+                            interactiveVal: {
+                                "select": [
+                                    {
+                                        showVal: "单独",
+                                        propVal: "0"
+                                    },
+                                    {
+                                        showVal: "整体",
+                                        propVal: "1"
+                                    }
+                                ]
+                            }
+                        },
                         borderRadius: {
                             propName: "圆角",
                             propVal: "0",
                             classSize: "2",
-                            interactiveStyle: ""
+                            interactiveStyle: "input_text"
                         },
                         borderWidth: {
                             propName: "线粗",

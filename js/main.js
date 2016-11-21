@@ -10,7 +10,7 @@ $(function () {
         }
     };
     //属性面板
-    var $propList = $(".prop-list");
+    var $propList = $(".prop-list").addClass("one-component");
     //每个元件的属性列表
     var $oneComponentPropList;
     //设计器主窗口
@@ -510,20 +510,16 @@ $(function () {
             $propList.html("");
         // }
         var $oneComponentPropList = $("<div>").addClass("one-component-propList");
-        var $oneComponent = $("<fieldset>").addClass("one-component").append(
-            $("<legend>").html(instanceObj.componentName)
-        ).append(
-            $oneComponentPropList
-        );
         $propList.append(
-            $oneComponent
+            $oneComponentPropList
         );
         $.each(props, function (propCategoryName, propCategoryGroups) {
             $.each(propCategoryGroups, function (propCategoryGroupIndex, propCategoryGroup) {
+                var groupCls = propCategoryGroup.typeName;
                 if(propCategoryGroup.isShow){
-                    var $categoryGroupRow = $("<div>").addClass("row");
+                    var $categoryGroupRow = $("<div>").addClass("row " + groupCls);
                     $categoryGroupRow.append(
-                        $("<h5>").text(propCategoryGroup.groupName)
+                        $("<h5>").addClass("ft12").text(propCategoryGroup.groupName)
                     );
                     //循环组内各属性
                     if(propCategoryGroup.isShow){
@@ -537,7 +533,7 @@ $(function () {
                                     containerDOM: containerDOM,//当前设置属性的元件对象
                                     instanceObj: instanceObj
                                 });
-                                $categoryGroupRow.append($propItem);
+                                $categoryGroupRow.append($propItem.addClass(attrItemName));
                             }
                         });
                     }
@@ -605,7 +601,7 @@ $(function () {
                         execAfterChange({
                             e: e,
                             changeVal: oComponent.getControlItem({
-                                propLevel1: "otherAttrs",
+                                propLevel1: propFnName,
                                 propLevel2: relatedProp
                             }).propVal
                         });
@@ -670,7 +666,7 @@ $(function () {
             // }
         }
 
-        $propItem = $("<div>").addClass("area il-par pr8").append(
+        $propItem = $("<div>").addClass("area il il-par").append(
             $("<label>").addClass(labelClassName + "il pr5").html(propName)
         ).append(
             $propValItem
@@ -831,7 +827,9 @@ $(function () {
         return $componentContainer;
     }
 
+    //将实例化对象上controlItmes相关属性渲染到DOM元素上 或者将修改了的属性渲染到DOM上
     function renderComponentProps(config){
+        console.log(config);
         var oComponent = config.instanceObj;
         var props = oComponent.controlItems;
         var $componentContainer = oComponent.containerDOM;
@@ -842,29 +840,39 @@ $(function () {
                         var attrArg = {};
                         attrArg[attrItemName] = attrItem.propVal;
                         $componentContainer[propCategoryName](attrArg);
+                        execPropValCreateFn(attrItem);
                     });
                 }else if(propCategoryName == "aloneExec"){
                     $.each(propCategoryGroup.groupItems, function (aloneExecName, aloneExecItem) {
                         $componentContainer[aloneExecName](aloneExecItem.propVal);
+                        execPropValCreateFn(aloneExecItem);
                     });
                 }else if(propCategoryName == "otherAttrs"){
                     $.each(propCategoryGroup.groupItems, function (otherItemName, otherItem) {
-                        var onPropValCreateAfter = otherItem.onPropValCreateAfter;
+                        // var $curGroup = $propList.find(".row." + propCategoryGroup.typeName);
+                        // var $curProp = $curGroup.find(".area." + otherItemName);
+                        // var onPropValCreateAfterConfig = {
+                        //     $curGroup: $curGroup,
+                        //     $curProp: $curProp
+                        // };
                         switch (otherItemName){
                             case "name":
                                 //对于元件名字的处理
                                 break;
                             default:
-                                onPropValCreateAfter && onPropValCreateAfter();
                                 break;
                         }
+                        execPropValCreateFn(otherItem);
                     });
                 }else{
                     console.error("未处理的控制属性类型");
                 }
             });
-
         });
+        function execPropValCreateFn(item){
+            var onPropValCreateAfter = item.onPropValCreateAfter;
+            onPropValCreateAfter && onPropValCreateAfter();
+        }
     }
 
     function addClickToUpdatePropsPanel(config){

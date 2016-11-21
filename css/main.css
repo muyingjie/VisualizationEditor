@@ -47,18 +47,17 @@ select{ outline: none;}
 
 
 /*.one-component-propList{width:300px;height: auto;}*/
-.one-component-propList .row{height:auto;padding:6px;background:#eee;margin:5px 0px; }
-.one-component-propList .row h5{font-size:12px;padding: 0px;margin: 0px;height:20px;color:#666;}
-.one-component-propList .row .area{height: auto;display: inline-block;line-height:22px;}
-.one-component-propList .row .area label{display: inline-block; line-height: 18px;}
-.one-component-propList .row .area .label1{color:#666;font-size:12px;width:50px;}
-.one-component-propList .row .area .label2{color:#666;font-size:12px;width:50px;}
-.one-component-propList .row .area .label4{color:#666;font-size:12px;}
-.one-component-propList .row .area .input1{color:#666;font-size:12px;width:220px;}
-.one-component-propList .row .area .input2{color:#666;font-size:12px;width:76px;}
-.one-component-propList .row .area .input4{color:#666;font-size:12px;width:34px;}
-.one-component-propList .row .area .select1{color:#666;font-sze:12px;width:220px;}
-.one-component-propList .row .area .select2{color:#666;font-sze:12px;width:76px;}
+.one-component-propList .row{ padding:6px; background:#eee; margin:5px 0px; }
+.one-component-propList .row h5{ height:20px;}
+.one-component-propList .row .area{ padding-top: 5px;}
+.one-component-propList .row .area label{ line-height: 18px; text-align: right;}
+.one-component-propList .row .area .label1{ width:50px;}
+.one-component-propList .row .area .label2{ width:50px;}
+.one-component-propList .row .area .label4{ width: 20px;}
+.one-component-propList .row .area input,.one-component-propList .row .area select{ height: 18px; border: none; line-height:18px; margin-right: 20px;}
+.one-component-propList .row .area .input1,.one-component-propList .row .area .select1{ width:241px;}
+.one-component-propList .row .area .input2,.one-component-propList .row .area .select2{ width:83px;}
+.one-component-propList .row .area .input4,.one-component-propList .row .area .select4{ width:34px;}
 .one-component-propList .row .customize{height: auto;padding:3px 0px;display:block;margin: 0px;line-height:22px;text-align: center;}
 .one-component-propList .row .customize .plus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block; }
 .one-component-propList .row .customize .minus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block;}
