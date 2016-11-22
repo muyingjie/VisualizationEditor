@@ -257,7 +257,7 @@ $(function () {
                 var oComponent = new constructorFn({
                     componentName: "元件名"
                 });
-                oComponent.containerDOM.attr({"constructorName": constructorName}).data("instanceObj", oComponent);
+                oComponent.containerDOM.attr({"constructorName": constructorName});
 
                 //为复合元件中的子元件也加上constructorName属性
                 var aComponentChild = oComponent.childComponents;
@@ -476,8 +476,7 @@ $(function () {
     function componentBiDirectionalDataBinding(config){
         var modifiedProps = config.modifiedProps;
         var oComponent = config.instanceObj;
-        var onPropValChangeAfter = config.onPropValChangeAfter;
-        var $component = oComponent.containerDOM;
+
         //将修改的属性结构组织成renderComponentProps函数所能接受的结构，即实例化对象的controlItems属性对应的结构
         var extractedControlItems = {};
         $.each(modifiedProps, function (index, prop) {
@@ -681,12 +680,7 @@ $(function () {
                     groupTypeName: propGroupTypeName,
                     val: needUpdateProps
                 }],
-                instanceObj: oComponent,
-                //传入双向绑定函数中，在双向绑定函数的实例化对象属性发生变化时触发
-                onPropValChangeAfter: function () {
-                    //执行外部传入的方法
-                    onPropValChangeAfter(config);
-                }
+                instanceObj: oComponent
             });
             //如果修改宽或高，需要改变高亮框大小
             var changeHighLightFrameAttrs = [
@@ -806,6 +800,7 @@ $(function () {
             if($parent){
                 //如果这里的$parent定义了，证明是复合元素递归进来的
                 updateOneComponent(config);
+                addDragEffectToComponent(config);
                 addClickToUpdatePropsPanel(config);
             }else{
                 //否则是由于修改右侧属性面板而导致的

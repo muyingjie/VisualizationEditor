@@ -30,18 +30,12 @@ function BasicIconVEComponent(config){
                 }
             ]
         },
-        onPropValCreateAfter: function (){
+        onPropValChangeAfter: function () {
             var val = _this.getControlItem({
                 propLevel1: "otherAttrs",
                 propLevel2: "selectIconCategory"
             }).propVal;
             _this.containerDOM.attr({"src": val});
-        },
-        onPropValChangeAfter: function (config) {
-            var e = config.e;
-            var changeVal = config.changeVal;
-
-            _this.containerDOM.attr({"src": changeVal});
         }
     });
 }
