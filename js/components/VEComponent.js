@@ -469,7 +469,7 @@ VEComponent.prototype.setControlItem = function () {
         oLevel2["propVal"] = (propVal != undefined) ? propVal : "";
         propName && (oLevel2["propName"] = propName);
         // isShow && (oLevel2["isShow"] = isShow);
-        oLevel2["isShow"] = (isShow != undefined) ? isShow : true;
+        (isShow != undefined) && (oLevel2["isShow"] = isShow);
         interactiveStyle && (oLevel2["interactiveStyle"] = interactiveStyle);
         interactiveVal && (oLevel2["interactiveVal"] = interactiveVal);
         onPropValChangeAfter && (oLevel2["onPropValChangeAfter"] = onPropValChangeAfter);
