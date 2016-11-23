@@ -163,13 +163,9 @@ $(function () {
     }
 
     function getAllContainerComponent(){
-        var containerComponents = [
-            {
-                containerId: "1",
-                containerName: "两行"
-            },{
+        var containerComponents = [{
                 containerId: "2",
-                containerName: "两列",
+                containerName: "普通容器",
                 constructorNamePrefix: "ContainerVertical"
             },{
                 containerId: "3",
@@ -963,5 +959,15 @@ $(function () {
             propLevel2: "position"
         });
         $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+    }
+    componentTooBiggerPrompt();
+    function componentTooBiggerPrompt(){
+        var $tooBiggerPrompt = $("<div>").addClass("component-too-bigger-propmt ft14").html("您拖进来的元件过大，请增大父容器尺寸之后重试");
+        $stage.append(
+            $tooBiggerPrompt
+        );
+        setTimeout(function (){
+            $tooBiggerPrompt.remove();
+        }, 3000);
     }
 });

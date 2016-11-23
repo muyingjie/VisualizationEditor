@@ -46,7 +46,7 @@ function ContainerVerticalVEComponent(config){
         propLevel1: "otherAttrs",
         propLevel2: "colNum",
         propName: "列数",
-        propVal: 2
+        propVal: 1
     });
     var veColumnConfig = {
         containerClassName: componentContainerClassName + " " + layoutContainerClassName + " " + childComponentClassName,
