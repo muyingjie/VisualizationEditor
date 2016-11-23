@@ -407,6 +407,9 @@ $(function () {
                 var canDragToMove = oComponent.canDragToMove;
                 var canDragToScale = oComponent.canDragToScale;
                 var needUpdateProps = {};
+                if(!canDragToMove && !canDragToScale){
+                    return;
+                }
                 if(canDragToMove){
                     $.extend(needUpdateProps, {
                         left: absL,
@@ -499,7 +502,7 @@ $(function () {
                     propLevel2: attrName
                 });
 
-                if(attrVal){
+                if(attrVal != undefined){
                     oComponent.setControlItem({
                         propLevel1: fnName,
                         propLevel2: attrName,
@@ -708,6 +711,8 @@ $(function () {
     function renderDesignPanel(config){
         //刚刚被拖进来的DOM元素
         var oComponent = config.instanceObj;
+        var props = config.extractedControlItems ? config.extractedControlItems : oComponent.controlItems;
+        var isOtherAttr;
         var containerDOM = oComponent.containerDOM;
         //给DOM元素附加实例化对象，在此主要针对递归进来的元素
         if(!containerDOM.data("instanceObj")){
@@ -803,11 +808,21 @@ $(function () {
                 addDragEffectToComponent(config);
                 addClickToUpdatePropsPanel(config);
             }else{
-                //否则是由于修改右侧属性面板而导致的
+                //否则是由于修改右侧属性面板或者是由于拖动元件而导致的
                 $.extend(true, config, {
                     isEnterByModifyPropPanel: true
                 });
                 updateOneComponent(config);
+                //如果修改了otherAttrs类型的属性，再递归子元素
+                isOtherAttr = false;
+                $.each(props, function (fnName, fnVal) {
+                    if(fnName == "otherAttrs"){
+                        isOtherAttr = true;
+                    }
+                });
+                if(!isOtherAttr){
+                    return;
+                }
             }
         }
 
