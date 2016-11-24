@@ -32,7 +32,7 @@ select{ outline: none;}
 .main-panel .list-cate-item .list .item{ width: 50%; height: 40px; background: #fff; border: 1px solid #eee; box-sizing: border-box;}
 .main-panel .list-cate-item .list .item .txt{ display: block; line-height: 40px; text-align: center; }
 
-.main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 350px 10px 250px; padding: 10px; position: relative;}
+.main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 350px 10px 250px; position: relative;}
 .main-panel .widget-list{ position: absolute; left: 0; top: 0;}
 .main-panel .prop-list-wrap{ position: absolute; right: 0; top: 0; margin-right: 10px; width: 330px; height: 600px; overflow-y: auto;}
 .main-panel .prop-list{ }

@@ -117,6 +117,10 @@ $(function () {
                         name: "文字",
                         constructorNamePrefix: "BasicTxt"
                     },{
+                        id: "5",
+                        name: "通栏文字",
+                        constructorNamePrefix: "BasicTxtBanner"
+                    },{
                         id: "2",
                         name: "视频"
                     },{
@@ -140,6 +144,10 @@ $(function () {
                         id: "2",
                         name: "列表",
                         constructorNamePrefix: "StandardList"
+                    },{
+                        id: "4",
+                        name: "通栏列表",
+                        constructorNamePrefix: "StandardListBanner"
                     },{
                         id: "3",
                         name: "弹窗"
@@ -823,9 +831,9 @@ $(function () {
         }
 
         //查看当前元件是否有子元件，如果有子元件，则给其增加属性
-        var childDOMs = oComponent.childComponents;
-        if(childDOMs){
-            $.each(childDOMs, function (i, oChildComponent) {
+        var aChildren = oComponent.childComponents;
+        if(aChildren){
+            $.each(aChildren, function (i, oChildComponent) {
                 renderDesignPanel({
                     instanceObj: oChildComponent,
                     $parent: containerDOM

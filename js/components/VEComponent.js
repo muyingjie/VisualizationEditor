@@ -277,6 +277,28 @@ function VEComponent(config){
                             propName: "颜色",
                             propVal: "#f00",
                             classSize: "2"
+                        },
+                        textAlign: {
+                            propName: "居中方式",
+                            propVal: "center",
+                            classSize: "1",
+                            interactiveStyle: "select",
+                            interactiveVal: {
+                                "select": [
+                                    {
+                                        showVal: "左",
+                                        propVal: "left"
+                                    },
+                                    {
+                                        showVal: "中",
+                                        propVal: "center"
+                                    },
+                                    {
+                                        showVal: "右",
+                                        propVal: "right"
+                                    }
+                                ]
+                            }
                         }
                     }
                 },
