@@ -15,6 +15,7 @@ function VEComponent(config){
         containerClassName: componentContainerClassName,
         canDragToMove: true,
         canDragToScale: true,
+        canDragToScaleChangeWidth: true,
         controlItems: {
             css: [
                 {
@@ -171,7 +172,7 @@ function VEComponent(config){
                         },
                         borderStyle: {
                             propName: "样式",
-                            propVal: "none",
+                            propVal: "solid",
                             classSize: "2",
                             interactiveStyle: "select",
                             interactiveVal: {
@@ -210,7 +211,7 @@ function VEComponent(config){
                     groupItems: {
                         backgroundColor: {
                             propName: "颜色",
-                            propVal: "#efefef",
+                            propVal: "#fff",
                             classSize: "2",
                             interactiveStyle: "input_text"
                         },

@@ -11,7 +11,8 @@ function ContainerVerticalVEComponent(config){
 
     $.extend(true, this, {
         canDragToMove: false,
-        canDragToScale: false
+        canDragToScale: true,
+        canDragToScaleChangeWidth: false
     });
     this.setControlItem({
         propLevel1: "css",
@@ -24,7 +25,7 @@ function ContainerVerticalVEComponent(config){
     },{
         propLevel1: "css",
         propLevel2: "position",
-        propVal: ""
+        propVal: "relative"
     },{
         propLevel1: "css",
         propLevel2: "paddingTop",

@@ -45,7 +45,7 @@ select{ outline: none;}
 .moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute; z-index: 9999;}
 .componentContainer{}
 .active-component-frame{ position: absolute; border: 1px solid #03e; z-index: -1;}
-.component-too-bigger-propmt{ width: 308px; height: 20px; color: #f00; font-weight: bold; background: #fff; border: 1px solid #ccc; line-height: 20px; position: absolute; left: 50%; top: 50%; margin-left: -154px; margin-top: -300px; z-index: 100000;}
+.component-too-bigger-propmt{ width: 308px; height: 20px; color: #f00; font-weight: bold; background: #fff; line-height: 20px; position: absolute; left: 50%; top: 50%; margin-left: -154px; margin-top: -300px; z-index: 100000;}
 
 
 /*.one-component-propList{width:300px;height: auto;}*/

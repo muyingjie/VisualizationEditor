@@ -25,17 +25,24 @@ $(function () {
         var oRelatedComponent = $relatedDOM.data("instanceObj");
         var $relatedDOMParent = $relatedDOM.parent();
         var oRelatedParentComponent = $relatedDOMParent.data("instanceObj");
-        var aRelatedParentChildComponents = oRelatedParentComponent.childComponents;
-        $.each(aRelatedParentChildComponents, function (i, o) {
-            if(oRelatedComponent === o){
-                aRelatedParentChildComponents.splice(i, 1);
-            }
-        });
+        var aRelatedParentChildComponents;
 
         //DOM上的删除
         $relatedDOM.remove();
         //干掉$relatedDOM的同时也把$(".active-component-frame")干掉
         $(".active-component-frame").remove();
+
+        //实例化对象的删除
+        //最顶层为$stage时，肯定没有instanceObject数据缓存
+        if(!oRelatedParentComponent){
+            return;
+        }
+        aRelatedParentChildComponents = oRelatedParentComponent.childComponents;
+        $.each(aRelatedParentChildComponents, function (i, o) {
+            if(oRelatedComponent === o){
+                aRelatedParentChildComponents.splice(i, 1);
+            }
+        });
     });
 
     $save.click(function () {
@@ -323,8 +330,8 @@ $(function () {
                 downX = e.pageX;
                 downY = e.pageY;
 
-                oldW = $component.width();
-                oldH = $component.height();
+                oldW = $component.outerWidth();
+                oldH = $component.outerHeight();
 
                 //引入定位容器之后，由于定位容器也可以拖动，而定位容器也可以作父级，因此父级的坐标是可变的
                 stageL = $parent.offset().left;
@@ -338,8 +345,8 @@ $(function () {
                 var y = e.pageY;
                 var l = $component.offset().left;
                 var t = $component.offset().top;
-                var r = l + $component.width();
-                var b = t + $component.height();
+                var r = l + $component.outerWidth();
+                var b = t + $component.outerHeight();
                 var absL;
                 var absT;
                 var absW;
@@ -405,11 +412,12 @@ $(function () {
                 var parseAbsT = parseInt(absT);
                 var isParseAbsLNaN = isNaN(parseAbsL);
                 var isParseAbsTNaN = isNaN(parseAbsT);
-                //如果拖到了外围，直接返回
-                if(isParseAbsLNaN){ return; }
-                if(isParseAbsTNaN){ return; }
+                //如果拖到了外围，直接返回，暂时屏蔽
+                // if(isParseAbsLNaN){ return; }
+                // if(isParseAbsTNaN){ return; }
                 var canDragToMove = oComponent.canDragToMove;
                 var canDragToScale = oComponent.canDragToScale;
+                var canDragToScaleChangeWidth = oComponent.canDragToScaleChangeWidth;
                 var needUpdateProps = {};
                 if(!canDragToMove && !canDragToScale){
                     return;
@@ -422,9 +430,13 @@ $(function () {
                 }
                 if(canDragToScale){
                     $.extend(needUpdateProps, {
-                        width: absW,
                         height: absH
                     });
+                    if(canDragToScaleChangeWidth){
+                        $.extend(needUpdateProps, {
+                            width: absW
+                        });
+                    }
                 }
                 var modifiedProps = [{
                     name: "css",
@@ -797,6 +809,23 @@ $(function () {
                     return;
                 }
             }
+            //拖进来的元件宽或者高不得小于父容器的宽和高
+            var pw = $parent.width();
+            var ph = $parent.height();
+            var orgw = oComponent.getControlItem({
+                propLevel1: "css",
+                propLevel2: "width"
+            }).propVal;
+            var w = parseInt(orgw);
+            var orgh = oComponent.getControlItem({
+                propLevel1: "css",
+                propLevel2: "height"
+            }).propVal;
+            var h = parseInt(orgh);
+            if(pw < w || ph < h){
+                componentTooBiggerPrompt();
+                return;
+            }
             updateOneComponent(config);
             //给面板中的每个元件增加拖动事件
             $.extend(true, config, {
@@ -968,14 +997,16 @@ $(function () {
         });
         $activeComponentFrame.css({left:l, top:t, width: w,height: h});
     }
-    componentTooBiggerPrompt();
+
     function componentTooBiggerPrompt(){
         var $tooBiggerPrompt = $("<div>").addClass("component-too-bigger-propmt ft14").html("您拖进来的元件过大，请增大父容器尺寸之后重试");
         $stage.append(
             $tooBiggerPrompt
         );
         setTimeout(function (){
-            $tooBiggerPrompt.remove();
-        }, 3000);
+            $tooBiggerPrompt.animate({opacity: 0}, function () {
+                $tooBiggerPrompt.remove();
+            });
+        }, 1000);
     }
 });

@@ -74,19 +74,19 @@ function StandardListVEComponent(config){
     }, {
         propLevel1: "css",
         propLevel2: "paddingLeft",
-        propVal: "20px"
+        propVal: "10px"
     }, {
         propLevel1: "css",
         propLevel2: "paddingRight",
-        propVal: "20px"
+        propVal: "10px"
     }, {
         propLevel1: "css",
         propLevel2: "paddingTop",
-        propVal: "20px"
+        propVal: "10px"
     }, {
         propLevel1: "css",
         propLevel2: "paddingBottom",
-        propVal: "20px"
+        propVal: "10px"
     });
 
     addListItem();

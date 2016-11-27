@@ -18,8 +18,8 @@
         isInObj: function (e, $obj) {
             var ex = e.pageX;
             var ey = e.pageY;
-            var ow = $obj.width();
-            var oh = $obj.height();
+            var ow = $obj.outerWidth();
+            var oh = $obj.outerHeight();
             var ol = $obj.offset().left;
             var ot = $obj.offset().top;
             var or = ol + ow;
