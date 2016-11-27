@@ -19,6 +19,18 @@ $(function () {
     var $del = $(".top input[name='delete']");
     //保存
     var $save = $(".top input[name='save']");
+    //选择分辨率
+    var $ratioSign = $(".stage-wrap .ratio-list-wrap .select-ratio .sign");
+    //选中文字
+    var $ratioTxt = $(".stage-wrap .ratio-list-wrap .select-ratio .txt");
+    //分辨率列表
+    var $ratioList = $(".stage-wrap .ratio-list-wrap .ratio-list");
+    //分辨率列表中各项
+    var $ratioListItems;
+
+    $ratioSign.click(function () {
+        $ratioList.toggleClass("hide");
+    });
     
     $del.click(function () {
         var $relatedDOM = $(".active-component-frame").data("relatedDOM");
@@ -111,6 +123,31 @@ $(function () {
 
     getAllComponentCategories();
     getAllContainerComponent();
+    getAllRatio();
+    function getAllRatio(){
+        var ratioList = [{
+            phone: "iPhone4",
+            width: 320,
+            height: 480,
+            dpr: 1
+        }, {
+            phone: "iPhone4s",
+            width: 320,
+            height: 480,
+            dpr: 2
+        }, {
+            phone: "iPhone5",
+            width: 320,
+            height: 568,
+            dpr: 2
+        }, {
+            phone: "iPhone6",
+            width: 375,
+            height: 667,
+            dpr: 2
+        }];
+        renderAllRatio(ratioList);
+    }
     function getAllComponentCategories(){
         var componentCategories = [
             {
@@ -191,6 +228,36 @@ $(function () {
             }
         ];
         renderAllContainerComponents(containerComponents);
+    }
+
+    function renderAllRatio(ratioList){
+        $.each(ratioList, function (i, o) {
+            $ratioList.append(
+                $("<div>").addClass("item").append(
+                    $("<div>").addClass("info").append(
+                        $("<span>").addClass("size").html(o.width + "*" + o.height + "；")
+                    ).append(
+                        $("<span>").addClass("dpr").html("dpr :" + o.dpr)
+                    )
+                ).append(
+                    $("<div>").addClass("phone").html(o.phone)
+                ).click(function () {
+                    renderStage.call(this, o);
+                })
+            );
+        });
+        $ratioListItems = $ratioList.find(".item");
+        //默认渲染第一个选项的尺寸
+        renderStage.call($ratioList.find(".item").get(0), ratioList[0]);
+    }
+
+    function renderStage(o){
+        $ratioListItems.removeClass("active");
+        $(this).addClass("active");
+        $ratioTxt.html(o.phone + "(" + o.width + "*" + o.height + ")");
+        $ratioList.toggleClass("hide");
+        $stage.css({width: o.width, height: o.height});
+        $(".stage-wrap").css({"width": o.width, "margin": "0 auto"});
     }
 
     function renderAllContainerComponents(containerComponents){

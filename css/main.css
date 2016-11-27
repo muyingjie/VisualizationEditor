@@ -6,7 +6,7 @@ select{ outline: none;}
 .il-par{ font-size: 0;}
 .il{ display: inline-block; font-size: 12px; vertical-align: top;}
 
-.clear{ clear: both;}
+.clear:after{ clear: both; display: block; content: "";}
 .fl{ float: left;}
 .fr{ float: right;}
 
@@ -24,17 +24,27 @@ select{ outline: none;}
 .whole-style-wrap .whole-style-list{ border-bottom: 1px solid #ccc;}
 .whole-style-wrap .whole-style-list .item a{ display: block; width: 80px; height: 60px; text-align: center; line-height: 60px; border: 1px solid #ccc; margin: 5px;}
 
-.main-panel{ position: relative;}
-.main-panel .widget-list{ margin: 10px; margin-top: 0;}
+.main-panel{ position: relative; background: #666;}
+.main-panel .widget-list{ margin: 10px; margin-top: 0; position: absolute; left: 0;}
 .main-panel .list-cate-item{ margin-bottom: 5px;}
 .main-panel .list-cate-item .name{ height: 30px; background: #eeefff; line-height: 30px; text-align: center;}
 .main-panel .list-cate-item .list{ width: 200px; }
 .main-panel .list-cate-item .list .item{ width: 50%; height: 40px; background: #fff; border: 1px solid #eee; box-sizing: border-box;}
 .main-panel .list-cate-item .list .item .txt{ display: block; line-height: 40px; text-align: center; }
 
-.main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 350px 10px 250px; position: relative;}
-.main-panel .widget-list{ position: absolute; left: 0; top: 0;}
-.main-panel .prop-list-wrap{ position: absolute; right: 0; top: 0; margin-right: 10px; width: 330px; height: 600px; overflow-y: auto;}
+.main-panel .stage-wrap{ position: relative; padding-top: 30px;}
+.main-panel .ratio-list-wrap{ position: absolute; top: 0;}
+.main-panel .ratio-list-wrap .select-ratio{ width: 200px; height: 20px; line-height: 20px; background: #eee; margin-top: 5px;}
+.main-panel .ratio-list-wrap .select-ratio .txt{ padding-left: 10px;}
+.main-panel .ratio-list-wrap .select-ratio .sign{ padding-right: 10px;}
+.main-panel .ratio-list-wrap .ratio-list{ width: 200px; border: 1px solid #eee; box-sizing: border-box;}
+.main-panel .ratio-list-wrap .ratio-list.hide{ display: none;}
+.main-panel .ratio-list-wrap .item{ padding: 5px 10px; cursor: pointer;}
+.main-panel .ratio-list-wrap .item:hover,.main-panel .ratio-list-wrap .item.active{ background: #eee;}
+
+.main-panel .stage{ border: 1px solid #eee111; background: #fff;}
+.main-panel .widget-list{ margin-top: 5px;}
+.main-panel .prop-list-wrap{ margin-right: 10px; width: 330px; height: 600px; overflow-y: auto; position: absolute; right: 0; top: 0;}
 .main-panel .prop-list{ }
 .main-panel .prop-list .one-component{ border:1px solid #ccc; padding: 5px;width:300px;}
 .main-panel .prop-list .item{ margin-bottom: 5px;}
