@@ -406,8 +406,8 @@ $(function () {
                 stageL = $parent.offset().left;
                 stageT = $parent.offset().top;
 
-                stageW = $parent.width();
-                stageH = $parent.height();
+                stageW = $parent.outerWidth();
+                stageH = $parent.outerHeight();
             },
             onMove: function (e) {
                 var x = e.pageX;
@@ -420,6 +420,8 @@ $(function () {
                 var absT;
                 var absW;
                 var absH;
+                var isHorizontalOverranging = false;
+                var isVerticalOverranging = false;
                 switch (cursorDirection){
                     case "e":
                         absW = oldW + (x - downX);
@@ -464,26 +466,33 @@ $(function () {
                 //拖拽限制范围
                 absW = (absW ? absW : oldW);
                 absH = (absH ? absH : oldH);
+                if(absL == undefined){
+                    absL = $component.position().left;
+                }
+                if(absT == undefined){
+                    absT = $component.position().top;
+                }
                 if(absL < 0){
+                    isHorizontalOverranging = true;
                     absL = 0;
                 }
                 if(absT < 0){
+                    isVerticalOverranging = true;
                     absT = 0;
                 }
                 if(absL > stageW - absW){
+                    isHorizontalOverranging = true;
                     absL = stageW - absW;
                 }
                 if(absT > stageH - absH){
+                    isVerticalOverranging = true;
                     absT = stageH - absH;
                 }
-                //absL absT在拖动到边界之外时，上面四个if都不会成立，这两个值都会变成undefined，需要处理一下
-                var parseAbsL = parseInt(absL);
-                var parseAbsT = parseInt(absT);
-                var isParseAbsLNaN = isNaN(parseAbsL);
-                var isParseAbsTNaN = isNaN(parseAbsT);
-                //如果拖到了外围，直接返回，暂时屏蔽
-                // if(isParseAbsLNaN){ return; }
-                // if(isParseAbsTNaN){ return; }
+                console.log(absL, absT, isHorizontalOverranging, isVerticalOverranging);
+                //如果拖到了外围，直接返回
+                if(isHorizontalOverranging || isVerticalOverranging){
+                    return;
+                }
                 var canDragToMove = oComponent.canDragToMove;
                 var canDragToScale = oComponent.canDragToScale;
                 var canDragToScaleChangeWidth = oComponent.canDragToScaleChangeWidth;

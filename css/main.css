@@ -24,7 +24,7 @@ select{ outline: none;}
 .whole-style-wrap .whole-style-list{ border-bottom: 1px solid #ccc;}
 .whole-style-wrap .whole-style-list .item a{ display: block; width: 80px; height: 60px; text-align: center; line-height: 60px; border: 1px solid #ccc; margin: 5px;}
 
-.main-panel{ position: relative; background: #666;}
+.main-panel{ position: relative; background: #666; padding-bottom: 5px;}
 .main-panel .widget-list{ margin: 10px; margin-top: 0; position: absolute; left: 0;}
 .main-panel .list-cate-item{ margin-bottom: 5px;}
 .main-panel .list-cate-item .name{ height: 30px; background: #eeefff; line-height: 30px; text-align: center;}

@@ -20,7 +20,12 @@ function BasicImgVEComponent(config){
             propLevel1: "attr",
             propLevel2: "src",
             propName: "源",
+            isShow: true,
             propVal: "img/liancang.jpg"
+        }, {
+            propLevel1: "css",
+            propLevel2: "borderWidth",
+            propVal: "0"
         });
     }
 }
