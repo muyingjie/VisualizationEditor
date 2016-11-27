@@ -38,11 +38,13 @@ $(function () {
             return;
         }
         aRelatedParentChildComponents = oRelatedParentComponent.childComponents;
-        $.each(aRelatedParentChildComponents, function (i, o) {
-            if(oRelatedComponent === o){
-                aRelatedParentChildComponents.splice(i, 1);
-            }
-        });
+        if(aRelatedParentChildComponents){
+            $.each(aRelatedParentChildComponents, function (i, o) {
+                if(oRelatedComponent === o){
+                    aRelatedParentChildComponents.splice(i, 1);
+                }
+            });
+        }
     });
 
     $save.click(function () {
@@ -495,6 +497,19 @@ $(function () {
     function componentBiDirectionalDataBinding(config){
         var modifiedProps = config.modifiedProps;
         var oComponent = config.instanceObj;
+        var $containerDOM = oComponent.containerDOM;
+        var $parent = oComponent.containerDOM.parent();
+        //注意这里不是可视区宽，而是css宽
+        var parentWidth = $parent.width();
+        var parentHeight = $parent.height();
+        var parentOuterWidth = $parent.outerWidth();
+        var parentOuterHeight = $parent.outerHeight();
+        var outerDifferenceWidth = (parentOuterWidth - parentWidth) / 2;
+        var outerDifferenceHeight = (parentOuterHeight - parentHeight) / 2;
+        var parentRight = $parent.offset().left + parentOuterWidth - outerDifferenceWidth;
+        var parentBottom = $parent.offset().top + parentOuterHeight - outerDifferenceHeight;
+        var oldComponentWidth = parseInt($containerDOM.outerWidth());
+        var oldComponentHeight = parseInt($containerDOM.outerHeight());
 
         //将修改的属性结构组织成renderComponentProps函数所能接受的结构，即实例化对象的controlItems属性对应的结构
         var extractedControlItems = {};
@@ -513,11 +528,11 @@ $(function () {
                 groupItems: groupItems
             });
             $.each(prop.val, function (attrName, attrVal) {
+                //先将现有的属性值赋值给extractedControlItems，此处为引用传递
                 groupItems[attrName] = oComponent.getControlItem({
                     propLevel1: fnName,
                     propLevel2: attrName
                 });
-
                 if(attrVal != undefined){
                     oComponent.setControlItem({
                         propLevel1: fnName,
@@ -770,7 +785,9 @@ $(function () {
             //首先判断拖进来的是容器组件还是其他组件
             //容器组件但不是定位容器组件的分支
             if(isLayoutComponent && !isLayoutPositionComponent){
-                if(myj.isInObj(e, $stage)){
+                if($curContainer){
+                    $parent = $curContainer;
+                }else if(myj.isInObj(e, $stage)){
                     //如果放手点在$stage里面
                     $parent = $stage;
                 }
