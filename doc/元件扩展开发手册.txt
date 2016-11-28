@@ -1,0 +1,115 @@
+整体架构：
+                                                VEComponent(所有元件的父类)
+                                                            |
+________________________________________________________________________________________________________________
+|                                           |                                  |                                |
+BasicVEComponent(基础元件)    StandardVEComponent(标准元件)     ContainerVEComponent(容器元件)      BusinessVEComponent(待开发)
+
+扩展新组件的步骤
+1、在components文件夹下新建一个文件，建议以类名作为文件名(此处以BasicIconVEComponent为例)，如果要创建一个容器元件类的话类名中一定要含有Container（注意大小写）
+2、在主页面中引入刚刚创建的js文件
+3、继承父类 修改inherit.js
+4、查看获取所有元件类型的函数，即getAllComponentCategories中是否获取到对应的元件类型并为其扩展类名前缀属性constructorNamePrefix
+5、新建的构造函数BasicIconVEComponent里面首先需要继承父级属性，代码如下：
+    function BasicIconVEComponent(config){
+        config = config ? config : {};
+        //此处需要注意：元件实例化对象的containerDOM属性代表该元件对应的DOM对象，如果所添加的元件对应的DOM对象元素不是div的话，在此覆盖该值
+        //一定不可以在属性继承语句，即BasicVEComponent.apply(this, args);之后修改containerDOM属性
+        $.extend(true, config, {
+            containerDOM: $("<img>")
+        });
+        var args = [].slice.call(arguments, 0);
+        BasicVEComponent.apply(this, args);
+    }
+6、通过this.controlItems可以拿到当前元素所有属性控制项，主要分为以下几类：
+    css：css样式的控制，例如left top width height等等
+    attr：独立属性的控制，例如href src checked等等
+    aloneExec：直接在jQuery实例化对象挂载的方法，例如html text
+    otherAttrs：自定义属性，例如name(代表元件名)
+
+    每一种属性结构都是
+    backgroundRepeat: {
+        propName: "背景平铺", //属性名
+        propVal: "no-repeat", //属性默认值
+        isShow: true, //是否在右侧属性面板中显示，默认为true，带扩展
+        interactiveStyle: "select" //属性展现类型 select input_text 默认为input_text
+        interactiveVal: { //各种展现类型对应的值
+            "select": [
+                {
+                    showVal: "不平铺",
+                    propVal: "no-repeat"
+                },
+                {
+                    showVal: "水平方向平铺",
+                    propVal: "repeat-x"
+                },
+                {
+                    showVal: "垂直方向平铺",
+                    propVal: "repeat-y"
+                },
+                {
+                    showVal: "平铺",
+                    propVal: "repeat"
+                }
+            ]
+        },
+        onPropValChangeAfter: function(config){
+            //初始化时不会传入e对象
+            var e = config.e;
+            var changeVal = config.changeVal;
+        },
+        onPropValCreateAfter: function () {
+
+        }
+    }
+
+    扩展元件时主要以自定义属性，也就是otherAttrs较为常用，例如我们要扩展一个选择Icon类型来改变对应图片src的例子：
+    selectIconCategory: {
+        propName: "选择图标类型",
+        propVal: "ok",
+        interactiveStyle: "select",
+        interactiveVal: {
+            "select": [
+                {
+                    showVal: "正确",
+                    propVal: "img/ok.png"
+                },
+                {
+                    showVal: "警告",
+                    propVal: "img/warning.png"
+                }
+            ]
+        },
+        onPropValChangeAfter: function (config) {
+            //初始化时不会传入e对象
+            var e = config.e;
+            var changeVal = config.changeVal;
+        }
+    }
+
+附：VEComponent实例化对象所有属性：
+类属性（静态属性）：
+curZIndex           目前仅在内部用到
+
+实例化属性
+componentName       组件的名字
+containerClassName  在DOM元素上要加的类名
+canDragToMove       是否允许拖动
+canDragToScale      是否允许拖拽改变大小
+containerDOM        将在设计面板上添加的DOM元素，如果希望是其他类型元素，请务必在调用父类继承之前改变该属性的值
+controlItems
+
+
+
+
+注意：
+1、类被实例化时必须传入参数，该参数类型必须为json对象
+2、强烈建议使用超类的setControlItem方法设置类属性，不建议通过直接修改属性的方式设置其值
+
+复合组件注意：
+1、要给子元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + childComponentClassName
+2、要给容器元素实例化对象的containerClassName属性赋值为componentContainerClassName + " " + layoutContainerClassName
+3、如果既是子元素实例化对象，同时又是容器元素实例化对象，其containerClassName属性需赋值为componentContainerClassName + " " + layoutContainerClassName
+
+容器组件注意：
+1、容器元素的父元素不是容器元素，容器元素是直接放其他元件的元素
