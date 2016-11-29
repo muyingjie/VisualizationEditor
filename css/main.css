@@ -33,13 +33,13 @@ select{ outline: none;}
 .main-panel .list-cate-item .list .item .txt{ display: block; line-height: 40px; text-align: center; }
 
 .main-panel .stage-wrap{ position: relative; padding-top: 30px;}
-.main-panel .ratio-list-wrap{ position: absolute; top: 0;}
+.main-panel .ratio-list-wrap{ position: absolute; top: 0; z-index: 9999;}
 .main-panel .ratio-list-wrap .select-ratio{ width: 200px; height: 20px; line-height: 20px; background: #eee; margin-top: 5px;}
 .main-panel .ratio-list-wrap .select-ratio .txt{ padding-left: 10px;}
 .main-panel .ratio-list-wrap .select-ratio .sign{ padding-right: 10px;}
 .main-panel .ratio-list-wrap .ratio-list{ width: 200px; border: 1px solid #eee; box-sizing: border-box;}
 .main-panel .ratio-list-wrap .ratio-list.hide{ display: none;}
-.main-panel .ratio-list-wrap .item{ padding: 5px 10px; cursor: pointer;}
+.main-panel .ratio-list-wrap .item{ padding: 5px 10px; cursor: pointer; background: #fff;}
 .main-panel .ratio-list-wrap .item:hover,.main-panel .ratio-list-wrap .item.active{ background: #eee;}
 
 .main-panel .stage{ border: 1px solid #eee111; background: #fff;}
