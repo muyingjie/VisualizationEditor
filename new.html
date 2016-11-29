@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设计器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="js/page.js"></script>
+</head>
+<body>
+<div class="toolbar">
+   <dl class="appName">我的应用</dl>
+   <dl class="goBack"><a>返回</a></dl>
+   <dl class="toolsBtn">
+       <a>保</a>
+       <a>返</a>
+       <a>删</a>
+       <a>d</a>
+       <a>e</a>
+       <a>f</a>
+       <a>g</a>
+   </dl>
+   <dl class="assistBtn">
+     <a>返回上面</a>
+     <a>其它事件</a>
+   </dl>
+</div>
+
+<div class="components">
+    <div class="top"><a>返回上页</a></div>
+    <div class="nav">
+        <a class="active">页</a>
+        <a>标</a>
+        <a>业</a>
+    </div>
+    <div class="area active">
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+    </div>
+    <div class="area">
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+    </div>
+    <div class="area">
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+    </div>
+
+    <div class="bot">
+        <dl><a></a></dl>
+        <dl><a></a></dl>
+    </div>
+</div>
+
+<div class="screens">
+   <div class="workbench">
+       <canvas width="992" height="30" class="canvas_up"></canvas>
+       <canvas width="30" height="329" class="canvas_dow" ></canvas>
+       <div class="design">
+           <div class="box">
+               <div class="canvas">
+
+               </div>
+               <div class="bar">
+                   <a class="color"> </a>
+                   <a class="size"> </a>
+                   <a class="img"> </a>
+               </div>
+           </div>
+       </div>
+   </div>
+
+
+
+</div>
+<div class="panel">
+    <div class="nav">
+        <a class="active">属性</a>
+        <a>组件</a>
+    </div>
+    <div class="area active">
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+    </div>
+    <div class="area">
+        <dl><a>图片</a></dl>
+        <dl><a>图片</a></dl>
+    </div>
+
+    <div class="bot">
+        <dl><a></a></dl>
+        <dl><a></a></dl>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $.ins();
+        $(window).resize(function(){
+            $.autoWindow();
+        });
+    })
+</script>
+</body>
+</html>
