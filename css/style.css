@@ -78,12 +78,12 @@ border-right: 1px solid rgb(153, 153, 153); z-index: 9999; background-color: whi
 
 /*组件属性*/
 .componentAttribute{height: auto;}
-.componentAttribute .row{height:auto;padding:6px 0px;margin:0px; border-bottom: 1px solid #ccc;}
-.componentAttribute .row h5{font-size:12px;padding:0px;margin: 0px;height:20px;color:#666;width:100%;}
+.componentAttribute .row{height:auto;padding:6px 0px;margin:0px; border-bottom: 1px dotted #ccc;}
+.componentAttribute .row h5{font-size:12px;padding:0px;margin: 0px;height:20px;color:#9f9f9f;width:100%;}
 .componentAttribute .row dd{height:auto;padding:1px 0px;display:inline-block;margin:0px;line-height:22px;margin:0px;}
-.componentAttribute .row dd input{font-size:12px;color:#666;height:16px;line-height:16px;margin:0px;padding:0px;border:1px solid #ccc;}
-.componentAttribute .row dd  label{text-align:right;float:left;color:#666;font-size:12px;padding-right:3px; }
-.componentAttribute .row dd .select{color:#666;font-sze:12px;border:1px solid #ccc;}
+.componentAttribute .row dd input{font-size:12px;color:#9f9f9f;height:16px;line-height:16px;margin:0px;padding:0px;border:1px solid #ccc;}
+.componentAttribute .row dd label{text-align:right;float:left;color:#9f9f9f;font-size:12px;padding-right:3px; }
+.componentAttribute .row dd .select{color:#9f9f9f;font-sze:12px;border:1px solid #ccc;}
 .componentAttribute .row dd .label1{width:50px;}
 .componentAttribute .row dd .label2{width:50px;}
 .componentAttribute .row dd .label4{width:14px;}
