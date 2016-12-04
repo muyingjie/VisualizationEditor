@@ -36,13 +36,13 @@ function VEComponent(config){
                             interactiveStyle: "input_text"
                         },
                         left: {
-                            propName: "X轴",
+                            propName: "X",
                             propVal: "0",
                             classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         top: {
-                            propName: "Y轴",
+                            propName: "Y",
                             propVal: "0",
                             classSize: "4",
                             interactiveStyle: "input_text"

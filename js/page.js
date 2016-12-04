@@ -17,7 +17,7 @@ $.extend({
         $(".components").css({'height': (areaHeight - 38) + 'px'});
         $(".components .area").css({'height': (areaHeight - 158) + 'px'});
         $(".panel").css({'height': (areaHeight - 38) + 'px'});
-        $(".panel .area .top").css({'height': (areaHeight - 118) + 'px'});
+        $(".panel .area>.top").css({'height': (areaHeight - 118) + 'px'});
         $(".screens .workbench").css({'height': (areaHeight - 38) + 'px'});
     },
     setPanel:function(obj,my,area){

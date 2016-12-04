@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>设计器</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/iconfont.css">
     <script src="js/jquery-1.7.2.js"></script>
     <script src="js/page.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/MyjDrag.js"></script>
+
+    <!-- 所有组件的父类 -->
+    <script src="js/components/VEComponent.js"></script>
+    <!-- 基本组件 -->
+    <script src="js/components/BasicVEComponent.js"></script><!-- 基本组件的父类 -->
+    <script src="js/components/BasicTxtVEComponent.js"></script>
+    <script src="js/components/BasicTxtBannerVEComponent.js"></script>
+    <script src="js/components/BasicImgVEComponent.js"></script>
+    <script src="js/components/BasicIconVEComponent.js"></script>
+    <!-- 标准组件 -->
+    <script src="js/components/StandardVEComponent.js"></script>
+    <script src="js/components/StandardListVEComponent.js"></script>
+    <script src="js/components/StandardListBannerVEComponent.js"></script>
+    <script src="js/components/StandardTxtImgVerticalVEComponent.js"></script>
+    <!-- 容器组件 -->
+    <script src="js/components/ContainerVEComponent.js"></script><!-- 容器组件父类 -->
+    <script src="js/components/ContainerVerticalVEComponent.js"></script>
+    <script src="js/components/ContainerPositionVEComponent.js"></script>
+    <!-- 业务组件 -->
+
+    <script src="js/components/inherit.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 <div class="toolbar">
@@ -30,22 +55,22 @@
         <a class="icon iconfont icon-component"></a>
         <a class="icon iconfont icon-componentcopy"></a>
     </div>
-    <div class="area active">
-        <dl><a class="icon iconfont icon-layoutcol" title="绝对容器"></a></dl>
-        <dl><a class="icon iconfont icon-layout2" title="相对容器"></a></dl>
-        <dl><a class="icon iconfont icon-defaultform" title="表单"></a></dl>
-        <dl><a class="icon iconfont icon-txt" title="单行文本"></a></dl>
-        <dl><a class="icon iconfont icon-txt1" title="多行文本"></a></dl>
-        <dl><a class="icon iconfont icon-img" title="图片"></a></dl>
-        <dl><a class="icon iconfont icon-a2" title="标签"></a></dl>
-        <dl><a class="icon iconfont icon-input" title="单行输入"></a></dl>
-        <dl><a class="icon iconfont icon-input1" title="多行输入"></a></dl>
-        <dl><a class="icon iconfont icon-1402liebiaokuangkongjian" title="下拉列表框"></a></dl>
-        <dl><a class="icon iconfont icon-button" title="按钮"></a></dl>
-        <dl><a class="icon iconfont icon-iconradiobox" title="单选框"></a></dl>
-        <dl><a class="icon iconfont icon-checkbox" title="多选框"></a></dl>
-        <dl><a class="icon iconfont icon-date" title="日期"></a></dl>
-        <dl><a class="icon iconfont icon-time" title="时间"></a></dl>
+    <div class="area widget-list active">
+        <!--<dl><a class="icon iconfont icon-layoutcol" title="绝对容器"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-layout2" title="相对容器"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-defaultform" title="表单"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-txt" title="单行文本"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-txt1" title="多行文本"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-img" title="图片"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-a2" title="标签"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-input" title="单行输入"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-input1" title="多行输入"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-1402liebiaokuangkongjian" title="下拉列表框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-button" title="按钮"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-iconradiobox" title="单选框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-checkbox" title="多选框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-date" title="日期"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-time" title="时间"></a></dl>-->
 
     </div>
     <div class="area">

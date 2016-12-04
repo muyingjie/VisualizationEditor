@@ -10,15 +10,13 @@ $(function () {
         }
     };
     //属性面板
-    var $propList = $(".prop-list").addClass("one-component");
-    //每个元件的属性列表
-    var $oneComponentPropList;
+    var $propList = $(".componentAttribute");
     //设计器主窗口
-    var $stage = $(".stage");
+    var $stage = $(".canvas");
     //删除
-    var $del = $(".top input[name='delete']");
+    var $del = $(".toolsBtn .icon-delete");
     //保存
-    var $save = $(".top input[name='save']");
+    var $save = $(".toolsBtn .icon-save");
     //选择分辨率
     var $ratioSign = $(".stage-wrap .ratio-list-wrap .select-ratio .sign");
     //选中文字
@@ -27,6 +25,12 @@ $(function () {
     var $ratioList = $(".stage-wrap .ratio-list-wrap .ratio-list");
     //分辨率列表中各项
     var $ratioListItems;
+
+    //窗口自适应
+    // $.ins();
+    $(window).resize(function(){
+        $.autoWindow();
+    });
 
     $ratioSign.click(function () {
         $ratioList.toggleClass("hide");
@@ -151,27 +155,41 @@ $(function () {
     function getAllComponentCategories(){
         var componentCategories = [
             {
+                categoryId: "4",
+                categoryName: "容器组件",
+                components: [
+                    {
+                        id: "1",
+                        name: "普通容器",
+                        cls: "icon-layoutcol",
+                        constructorNamePrefix: "ContainerVertical"
+                    },
+                    {
+                        id: "2",
+                        name: "定位容器",
+                        cls: "icon-layout2",
+                        constructorNamePrefix: "ContainerPosition"
+                    }
+                ]
+            },{
                 categoryId: "1",
                 categoryName: "页面组件",
                 components: [
                     {
                         id: "1",
                         name: "图片",
+                        cls: "icon-img",
                         constructorNamePrefix: "BasicImg"
                     },{
                         id: "4",
                         name: "文字",
+                        cls: "icon-txt1",
                         constructorNamePrefix: "BasicTxt"
                     },{
                         id: "5",
                         name: "通栏文字",
+                        cls: "icon-txt",
                         constructorNamePrefix: "BasicTxtBanner"
-                    },{
-                        id: "2",
-                        name: "视频"
-                    },{
-                        id: "3",
-                        name: "音频"
                     },{
                         id: "4",
                         name: "图标",
@@ -281,24 +299,30 @@ $(function () {
     function renderAllCompontentCategories(componentCategories){
         var $widgetList = $(".widget-list");
         $.each(componentCategories, function (cateIndex, cateObj) {
-            var $listCateItem = $("<div>").addClass("list-cate-item").append(
-                $("<div>").addClass("name").html(cateObj.categoryName)
-            ).append(
-                $("<ul>").addClass("list il-par")
-            );
-            $widgetList.append(
-                $listCateItem
-            );
+            // var $listCateItem = $("<div>").addClass("list-cate-item").append(
+            //     $("<div>").addClass("name").html(cateObj.categoryName)
+            // ).append(
+            //     $("<ul>").addClass("list il-par")
+            // );
+            // $widgetList.append(
+            //     $listCateItem
+            // );
             $.each(cateObj.components, function (comIndex, comObj) {
                 var constrName = comObj.constructorNamePrefix ? comObj.constructorNamePrefix : "";
-                var $componentCategoryObj = $("<a>").attr({
-                    "href": "javascript:;",
-                    "constructorName": constrName + "VEComponent"
-                }).addClass("txt").html(comObj.name);
-                $listCateItem.find(".list").append(
-                    $("<li>").addClass("item il").append(
-                        $componentCategoryObj
-                    )
+                var fontClass = comObj.cls ? comObj.cls : "icon-img";
+                var $componentCategoryObj = $("<dl>").append(
+                    $("<a>").attr({
+                        "href": "javascript:;"
+                    }).addClass("icon iconfont " + fontClass)
+                ).attr({"constructorName": constrName + "VEComponent"});
+
+                // $listCateItem.find(".list").append(
+                //     $("<li>").addClass("item il").append(
+                //         $componentCategoryObj
+                //     )
+                // );
+                $widgetList.append(
+                    $componentCategoryObj
                 );
                 //给每个类型的组件增加拖拽事件
                 addDragEffectToComponentCategory({
@@ -650,17 +674,13 @@ $(function () {
         // if(!containerDOM.hasClass(childComponentClassName)){
             $propList.html("");
         // }
-        var $oneComponentPropList = $("<div>").addClass("one-component-propList");
-        $propList.append(
-            $oneComponentPropList
-        );
         $.each(props, function (propCategoryName, propCategoryGroups) {
             $.each(propCategoryGroups, function (propCategoryGroupIndex, propCategoryGroup) {
                 var groupCls = propCategoryGroup.typeName;
                 if(propCategoryGroup.isShow){
-                    var $categoryGroupRow = $("<div>").addClass("row " + groupCls);
+                    var $categoryGroupRow = $("<div>").addClass("row");
                     $categoryGroupRow.append(
-                        $("<h5>").addClass("ft12").text(propCategoryGroup.groupName)
+                        $("<h5>").text(propCategoryGroup.groupName)
                     );
                     //循环组内各属性
                     if(propCategoryGroup.isShow){
@@ -679,17 +699,17 @@ $(function () {
                             }
                         });
                     }
-                    $oneComponentPropList.append($categoryGroupRow);
+                    $propList.append($categoryGroupRow);
                 }
             });
         });
 
         //对渲染结果进行处理，将空框去掉
-        $oneComponentPropList.children(".row").each(function (i, o){
-            if($(o).children(".area").length == 0){
-                $(o).remove();
-            }
-        });
+        // $propList.children(".row").each(function (i, o){
+        //     if($(o).children(".area").length == 0){
+        //         $(o).remove();
+        //     }
+        // });
 
         // if(childComponents){
         //     $.each(childComponents, function (i, oChildComponent) {
@@ -806,8 +826,8 @@ $(function () {
             // }
         }
 
-        $propItem = $("<div>").addClass("area il il-par").append(
-            $("<label>").addClass(labelClassName + "il pr5").html(propName)
+        $propItem = $("<dd>").addClass("group").append(
+            $("<label>").addClass(labelClassName).html(propName)
         ).append(
             $propValItem
         );
