@@ -47,6 +47,8 @@ $(function () {
         $relatedDOM.remove();
         //干掉$relatedDOM的同时也把$(".active-component-frame")干掉
         $(".active-component-frame").remove();
+        //干掉四周的拖拽改变大小的小方块
+        $(".direction-sign").remove();
 
         //实例化对象的删除
         //最顶层为$stage时，肯定没有instanceObject数据缓存
@@ -379,8 +381,6 @@ $(function () {
         var stageT;
         var stageW;
         var stageH;
-        var magneticDistance = 10;
-        var cursorDirection = "";
         var downX;
         var downY;
         var oldW;
@@ -420,46 +420,9 @@ $(function () {
                 var absH;
                 var isHorizontalOverranging = false;
                 var isVerticalOverranging = false;
-                switch (cursorDirection){
-                    case "e":
-                        absW = oldW + (x - downX);
-                        break;
-                    case "w":
-                        absL = x - stageL - disL;
-                        absW = oldW + (downX - x);
-                        break;
-                    case "s":
-                        absH = oldH + (y - downY);
-                        break;
-                    case "n":
-                        absT = y - stageT - disT;
-                        absH = oldH + (downY - y);
-                        break;
-                    case "ne":
-                        absT = y - stageT - disT;
-                        absH = oldH + (downY - y);
-                        absW = oldW + (x - downX);
-                        break;
-                    case "se":
-                        absH = oldH + (y - downY);
-                        absW = oldW + (x - downX);
-                        break;
-                    case "nw":
-                        absT = y - stageT - disT;
-                        absH = oldH + (downY - y);
-                        absL = x - stageL - disL;
-                        absW = oldW + (downX - x);
-                        break;
-                    case "sw":
-                        absH = oldH + (y - downY);
-                        absL = x - stageL - disL;
-                        absW = oldW + (downX - x);
-                        break;
-                    default:
-                        absL = x - stageL - disL;
-                        absT = y - stageT - disT;
-                        break;
-                }
+
+                absL = x - stageL - disL;
+                absT = y - stageT - disT;
 
                 //拖拽限制范围
                 absW = (absW ? absW : oldW);
@@ -486,16 +449,13 @@ $(function () {
                     isVerticalOverranging = true;
                     absT = stageH - absH;
                 }
-                console.log(stageW, absW, absL, absT, isHorizontalOverranging, isVerticalOverranging);
                 //如果拖到了外围，直接返回
                 if(isHorizontalOverranging || isVerticalOverranging){
                     return;
                 }
                 var canDragToMove = oComponent.canDragToMove;
-                var canDragToScale = oComponent.canDragToScale;
-                var canDragToScaleChangeWidth = oComponent.canDragToScaleChangeWidth;
                 var needUpdateProps = {};
-                if(!canDragToMove && !canDragToScale){
+                if(!canDragToMove){
                     return;
                 }
                 if(canDragToMove){
@@ -503,16 +463,6 @@ $(function () {
                         left: absL,
                         top: absT
                     });
-                }
-                if(canDragToScale){
-                    $.extend(needUpdateProps, {
-                        height: absH
-                    });
-                    if(canDragToScaleChangeWidth){
-                        $.extend(needUpdateProps, {
-                            width: absW
-                        });
-                    }
                 }
                 var modifiedProps = [{
                     name: "css",
@@ -530,39 +480,7 @@ $(function () {
                 });
             },
             onComponentMove: function (e) {
-                var x = e.pageX;
-                var y = e.pageY;
-                var l = $component.offset().left;
-                var t = $component.offset().top;
-                var r = l + $component.outerWidth();
-                var b = t + $component.outerHeight();
-
-                if(x - l > 0 && y - t > 0 && b - y > 0 && r - x > 0 && y - t > 0 && b - y > 0){
-                    if(x - l < magneticDistance){
-                        if(y - t < magneticDistance){
-                            cursorDirection = "nw";
-                        }else if(b - y < magneticDistance){
-                            cursorDirection = "sw"
-                        }else{
-                            cursorDirection = "w";
-                        }
-                    }else if(r - x < magneticDistance){
-                        if(y - t < magneticDistance){
-                            cursorDirection = "ne";
-                        }else if(b - y < magneticDistance){
-                            cursorDirection = "se";
-                        }else{
-                            cursorDirection = "e";
-                        }
-                    }else if(y - t < magneticDistance){
-                        cursorDirection = "n";
-                    }else if(b - y < magneticDistance){
-                        cursorDirection = "s";
-                    }else{
-                        cursorDirection = "";
-                    }
-                }
-                $component.css({"cursor": cursorDirection ? cursorDirection + "-resize" :"move"});
+                $component.css({"cursor": "move"});
             }
         };
         var oComponentDrag = new MyjDrag(componentDragConfig);
@@ -1048,7 +966,6 @@ $(function () {
         var $component = oComponent.containerDOM;
         $component.off("click.highlight");
         $component.on("click.highlight", function(e){
-            //将原来的元素移除
             highLightCurComponent(config);
             e.stopPropagation();
         });
@@ -1059,33 +976,255 @@ $(function () {
         var $component = oComponent.containerDOM;
         var $parent = config.$parent ? config.$parent : $component.parent();
 
+        //关联当前被选中的元素，此处待优化
+        //将原来的元素移除
         $(".active-component-frame").remove();
-        //活动元件的层级
-        var curComponentZIndex = oComponent.getControlItem({
-            propLevel1: "css",
-            propLevel2: "zIndex"
-        }).propVal;
         //关联DOM元素，为删除做准备
         var $activeComponentFrame = $("<div>").addClass("active-component-frame").data("relatedDOM", $component);
-        $parent.append(
+        $(document.body).append(
             $activeComponentFrame
         );
+
         //渲染属性面板
         renderPropsPanel(config);
-        //当前选中项高亮显示
-        //设置其层级为比当前活动元件低的一个等级
-        $activeComponentFrame.css({"zIndex": --curComponentZIndex});
 
-        var l = parseInt($component.position()["left"]) - 1 + "px";
-        var t = parseInt($component.position()["top"]) - 1 + "px";
+        var l = parseInt($component.position()["left"]);
+        var t = parseInt($component.position()["top"]);
         var w = $component.outerWidth();
         var h = $component.outerHeight();
+        var directionSignWidth = 6;
 
-        var curObjPositionVal = oComponent.getControlItem({
-            propLevel1: "css",
-            propLevel2: "position"
-        });
-        $activeComponentFrame.css({left:l, top:t, width: w,height: h});
+        //在四周创建8个方向标
+        var directions = [
+            {
+                val: "e",
+                left: l + w,
+                top: t + h / 2 - directionSignWidth / 2
+            },
+            {
+                val: "w",
+                left: l - directionSignWidth,
+                top: t + h / 2 - directionSignWidth / 2
+            },
+            {
+                val: "s",
+                left: l + w / 2,
+                top: t + h
+            },
+            {
+                val: "n",
+                left: l + w / 2,
+                top: t - directionSignWidth
+            },
+            {
+                val: "ne",
+                left: l + w,
+                top: t - directionSignWidth
+            },
+            {
+                val: "se",
+                left: l + w,
+                top: t + h
+            },
+            {
+                val: "nw",
+                left: l - directionSignWidth,
+                top: t - directionSignWidth
+            },
+            {
+                val: "sw",
+                left: l - directionSignWidth,
+                top: t + h
+            }
+        ];
+        $(".direction-sign").remove();
+        for(var i = 0;i < 8;i++){
+            (function (i) {
+                var directionSign = $("<div>").addClass("direction-sign").css({"left": directions[i].left, "top": directions[i].top});
+                $parent.append(
+                    directionSign
+                );
+                addDragEffectToDirectionSign($.extend(true, config, {
+                    $directionSign: directionSign,
+                    oDirection: directions[i]
+                }));
+            })(i);
+
+        }
+    }
+
+    function addDragEffectToDirectionSign(config){
+        var oComponent = config.instanceObj;
+        var $component = oComponent.containerDOM;
+        var $parent = config.$parent;
+
+        var $directionSign = config.$directionSign;
+        var oDirection = config.oDirection;
+
+        var disL;
+        var disT;
+        var stageL;
+        var stageT;
+        var stageW;
+        var stageH;
+        var cursorDirection = oDirection.val;
+        var downX;
+        var downY;
+        var oldW;
+        var oldH;
+        var directionSignDragConfig = {
+            $obj: $directionSign,
+            onDown: function (e) {
+                var l = $component.offset().left;
+                var t = $component.offset().top;
+                disL = e.pageX - l;
+                disT = e.pageY - t;
+
+                //down的时候x和y的坐标拖拽改变大小时用
+                downX = e.pageX;
+                downY = e.pageY;
+
+                oldW = $component.outerWidth();
+                oldH = $component.outerHeight();
+
+                //引入定位容器之后，由于定位容器也可以拖动，而定位容器也可以作父级，因此父级的坐标是可变的
+                stageL = $parent.offset().left;
+                stageT = $parent.offset().top;
+
+                stageW = $parent.width();
+                stageH = $parent.height();
+            },
+            onMove: function (e) {
+                var x = e.pageX;
+                var y = e.pageY;
+                var l = $component.offset().left;
+                var t = $component.offset().top;
+                var r = l + $component.outerWidth();
+                var b = t + $component.outerHeight();
+                var absL;
+                var absT;
+                var absW;
+                var absH;
+                var isHorizontalOverranging = false;
+                var isVerticalOverranging = false;
+                switch (cursorDirection){
+                    case "e":
+                        absW = oldW + (x - downX);
+                        break;
+                    case "w":
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    case "s":
+                        absH = oldH + (y - downY);
+                        break;
+                    case "n":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        break;
+                    case "ne":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        absW = oldW + (x - downX);
+                        break;
+                    case "se":
+                        absH = oldH + (y - downY);
+                        absW = oldW + (x - downX);
+                        break;
+                    case "nw":
+                        absT = y - stageT - disT;
+                        absH = oldH + (downY - y);
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    case "sw":
+                        absH = oldH + (y - downY);
+                        absL = x - stageL - disL;
+                        absW = oldW + (downX - x);
+                        break;
+                    default:
+                        absL = x - stageL - disL;
+                        absT = y - stageT - disT;
+                        break;
+                }
+
+                //拖拽限制范围
+                absW = (absW ? absW : oldW);
+                absH = (absH ? absH : oldH);
+                if(absL == undefined){
+                    absL = $component.position().left;
+                }
+                if(absT == undefined){
+                    absT = $component.position().top;
+                }
+                if(absL < 0){
+                    isHorizontalOverranging = true;
+                    absL = 0;
+                }
+                if(absT < 0){
+                    isVerticalOverranging = true;
+                    absT = 0;
+                }
+                if(absL > stageW - absW){
+                    isHorizontalOverranging = true;
+                    absL = stageW - absW;
+                }
+                if(absT > stageH - absH){
+                    isVerticalOverranging = true;
+                    absT = stageH - absH;
+                }
+                console.log(stageW, absW, absL, absT, isHorizontalOverranging, isVerticalOverranging);
+                //如果拖到了外围，直接返回
+                if(isHorizontalOverranging || isVerticalOverranging){
+                    return;
+                }
+                var canDragToMove = oComponent.canDragToMove;
+                var canDragToScale = oComponent.canDragToScale;
+                var canDragToScaleChangeWidth = oComponent.canDragToScaleChangeWidth;
+                var needUpdateProps = {};
+                if(!canDragToMove && !canDragToScale){
+                    return;
+                }
+                if(canDragToMove){
+                    $.extend(needUpdateProps, {
+                        left: absL,
+                        top: absT
+                    });
+                }
+                if(canDragToScale){
+                    $.extend(needUpdateProps, {
+                        height: absH
+                    });
+                    if(canDragToScaleChangeWidth){
+                        $.extend(needUpdateProps, {
+                            width: absW
+                        });
+                    }
+                }
+                var modifiedProps = [{
+                    name: "css",
+                    groupTypeName: "size",
+                    val: needUpdateProps
+                }];
+
+                componentBiDirectionalDataBinding({
+                    modifiedProps: modifiedProps,
+                    instanceObj: config.instanceObj
+                });
+
+                renderPropsPanel({
+                    instanceObj: oComponent
+                });
+            },
+            onUp: function (){
+                //此处代码略微冗余，待优化
+                highLightCurComponent(config);
+            },
+            onComponentMove: function (e) {
+                $directionSign.css({"cursor": cursorDirection + "-resize"});
+            }
+        };
+        var oDirectionSignDrag = new MyjDrag(directionSignDragConfig);
     }
 
     function componentTooBiggerPrompt(){
