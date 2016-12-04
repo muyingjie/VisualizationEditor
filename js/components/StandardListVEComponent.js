@@ -98,8 +98,6 @@ function StandardListVEComponent(config){
         _this.childComponents = [];
 
         var ContainerPositionComponentConfig = {
-            canDragToMove: false,
-            canDragToScale: false,
             containerClassName: componentContainerClassName + " " + layoutContainerClassName + " " + childComponentClassName
         };
         var oChildComponent;
