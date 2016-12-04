@@ -46,7 +46,7 @@ border-right: 1px solid rgb(153, 153, 153); z-index: 9999; background-color: whi
 .screens .workbench .design{margin:0px auto;width:300px;padding-top:60px; }
 .screens .workbench .design .box{width:322px;height:auto;min-height:400px;border:1px solid #c2c2c3;padding:19px 19px 12px 19px;border-radius:10px;background:#e3e8ea;}
 .screens .workbench .design .box .canvas{
-    width:282px;height:400px;border:1px solid #c2c2c3;background:#f0f0f2;);
+    width:282px;height:400px;border:1px solid #c2c2c3;background:#f0f0f2; position: relative;
 }
 .screens .workbench .design .box .bar{height:20px;padding-top:4px;text-align: center;position: relative;}
 .screens .workbench .design .box .bar a{display:inline-block;height:20px;font-size:18px;}

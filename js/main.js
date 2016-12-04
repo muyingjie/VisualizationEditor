@@ -125,9 +125,18 @@ $(function () {
         };
     }
 
+    //获取元件数据
     getAllComponentCategories();
-    getAllContainerComponent();
+    //获取分辨率数据
     getAllRatio();
+    //初始时在元件上添加一个容器元件
+    addComponentToStage({
+        constructorName: "ContainerVerticalVEComponent",
+        e: {
+            init: true
+        }
+    });
+
     function getAllRatio(){
         var ratioList = [{
             phone: "iPhone4",
@@ -234,20 +243,6 @@ $(function () {
         renderAllCompontentCategories(componentCategories);
     }
 
-    function getAllContainerComponent(){
-        var containerComponents = [{
-                containerId: "2",
-                containerName: "普通容器",
-                constructorNamePrefix: "ContainerVertical"
-            },{
-                containerId: "3",
-                containerName: "定位容器",
-                constructorNamePrefix: "ContainerPosition"
-            }
-        ];
-        renderAllContainerComponents(containerComponents);
-    }
-
     function renderAllRatio(ratioList){
         $.each(ratioList, function (i, o) {
             $ratioList.append(
@@ -278,35 +273,9 @@ $(function () {
         $(".stage-wrap").css({"width": o.width, "margin": "0 auto"});
     }
 
-    function renderAllContainerComponents(containerComponents){
-        var $wholeStyleList = $(".whole-style-list");
-        $.each(containerComponents, function (containerIndex, containerObj) {
-            var constrName = containerObj.constructorNamePrefix ? containerObj.constructorNamePrefix : "";
-            var $containerChild = $("<a>").attr({"href":"javascript:;","constructorName": constrName + "VEComponent"}).html(containerObj.containerName);
-            var $listContainerItem = $("<li>").addClass("item il").append(
-                $containerChild
-            );
-            $wholeStyleList.append(
-                $listContainerItem
-            );
-            //给每个类型的组件增加拖拽事件
-            addDragEffectToComponentCategory({
-                $componentCategoryObj: $containerChild
-            });
-        });
-    }
-
     function renderAllCompontentCategories(componentCategories){
         var $widgetList = $(".widget-list");
         $.each(componentCategories, function (cateIndex, cateObj) {
-            // var $listCateItem = $("<div>").addClass("list-cate-item").append(
-            //     $("<div>").addClass("name").html(cateObj.categoryName)
-            // ).append(
-            //     $("<ul>").addClass("list il-par")
-            // );
-            // $widgetList.append(
-            //     $listCateItem
-            // );
             $.each(cateObj.components, function (comIndex, comObj) {
                 var constrName = comObj.constructorNamePrefix ? comObj.constructorNamePrefix : "";
                 var fontClass = comObj.cls ? comObj.cls : "icon-img";
@@ -315,12 +284,6 @@ $(function () {
                         "href": "javascript:;"
                     }).addClass("icon iconfont " + fontClass)
                 ).attr({"constructorName": constrName + "VEComponent"});
-
-                // $listCateItem.find(".list").append(
-                //     $("<li>").addClass("item il").append(
-                //         $componentCategoryObj
-                //     )
-                // );
                 $widgetList.append(
                     $componentCategoryObj
                 );
@@ -356,30 +319,10 @@ $(function () {
                 var $drag = obj.$downObj;
                 //构造函数名
                 var constructorName = $drag.attr("constructorName");
-                var constructorFn = window[constructorName];
-                //实例化的元件是动态的，通过附加在DOM上的属性来判断
-                var oComponent = new constructorFn({
-                    componentName: "元件名"
-                });
-                oComponent.containerDOM.attr({"constructorName": constructorName});
 
-                //为复合元件中的子元件也加上constructorName属性
-                var aComponentChild = oComponent.childComponents;
-                if(aComponentChild){
-                    $.each(aComponentChild, function (i, oChild) {
-                        oChild.containerDOM.attr({"constructorName": myj.getFunctionName(oChild.constructor)});
-                    });
-                }
-
-                //渲染设计面板
-                renderDesignPanel({
-                    instanceObj: oComponent,
+                addComponentToStage({
+                    constructorName: constructorName,
                     e: obj.e
-                });
-
-                //渲染属性面板
-                renderPropsPanel({
-                    instanceObj: oComponent
                 });
 
                 $stage.off("mousemove.addComponent");
@@ -393,6 +336,37 @@ $(function () {
 
         var oComponentCategoryDrag = new MyjDrag(componentCategoryDragConfig);
         $moveVirtualObj = oComponentCategoryDrag.$moveVirtualObj;
+    }
+
+    function addComponentToStage(config){
+        var constructorName = config.constructorName;
+        var e = config.e;
+
+        var constructorFn = window[constructorName];
+        //实例化的元件是动态的，通过附加在DOM上的属性来判断
+        var oComponent = new constructorFn({
+            componentName: "元件名"
+        });
+        oComponent.containerDOM.attr({"constructorName": constructorName});
+
+        //为复合元件中的子元件也加上constructorName属性
+        var aComponentChild = oComponent.childComponents;
+        if(aComponentChild){
+            $.each(aComponentChild, function (i, oChild) {
+                oChild.containerDOM.attr({"constructorName": myj.getFunctionName(oChild.constructor)});
+            });
+        }
+
+        //渲染设计面板
+        renderDesignPanel({
+            instanceObj: oComponent,
+            e: e
+        });
+
+        //渲染属性面板
+        renderPropsPanel({
+            instanceObj: oComponent
+        });
     }
     
     function addDragEffectToComponent(config){
@@ -430,8 +404,8 @@ $(function () {
                 stageL = $parent.offset().left;
                 stageT = $parent.offset().top;
 
-                stageW = $parent.outerWidth();
-                stageH = $parent.outerHeight();
+                stageW = $parent.width();
+                stageH = $parent.height();
             },
             onMove: function (e) {
                 var x = e.pageX;
@@ -512,7 +486,7 @@ $(function () {
                     isVerticalOverranging = true;
                     absT = stageH - absH;
                 }
-                console.log(absL, absT, isHorizontalOverranging, isVerticalOverranging);
+                console.log(stageW, absW, absL, absT, isHorizontalOverranging, isVerticalOverranging);
                 //如果拖到了外围，直接返回
                 if(isHorizontalOverranging || isVerticalOverranging){
                     return;
@@ -885,6 +859,9 @@ $(function () {
                     $parent = $curContainer;
                 }else if(myj.isInObj(e, $stage)){
                     //如果放手点在$stage里面
+                    $parent = $stage;
+                }else if(e.init){
+                    //如果是初始化创建的容器
                     $parent = $stage;
                 }
             //页面组件、标准组件、业务组件、定位容器组件的分支
