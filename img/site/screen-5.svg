@@ -1,0 +1,29 @@
+<svg width="303" height="508" viewBox="0 0 303 508" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Group 10
+  </title>
+  <defs>
+    <path id="b" d="M0 1.747h263.212V469.61H0z"/>
+    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a">
+      <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+  </defs>
+  <g transform="translate(20 12)" fill="none" fill-rule="evenodd">
+    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#F9F9F9" xlink:href="#b"/>
+    <path fill="#FFF" d="M0 48.048h263.212v57.658H0zM0 112h263.212v57.658H0zM0 176.02h263.212v57.66H0zM0 239.68h263.212v57.657H0z"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="77.069" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="141.069" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="205.089" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="268.747" rx="20.11" ry="20.069"/>
+    <path fill="#F55D54" d="M0 0h263.212v47.705H0zM0 421.952h263.212v47.705H0z"/>
+    <path fill="#E7E7E7" d="M66 66h69.934v6.99H66zM66 130h108.834v6.99H66zM66 194.02h54.417v6.99H66zM66 257.68h78v6.988H66zM66 81h84.358v6.99H66zM66 145h34.967v6.99H66zM66 209.02h96.596v6.99H66zM66 272.68h48.298v6.988H66z"/>
+    <path d="M38.464 456.86c6.76 0 12.238-5.467 12.238-12.212s-5.48-12.213-12.238-12.213c-6.76 0-12.24 5.468-12.24 12.213 0 6.745 5.48 12.213 12.24 12.213z" fill-opacity=".1" fill="#FFF"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="100.53" cy="444.648" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="224.662" cy="444.648" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="25.238" cy="23.213" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#B00000" cx="162.596" cy="444.648" rx="12.238" ry="12.213"/>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg width="303" height="508" viewBox="0 0 303 508" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Group 11
+  </title>
+  <defs>
+    <path id="b" d="M0 2h263.212v467.863H0z"/>
+    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a">
+      <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <path id="c" d="M.017.348h116.8v116.306H.018z"/>
+    <path id="e" d="M.017.348h116.8v116.306H.018z"/>
+  </defs>
+  <g transform="translate(20 12)" fill="none" fill-rule="evenodd">
+    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#F9F9F9" xlink:href="#b"/>
+    <g transform="translate(10 99)">
+      <mask id="d" fill="#fff">
+        <use xlink:href="#c"/>
+      </mask>
+      <use fill="#F2F2F2" xlink:href="#c"/>
+      <path fill="#E3E3E3" mask="url(#d)" d="M-24.64 98.647L25.635 35.67l48.04 42.917 21.96-24.62 45.994 42.72.376 24.375-153.857.442"/>
+      <ellipse fill="#E7E7E7" cx="86.464" cy="24.202" rx="11.988" ry="11.918"/>
+    </g>
+    <g transform="translate(137 99)">
+      <mask id="f" fill="#fff">
+        <use xlink:href="#e"/>
+      </mask>
+      <use fill="#F2F2F2" xlink:href="#e"/>
+      <path fill="#E3E3E3" mask="url(#f)" d="M-24.64 98.647L25.635 35.67l48.04 42.917 21.96-24.62 45.994 42.72.376 24.375-153.857.442"/>
+      <ellipse fill="#E7E7E7" cx="86.464" cy="24.202" rx="11.988" ry="11.918"/>
+    </g>
+    <path fill="#FFF" d="M0 48h263.212v40.137H0z"/>
+    <path fill="#F4F4F4" d="M13 56h203v24H13z"/>
+    <path fill="#F55D54" d="M0 0h263.212v47.705H0z"/>
+    <g fill="#EEE">
+      <path d="M10 226h74.47v74H10zM10 309.736h74.47v74H10zM10 393.435h74.47v74H10zM94.272 226h74.47v74H94.27zM94 309.736h74.47v74H94zM94 393.435h74.47v74H94zM178.53 226H253v74h-74.47zM179 309.736h74.47v74H179zM179 393.435h74.47v74H179z"/>
+    </g>
+    <path fill="#F55D54" d="M0 421.952h263.212v47.705H0z"/>
+    <path d="M38.464 456.86c6.76 0 12.238-5.467 12.238-12.212s-5.48-12.213-12.238-12.213c-6.76 0-12.24 5.468-12.24 12.213 0 6.745 5.48 12.213 12.24 12.213z" fill-opacity=".1" fill="#FFF"/>
+    <path d="M100.53 456.86c6.76 0 12.238-5.467 12.238-12.212s-5.48-12.213-12.238-12.213c-6.76 0-12.24 5.468-12.24 12.213 0 6.745 5.48 12.213 12.24 12.213z" fill-opacity=".1" fill="#B00000"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="224.662" cy="444.648" rx="12.238" ry="12.213"/>
+    <ellipse fill="#F55D54" cx="238.238" cy="68.213" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="162.596" cy="444.648" rx="12.238" ry="12.213"/>
+  </g>
+</svg>
