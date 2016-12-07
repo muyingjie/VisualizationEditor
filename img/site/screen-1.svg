@@ -26,9 +26,9 @@
     <use fill="#F9F9F9" xlink:href="#b"/>
     <path fill-opacity=".06" fill="#000" d="M13.987 399.238h236.026v34.944H13.987z"/>
     <path fill="#FFF" d="M0 48.048h263.212v57.658H0z"/>
-    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="77.069" rx="20.11" ry="20.069"/>
-    <ellipse fill-opacity=".2" fill="#F55D54" cx="229.911" cy="370.385" rx="20.11" ry="20.069"/>
-    <path fill="#F55D54" d="M0 0h263.212v47.705H0zM0 421.952h263.212v47.705H0z"/>
+    <ellipse fill-opacity=".2" fill="#04b5a5" cx="33.11" cy="77.069" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#04b5a5" cx="229.911" cy="370.385" rx="20.11" ry="20.069"/>
+    <path fill="#04b5a5" d="M0 0h263.212v47.705H0zM0 421.952h263.212v47.705H0z"/>
     <g transform="translate(13.987 105.706)">
       <mask id="d" fill="#fff">
         <use xlink:href="#c"/>
