@@ -1,7 +1,10 @@
 /**
+ * Created by yj on 2016/12/11.
+ */
+/**
  * Created by yj on 2016/11/19.
  */
-function ContainerPositionVEComponent(config){
+function ContainerSuspensionVEComponent(config){
     config = config ? config : {};
     $.extend(true, config, {
         containerClassName: componentContainerClassName + " " + layoutContainerClassName
@@ -13,10 +16,18 @@ function ContainerPositionVEComponent(config){
     this.setControlItem({
         propLevel1: "css",
         propLevel2: "width",
-        propVal: "120px"
+        propVal: "100%"
     },{
         propLevel1: "css",
         propLevel2: "height",
-        propVal: "120px"
+        propVal: "30px"
+    },{
+        propLevel1: "css",
+        propLevel2: "background-color",
+        propVal: "#ccc"
+    },{
+        propLevel1: "css",
+        propLevel2: "border-width",
+        propVal: "0"
     });
 }

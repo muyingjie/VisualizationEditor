@@ -27,7 +27,7 @@ select{ outline: none;}
 .components .nav .active{background:#f7f7f7;color:#04b5a5; }
 .components .area{min-height:100px;height:auto;overflow-y:auto;overflow-x:hidden;width:auto;padding:0px 10px;display:none;background:#f7f7f7; }
 .components .area dl{width:auto;display: inline-block;text-align: center;padding:10px 0px;width:66px;text-align: center }
-.components .area dl a{width:60px;text-align:center;display:inline-block;border: 1px solid #e8e8e8;height:38px;line-height:38px;
+.components .area dl a{box-sizing: border-box;width:60px;text-align:center;display:inline-block;/*border: 1px solid #e8e8e8;*/height:38px;line-height:38px;
     background:#fff;color:#9f9f9f;font-size:20px;}
 .components .area dl a:hover{color:#04b5a5;border:1px solid #cde2e0;}
 .components .active{display:block;}
@@ -46,7 +46,7 @@ border-right: 1px solid rgb(153, 153, 153); z-index: 9999; background-color: whi
 .screens .workbench .design{margin:0px auto;width:300px;padding-top:60px; }
 .screens .workbench .design .box{width:322px;height:auto;min-height:400px;border:1px solid #c2c2c3;padding:19px 19px 12px 19px;border-radius:10px;background:#e3e8ea;}
 .screens .workbench .design .box .canvas{
-    width:282px;height:400px;border:1px solid #c2c2c3;background:#f0f0f2; position: relative;
+    width:282px;height:400px;border:1px solid #c2c2c3;background:#f0f0f2; position: relative;overflow: hidden;
 }
 .screens .workbench .design .box .bar{height:20px;padding-top:4px;text-align: center;position: relative;}
 .screens .workbench .design .box .bar a{display:inline-block;height:20px;font-size:18px;}
