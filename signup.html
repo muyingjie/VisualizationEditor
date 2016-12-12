@@ -3,28 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/signup.css?a=b">
     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/jquery-mousewheel/3.1.12/jquery.mousewheel.min.js"></script>
-    <style> </style>
+    <script src="js/site/jquery.validate.min.js?a=b"></script>
+
 </head>
 <body>
 <div class="signup">
         <a class="logo" href="home.html">微工厂</a>
-        <dl class="nav"><span><a class="sel" rel="login">登录</a></span><span><a rel="register">注册</a></span></dl>
+        <dl class="nav"><span><a class="opBtn sel" rel="login">登录</a></span><span><a class="opBtn" rel="register">注册</a></span></dl>
         <dl id="login" class="area show">
-           <span><input type="text" name="mobile" id="mobile" /></span>
-           <span><input type="text" name="password" id="password" /></span>
-           <span><a class="signupBtn">登录</a></span>
-           <span><a class="psw">找回密码</a></span>
-           <span>忘记密码? <a class="reg">立即注册</a></span>
+            <form  id="loginFrm"  action="">
+               <span><input type="text" name="mobile" id="log_mobile" value=""   /></span>
+               <span><input type="password" name="password"  id="log_password" value="" /></span>
+               <span><a class="signupBtn" id="loginPostBtn">登录</a></span>
+               <span>忘记密码, <a class="reg opBtn" rel="register" data="no">立即注册</a></span>
+           </form>
         </dl>
         <dl id="register" class="area">
-
+            <form id="registerFrm">
+                <span><input type="text" name="mobile" id="reg_mobile" value="" placeholder="请输入登录手机"/></span>
+                <span><a class="yzmBtn" id="getPswBtn">获取登录密码</a></span>
+                <span><input type="password" name="password" id="reg_password" value="" placeholder="请输入密码" /></span>
+                <span><a class="signupBtn" id="registerPostBtn">提交</a></span>
+                <span>已有帐户, <a class="reg opBtn" rel="login">立即登录</a></span>
+            </form>
         </dl>
 </div>
 <script type="text/javascript">
-    $(function() {
+    jQuery.validator.addMethod("mobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+
+
+    function insLogin(){
+        $("#loginFrm").validate({
+            submitHandler:function(form) {
+                console.log(form);
+            },
+            debug:true,
+            rules: {
+                mobile: {required:true,mobile:true},
+                password:{
+                    required:true,
+                    minlength:6
+                }
+            },
+            messages: {
+                mobile: {required:"手机号不能为空"},
+                password:{
+                    required:'密码不能为空',
+                    minlength:'密码长度不得低于6个字符'
+                }
+            }
+        });
+        /*登录页面事件*/
+        $("#loginPostBtn").click(function(){
+            $("#loginFrm").submit();
+        });
+    }
+
+    function insRegister(){
+        $("#registerFrm").validate({
+            submitHandler:function(form) {
+                console.log(form);
+            },
+            debug:true,
+            rules: {
+                mobile: {required:true,mobile:true},
+                password:{
+                    required:true,
+                    minlength:6
+                }
+            },
+            messages: {
+                mobile: {required:"手机号不能为空"},
+                password:{
+                    required:'密码不能为空',
+                    minlength:'密码长度不得低于6个字符'
+                }
+            }
+        });
+        /*注册页面事件*/
+        $("#registerPostBtn").click(function(){
+            $("#registerFrm").submit();
+        })
+    }
+    function checkPwd(obj){
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        if(!mobile.test($(obj).val())){ return false; }
+        return true;
+    }
+    function insGetPwd(){
+        $("#getPswBtn").click(function(){
+            if($(this).attr('data')=='no'){ return false;}
+            $(this).attr('data','no');
+            if(!checkPwd($("#reg_mobile"))){
+                $(this).html('请输入正确的手机号...');
+                return false;
+            }
+            $(this).html('正在发送...');
+            //ajax 写在这里
+        });
+        $("#reg_mobile").blur(function(){
+            if(checkPwd($(this))){
+                $("#getPswBtn").html('获取登录密码');
+                $("#getPswBtn").attr('data','yes');
+            }else{
+                $("#getPswBtn").html('请输入正确的手机号');
+                $("#getPswBtn").attr('data','no');
+            }
+        });
+    }
+
+    $(function(){
+        insLogin();
+        insRegister();
+        insGetPwd();
+        $(".opBtn").click(function(){
+            $(".opBtn").removeClass('sel');
+            $(this).addClass('sel');
+            $(".signup .area").hide();
+            $("#"+$(this).attr('rel')).show();
+        });
 
     });
 </script>
