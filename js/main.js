@@ -180,6 +180,11 @@ $(function () {
                         name: "定位容器",
                         cls: "icon-layout2",
                         constructorNamePrefix: "ContainerPosition"
+                    },
+                    {
+                        id: "3",
+                        name: "悬浮容器",
+                        constructorNamePrefix: "ContainerSuspension"
                     }
                 ]
             },{
@@ -196,15 +201,47 @@ $(function () {
                         name: "文字",
                         cls: "icon-txt1",
                         constructorNamePrefix: "BasicTxt"
-                    },{
+                    },/*{
                         id: "5",
                         name: "通栏文字",
                         cls: "icon-txt",
                         constructorNamePrefix: "BasicTxtBanner"
-                    },{
+                    },*/{
                         id: "4",
                         name: "图标",
                         constructorNamePrefix: "BasicIcon"
+                    }, {
+                        id: "5",
+                        name: "单行文本",
+                        constructorNamePrefix: "BasicInputText"
+                    }, {
+                        id: "6",
+                        name: "按钮",
+                        constructorNamePrefix: "BasicInputButton"
+                    }, {
+                        id: "7",
+                        name: "复选框",
+                        constructorNamePrefix: "BasicInputCheckbox"
+                    }, {
+                        id: "8",
+                        name: "单选框",
+                        constructorNamePrefix: "BasicInputRadio"
+                    }, {
+                        id: "9",
+                        name: "日期选框",
+                        constructorNamePrefix: "BasicInputDate"
+                    }, {
+                        id: "10",
+                        name: "时间选框",
+                        constructorNamePrefix: "BasicInputTime"
+                    }, {
+                        id: "11",
+                        name: "多行文本",
+                        constructorNamePrefix: "BasicTextarea"
+                    }, {
+                        id: "12",
+                        name: "下拉框",
+                        constructorNamePrefix: "BasicSelect"
                     }
                 ]
             },{
@@ -219,11 +256,11 @@ $(function () {
                         id: "2",
                         name: "列表",
                         constructorNamePrefix: "StandardList"
-                    },{
+                    },/*{
                         id: "4",
                         name: "通栏列表",
                         constructorNamePrefix: "StandardListBanner"
-                    },{
+                    },*/{
                         id: "3",
                         name: "弹窗"
                     }
@@ -281,11 +318,15 @@ $(function () {
             $.each(cateObj.components, function (comIndex, comObj) {
                 var constrName = comObj.constructorNamePrefix ? comObj.constructorNamePrefix : "";
                 var fontClass = comObj.cls ? comObj.cls : "icon-img";
-                var $componentCategoryObj = $("<dl>").append(
+                var $componentCategoryObj = $("<dl>").attr({"constructorName": constrName + "VEComponent"}).append(
                     $("<a>").attr({
                         "href": "javascript:;"
                     }).addClass("icon iconfont " + fontClass)
-                ).attr({"constructorName": constrName + "VEComponent"});
+                ).append(
+                    $("<a>").attr({
+                        "href": "javascript:;"
+                    }).css({"height": "20px", "line-height": "20px", "font-size": "12px"}).html(comObj.name)
+                );
                 $widgetList.append(
                     $componentCategoryObj
                 );
@@ -374,6 +415,9 @@ $(function () {
     function addDragEffectToComponent(config){
         var oComponent = config.instanceObj;
         var $component = oComponent.containerDOM;
+        // if( ($component.get(0).tagName.toLowerCase() == "input") || ($component.attr("constructorname") == "ContainerVerticalVEComponent") ){
+        //     return;
+        // }
         var $parent = config.$parent;
         var disL;
         var disT;

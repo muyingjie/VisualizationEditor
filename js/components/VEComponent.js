@@ -276,7 +276,7 @@ function VEComponent(config){
                         },
                         color: {
                             propName: "颜色",
-                            propVal: "#f00",
+                            propVal: "#000",
                             classSize: "2"
                         },
                         textAlign: {
