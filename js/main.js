@@ -35,7 +35,7 @@ $(function () {
     $ratioSign.click(function () {
         $ratioList.toggleClass("hide");
     });
-    
+
     $del.click(function () {
         var $relatedDOM = $(".active-component-frame").data("relatedDOM");
         var oRelatedComponent = $relatedDOM.data("instanceObj");
@@ -169,12 +169,12 @@ $(function () {
                 categoryId: "4",
                 categoryName: "容器组件",
                 components: [
-                    {
-                        id: "1",
-                        name: "普通容器",
-                        cls: "icon-layoutcol",
-                        constructorNamePrefix: "ContainerVertical"
-                    },
+                    // {
+                    //     id: "1",
+                    //     name: "普通容器",
+                    //     cls: "icon-layoutcol",
+                    //     constructorNamePrefix: "ContainerVertical"
+                    // },
                     {
                         id: "2",
                         name: "定位容器",
@@ -448,8 +448,8 @@ $(function () {
                 stageL = $parent.offset().left;
                 stageT = $parent.offset().top;
 
-                stageW = $parent.width();
-                stageH = $parent.height();
+                stageW = $parent.outerWidth();
+                stageH = $parent.outerHeight();
             },
             onMove: function (e) {
                 var x = e.pageX;
