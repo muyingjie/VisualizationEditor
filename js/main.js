@@ -180,12 +180,12 @@ $(function () {
                         name: "定位容器",
                         cls: "icon-layout2",
                         constructorNamePrefix: "ContainerPosition"
-                    },
+                    }/*,
                     {
                         id: "3",
                         name: "悬浮容器",
                         constructorNamePrefix: "ContainerSuspension"
-                    }
+                    }*/
                 ]
             },{
                 categoryId: "1",
@@ -534,18 +534,18 @@ $(function () {
         var modifiedProps = config.modifiedProps;
         var oComponent = config.instanceObj;
         var $containerDOM = oComponent.containerDOM;
-        var $parent = oComponent.containerDOM.parent();
+        // var $parent = oComponent.containerDOM.parent();
         //注意这里不是可视区宽，而是css宽
-        var parentWidth = $parent.width();
-        var parentHeight = $parent.height();
-        var parentOuterWidth = $parent.outerWidth();
-        var parentOuterHeight = $parent.outerHeight();
-        var outerDifferenceWidth = (parentOuterWidth - parentWidth) / 2;
-        var outerDifferenceHeight = (parentOuterHeight - parentHeight) / 2;
-        var parentRight = $parent.offset().left + parentOuterWidth - outerDifferenceWidth;
-        var parentBottom = $parent.offset().top + parentOuterHeight - outerDifferenceHeight;
-        var oldComponentWidth = parseInt($containerDOM.outerWidth());
-        var oldComponentHeight = parseInt($containerDOM.outerHeight());
+        // var parentWidth = $parent.width();
+        // var parentHeight = $parent.height();
+        // var parentOuterWidth = $parent.outerWidth();
+        // var parentOuterHeight = $parent.outerHeight();
+        // var outerDifferenceWidth = (parentOuterWidth - parentWidth) / 2;
+        // var outerDifferenceHeight = (parentOuterHeight - parentHeight) / 2;
+        // var parentRight = $parent.offset().left + parentOuterWidth - outerDifferenceWidth;
+        // var parentBottom = $parent.offset().top + parentOuterHeight - outerDifferenceHeight;
+        // var oldComponentWidth = parseInt($containerDOM.outerWidth());
+        // var oldComponentHeight = parseInt($containerDOM.outerHeight());
 
         //将修改的属性结构组织成renderComponentProps函数所能接受的结构，即实例化对象的controlItems属性对应的结构
         var extractedControlItems = {};
@@ -1001,7 +1001,8 @@ $(function () {
         });
         function execPropValChangeFn(item){
             var onPropValChangeAfter = item.onPropValChangeAfter;
-            onPropValChangeAfter && onPropValChangeAfter();
+            //将变化后的值和双向绑定函数传进去
+            onPropValChangeAfter && onPropValChangeAfter(item.propVal, componentBiDirectionalDataBinding);
         }
     }
 
@@ -1135,8 +1136,8 @@ $(function () {
                 stageL = $parent.offset().left;
                 stageT = $parent.offset().top;
 
-                stageW = $parent.width();
-                stageH = $parent.height();
+                stageW = $parent.outerWidth();
+                stageH = $parent.outerHeight();
             },
             onMove: function (e) {
                 var x = e.pageX;

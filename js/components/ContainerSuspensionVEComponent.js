@@ -7,6 +7,8 @@
 function ContainerSuspensionVEComponent(config){
     config = config ? config : {};
     $.extend(true, config, {
+        canDragToMove: false,
+        canDragToScale: false,
         containerClassName: componentContainerClassName + " " + layoutContainerClassName
     });
     var args = [].slice.call(arguments, 0);
@@ -16,11 +18,11 @@ function ContainerSuspensionVEComponent(config){
     this.setControlItem({
         propLevel1: "css",
         propLevel2: "width",
-        propVal: "100%"
+        propVal: "40px"
     },{
         propLevel1: "css",
         propLevel2: "height",
-        propVal: "30px"
+        propVal: "40px"
     },{
         propLevel1: "css",
         propLevel2: "background-color",

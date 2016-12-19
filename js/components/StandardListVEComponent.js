@@ -35,7 +35,9 @@ function StandardListVEComponent(config){
                 var oComponent = $(o).data("instanceObj");
                 var constructorName = oComponent.constructor;
                 var oChild = new constructorName({
-                    componentName: "容器内元件"
+                    componentName: "容器内元件",
+                    canDragToMove: false,
+                    canDragToScale: false
                 });
                 var newComponentControlItems = $.extend(true, {}, oComponent.controlItems);
                 oChild.controlItems = newComponentControlItems;
@@ -70,7 +72,7 @@ function StandardListVEComponent(config){
     }, {
         propLevel1: "css",
         propLevel2: "height",
-        propVal: ""
+        propVal: "200px"
     }, {
         propLevel1: "css",
         propLevel2: "paddingLeft",
@@ -87,6 +89,11 @@ function StandardListVEComponent(config){
         propLevel1: "css",
         propLevel2: "paddingBottom",
         propVal: "10px"
+    }, {
+        //拖拽改变大小时由于用了outerWidth，因此宽度变化会有问题
+        propLevel1: "css",
+        propLevel2: "boxSizing",
+        propVal: "border-box"
     });
 
     addListItem();

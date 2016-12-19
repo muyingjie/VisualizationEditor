@@ -35,18 +35,102 @@ function VEComponent(config){
                             classSize: "4",
                             interactiveStyle: "input_text"
                         },
+                        // sizeSetStyle: {
+                        //     propName: "尺寸设置",
+                        //     propVal: "0",
+                        //     classSize: "1",
+                        //     interactiveStyle: "select",
+                        //     interactiveVal: {
+                        //         "select": [
+                        //             {
+                        //                 showVal: "左上",
+                        //                 propVal: "0"
+                        //             },
+                        //             {
+                        //                 showVal: "右上",
+                        //                 propVal: "1"
+                        //             },
+                        //             {
+                        //                 showVal: "左下",
+                        //                 propVal: "2"
+                        //             },
+                        //             {
+                        //                 showVal: "右下",
+                        //                 propVal: "3"
+                        //             }
+                        //         ]
+                        //     },
+                        //     onPropValChangeAfter: function (propVal, componentBiDirectionalDataBinding) {
+                        //         // modifiedProps: [{
+                        //         //     name: propFnName,
+                        //         //     groupTypeName: propGroupTypeName,
+                        //         //     val: needUpdateProps
+                        //         // }],
+                        //         // instanceObj: oComponent
+                        //         var needUpdateProps = {};
+                        //         var config = {
+                        //             modifiedProps: [{
+                        //                 name: "css",
+                        //                 groupTypeName: "size",
+                        //                 val: needUpdateProps
+                        //             }],
+                        //             instanceObj: _this
+                        //         };
+                        //         var changeVal = propVal;
+                        //         switch (changeVal){
+                        //             case "0":
+                        //                 setAllUpdateProps(0, "", "", 0);
+                        //                 break;
+                        //             case "1":
+                        //                 setAllUpdateProps(0, 0, "", "");
+                        //                 break;
+                        //             case "2":
+                        //                 setAllUpdateProps("", "", 0, 0);
+                        //                 break;
+                        //             case "3":
+                        //                 setAllUpdateProps("", 0, 0, "");
+                        //                 break;
+                        //             default:
+                        //                 console.error("未知的选中值");
+                        //         }
+                        //         componentBiDirectionalDataBinding(config);
+                        //
+                        //         function setAllUpdateProps(t, r, b, l){
+                        //             setNeedUpdateProps("top");
+                        //             setNeedUpdateProps("right", 0);
+                        //             setNeedUpdateProps("bottom", 0);
+                        //             setNeedUpdateProps("left");
+                        //         }
+                        //
+                        //         function setNeedUpdateProps(prop, val){
+                        //             needUpdateProps[prop] = ((val !== "") ? val : "");
+                        //         }
+                        //     }
+                        // },
                         left: {
-                            propName: "X",
+                            propName: "L",
                             propVal: "0",
                             classSize: "4",
                             interactiveStyle: "input_text"
                         },
                         top: {
-                            propName: "Y",
+                            propName: "T",
                             propVal: "0",
                             classSize: "4",
                             interactiveStyle: "input_text"
-                        }
+                        }/*,
+                        right: {
+                            propName: "R",
+                            propVal: "0",
+                            classSize: "2",
+                            interactiveStyle: "input_text"
+                        },
+                        bottom: {
+                            propName: "B",
+                            propVal: "0",
+                            classSize: "2",
+                            interactiveStyle: "input_text"
+                        }*/
                     }
                 },
                 {
