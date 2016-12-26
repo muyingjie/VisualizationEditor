@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>样例</title>
+    <style type="text/css">
+        .componentAttribute{width:300px;height: auto;}
+        .componentAttribute .row{height:auto;padding:6px;background:#eee;margin:5px 0px; }
+        .componentAttribute .row h5{font-size:12px;padding: 0px;margin: 0px;height:20px;color:#666;}
+        .componentAttribute .row .area{height: auto;padding:3px 0px;display: inline-block;margin: 0px;line-height:22px;}
+        .componentAttribute .row .area label{display: inline-block;text-align: right}
+        .componentAttribute .row .area .label1{color:#666;font-size:12px;width:50px;}
+        .componentAttribute .row .area .label2{color:#666;font-size:12px;width:50px;}
+        .componentAttribute .row .area .label4{color:#666;font-size:12px;width:20px;}
+        .componentAttribute .row .area .input1{color:#666;font-size:12px;width:220px;}
+        .componentAttribute .row .area .input2{color:#666;font-size:12px;width:76px;}
+        .componentAttribute .row .area .input4{color:#666;font-size:12px;width:34px;}
+        .componentAttribute .row .area .select1{color:#666;font-sze:12px;width:220px;}
+        .componentAttribute .row .area .select2{color:#666;font-sze:12px;width:76px;}
+        .componentAttribute .row .customize{height: auto;padding:3px 0px;display:block;margin: 0px;line-height:22px;text-align: center;}
+        .componentAttribute .row .customize .plus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block; }
+        .componentAttribute .row .customize .minus{width:50px;text-align: center;background:#ccc;color:#fff;display: inline-block;}
+        .componentAttribute .row .customize label{color:#666;font-size:12px;width:50px;display: inline-block;text-align: right}
+        .componentAttribute .row .customize input{color:#666;font-size:12px;width:76px;}
+        .componentAttribute .row .sel{background:#D6E4E4; }
+    </style>
+</head>
+<body>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+ <legend>通用</legend>
+<div class="componentAttribute">
+   <div class="row">
+       <h5>尺寸位置</h5>
+       <dl class="area"><label class="label4">高</label> <input type="text" value="" class="input4" /></dl>
+       <dl class="area"><label class="label4">宽</label> <input type="text" value="" class="input4" /></dl>
+       <dl class="area"><label class="label4">X轴</label> <input type="text" value="" class="input4" /></dl>
+       <dl class="area"><label class="label4">Y轴</label> <input type="text" value="" class="input4" /></dl>
+   </div>
+
+    <div class="row">
+        <h5>内边距</h5>
+        <dl class="area"><label class="label4">上</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">右</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">下</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">左</label> <input type="text" value="" class="input4" /></dl>
+    </div>
+
+    <div class="row">
+        <h5>外边距</h5>
+        <dl class="area"><label class="label4">上</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">右</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">下</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">左</label> <input type="text" value="" class="input4" /></dl>
+    </div>
+
+    <div class="row">
+        <h5>边框线条</h5>
+        <dl class="area"><label class="label2">样式</label>
+            <select class="select2">
+                <option value="">无线</option>
+                <option value="solid">实线</option>
+                <option value="dashed">虚线</option>
+                <option value="dotted">点线</option>
+            </select>
+        </dl>
+        <dl class="area"><label class="label2">线粗</label> <input type="text" value="" class="input2" /></dl>
+        <dl class="area"><label class="label2">圆角</label> <input type="text" value="" class="input2" /></dl>
+        <dl class="area"><label class="label2">颜色</label> <input type="text" value="" class="input2" /></dl>
+        <dl class="area"><label class="label4">上</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">右</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">下</label> <input type="text" value="" class="input4" /></dl>
+        <dl class="area"><label class="label4">左</label> <input type="text" value="" class="input4" /></dl>
+    </div>
+    <div class="row">
+        <h5>背景样式</h5>
+        <dl class="area"><label class="label2">图片</label> <input type="text" value="" class="input2" /></dl>
+        <dl class="area"><label class="label2">样式</label>
+            <select class="select2">
+                <option value="">不平铺</option>
+                <option value="solid">逐行平铺</option>
+                <option value="dashed">水平平铺</option>
+                <option value="dotted">垂直平铺</option>
+            </select>
+        </dl>
+        <dl class="area"><label class="label2">水平</label>
+            <select class="select2">
+                <option value="">无</option>
+                <option value="solid">居左</option>
+                <option value="dashed">居中</option>
+                <option value="dotted">居右</option>
+            </select>
+        </dl>
+        <dl class="area"><label class="label2">垂直</label>
+            <select class="select2">
+                <option value="">无</option>
+                <option value="solid">居上</option>
+                <option value="dashed">居中</option>
+                <option value="dotted">居下</option>
+            </select>
+        </dl>
+    </div>
+
+    <div class="row">
+        <h5>文字样式</h5>
+        <dl class="area">
+            <label class="label2">字体</label>
+            <input type="text" value="" class="input2" />
+        </dl>
+        <dl class="area">
+            <label class="label2">字号</label>
+            <input type="text" value="" class="input2" />
+        </dl>
+        <dl class="area">
+            <label class="label2">行高</label>
+            <input type="text" value="" class="input2" />
+        </dl>
+        <dl class="area">
+            <label class="label2">颜色</label>
+            <input type="text" value="" class="input2" />
+        </dl>
+    </div>
+</div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>动态附加</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>自定属性</h5>
+            <dl class="customize">
+                <label class="plus">+</label>
+                <label class="minus">-</label>
+            </dl>
+            <dl class="customize">
+                <label class="label">名称</label>
+                <input type="text" id="attr_name_1" value=""  />
+                <label class="label2">赋值</label>
+                <input type="text" id="attr_value_1" value=""/>
+            </dl>
+            <dl class="customize sel">
+                <label class="label">名称</label>
+                <input type="text" id="attr_name_2" value=""  />
+                <label class="label2">赋值</label>
+                <input type="text" id="attr_value_2" value=""/>
+            </dl>
+        </div>
+    </div>
+</fieldset>
+
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>图片</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">点击事件</label>
+                <input type="text" id="bindtap" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">加载事件</label>
+                <input type="text" id="binderror" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">错误事件</label>
+                <input type="text" id="bindload" value="" class="input2" />
+            </dl>
+        </div>
+        <div class="row">
+            <h5>数据</h5>
+            <dl class="area"><label class="label2">赋值</label>
+                <select class="select2" id="data_type">
+                    <option value="1">常量</option>
+                    <option value="2">变量</option>
+                </select>
+            </dl>
+            <dl class="area" >
+                <label class="label2">选图</label>
+                <input type="text" id="src_url" value="" class="input2" />
+            </dl>
+            <dl class="area" style="display:none;">
+                <label class="label2">键名</label>
+                <input type="text" id="src_key" value="" class="input2" />
+            </dl>
+            <dl class="area"><label class="label1">模式</label>
+                <select class="select1" id="mode">
+                    <option value="scaleToFill">无比例,完全拉伸</option>
+                    <option value="aspectFit">同比缩放,完整展示</option>
+                    <option value="aspectFill">同比缩放,短边展示</option>
+                    <option value="top">不缩放,只显示顶部</option>
+                    <option value="bottom">不缩放,只显示底部</option>
+                    <option value="center">不缩放,只显示中间</option>
+                    <option value="left">不缩放,只显示左边</option>
+                    <option value="right">不缩放,只显示右边</option>
+                    <option value="top left">不缩放,只显示左上</option>
+                    <option value="bottom left">不缩放,只显示左下</option>
+                    <option value="top right">不缩放,只显示右上</option>
+                    <option value="bottom right">不缩放,只显示右下</option>
+                </select>
+            </dl>
+        </div>
+    </div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>图标</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">点击事件</label>
+                <input type="text" id="bindtap" value="" class="input2" />
+            </dl>
+            <dl class="area"><label class="label1">类型</label>
+                <select class="select1" id="type">
+                    <option value="success">success</option>
+                    <option value="success_no_circle">success_no_circle</option>
+                    <option value="info">info</option>
+                    <option value="warn">warn</option>
+                    <option value="waiting">waiting</option>
+                    <option value="cancel">cancel</option>
+                    <option value="download">download</option>
+                    <option value="search">search</option>
+                    <option value="clear">clear</option>
+                </select>
+            </dl>
+            <dl class="area" >
+                <label class="label2">颜色</label>
+                <input type="text" id="color" value="" class="input2" />
+            </dl>
+            <dl class="area" >
+                <label class="label2">尺寸</label>
+                <input type="text" id="size" value="" class="input2" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>进度条</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">初始进度</label>
+                <input type="text" id="percent" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">进度线宽</label>
+                <input type="text" id="stroke-width" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">进度颜色</label>
+                <input type="text" id="color" value="" class="input2" />
+            </dl>
+            <dl class="area"><label class="label2">进度数字</label>
+                <select class="select2" id="show-info">
+                    <option value="false">隐藏</option>
+                    <option value="true">显示</option>
+                </select>
+            </dl>
+            <dl class="area"><label class="label2">动画控制</label>
+                <select class="select2" id="active">
+                    <option value="hide">停止</option>
+                    <option value="show">开启</option>
+                </select>
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>文本</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">点击事件</label>
+                <input type="text" id="bindtap" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label1">元件赋值</label>
+                <input type="text" id="text" value="" class="input1" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>按钮</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">点击事件</label>
+                <input type="text" id="bindtap" value="" class="input2" />
+            </dl>
+            <dl class="area"><label class="label2">尺寸</label>
+                <select class="select2" id="size">
+                        <option value="">自定义</option>
+                        <option value="default">default</option>
+                        <option value="mini">mini</option>
+                </select>
+            </dl>
+            <dl class="area"><label class="label2">类型</label>
+                <select class="select2" id="type">
+                    <option value="default">default</option>
+                    <option value="primary">primary</option>
+                    <option value="warn">warn</option>
+                </select>
+            </dl>
+            <dl class="area"><label class="label2">表单事件</label>
+                <select class="select2" id="form-type">
+                    <option value="">无</option>
+                    <option value="submit">submit</option>
+                    <option value="reset">reset</option>
+                </select>
+            </dl>
+            <dl class="area"><label class="label2">按下背景</label>
+                <input type="text" id="style" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label1">按钮文本</label>
+                <input type="text" id="text" value="" class="input1" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>多选框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">触发事件</label>
+                <input type="text" id="bindchange" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">是否禁用</label>
+                <select class="select2" id="disabled">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label2">是否选中</label>
+                <select class="select2" id="checked">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label1">元件赋值</label>
+                <input type="text" id="value" value="" class="input1" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>列表元件</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">数据对象</label>
+                <input type="text" id="wx-for"  value="" class="input2" />
+            </dl>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>表单</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="form" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">提交事件</label>
+                <input type="text" id="bindsubmit" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">重置事件</label>
+                <input type="text"  id="bindreset" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">返回ID</label>
+                <select class="select2" id="report-submit">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>标签</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">绑定组件</label>
+                <input type="text" id="for" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label1">标签文本</label>
+                <input type="text" id="text" value="" class="input1" />
+            </dl>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>单选框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">触发事件</label>
+                <input type="text" id="bindchange" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">是否禁用</label>
+                <select class="select2" id="disabled">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label2">是否选中</label>
+                <select class="select2" id="checked">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label1">元件赋值</label>
+                <input type="text" id="value" value="" class="input1" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>单行输入框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">输入类型</label>
+                <select class="select2" id="type">
+                    <option value="text">text</option>
+                    <option value="number">number</option>
+                    <option value="idcard">idcard</option>
+                    <option value="digit">digit</option>
+                    <option value="time">time</option>
+                    <option value="date">date</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label2">键入事件</label>
+                <input type="text" id="bindinput" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">聚焦事件</label>
+                <input type="text" id="bindfocus" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">离焦事件</label>
+                <input type="text" id="bindblur" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">是否密码</label>
+                <select class="select2" id="password">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label1">初始暂位</label>
+                <input type="text" id="placeholder" value="" class="input1" />
+            </dl>
+            <dl class="area">
+                <label class="label2">默认初值</label>
+                <input type="text" id="value" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">自动键盘</label>
+                <select class="select2" id="auto-focus">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>多行输入框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">行变事件</label>
+                <input type="text" id="bindlinechange" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">聚焦事件</label>
+                <input type="text" id="bindfocus" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">离焦事件</label>
+                <input type="text" id="bindblur" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">自动增高</label>
+                <select class="select2" id="auto-height">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label2">初始暂位</label>
+                <input type="text" id="placeholder" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">最大长度</label>
+                <input type="text" id="maxlength" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">自动键盘</label>
+                <select id="auto-focus" class="select2">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>下拉选择框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">触发事件</label>
+                <input type="text" id="bindchange" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">选项数据</label>
+                <input type="text" id="range" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">默认选项</label>
+                <input type="text" id="value" value="" class="input2" />
+            </dl>
+
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>日期选择框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">触发事件</label>
+                <input type="text" id="bindchange" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">选择粒度</label>
+                <select id="fields" class="select2">
+                    <option value="year">年</option>
+                    <option value="month">月</option>
+                    <option value="day">日</option>
+                </select>
+            </dl>
+            <dl class="area">
+                <label class="label2">初始日期</label>
+                <input type="text" id="value" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">开始日期</label>
+                <input type="text" id="start" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">结束日期</label>
+                <input type="text" id="end" value="" class="input2" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset style="border:1px solid #ccc;padding: 5px;width:300px;float:left;margin:5px;">
+    <legend>时间选择框</legend>
+    <div class="componentAttribute">
+        <div class="row">
+            <h5>元件</h5>
+            <dl class="area">
+                <label class="label2">元件名称</label>
+                <input type="text" id="name" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">触发事件</label>
+                <input type="text" id="bindchange" value="" class="input2" />
+            </dl>
+
+            <dl class="area">
+                <label class="label2">开始时间</label>
+                <input type="text" id="start" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label2">结束时间</label>
+                <input type="text" id="end" value="" class="input2" />
+            </dl>
+            <dl class="area">
+                <label class="label1">初始时间</label>
+                <input type="text" id="value" value="" class="input1" />
+            </dl>
+        </div>
+
+    </div>
+</fieldset>
+
+
+</body>
+</html>

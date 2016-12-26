@@ -1,0 +1,30 @@
+<svg width="303" height="508" viewBox="0 0 303 508" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Group 12
+  </title>
+  <defs>
+    <path id="b" d="M1 1.747h263.212V469.61H1z"/>
+    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a">
+      <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+  </defs>
+  <g transform="translate(19 12)" fill="none" fill-rule="evenodd">
+    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#F9F9F9" xlink:href="#b"/>
+    <path fill="#FFF" d="M1 48.048h263.212V177H1z"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="34.11" cy="77.069" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="79" cy="113" rx="12" ry="12"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="119" cy="113" rx="12" ry="12"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="159" cy="113" rx="12" ry="12"/>
+    <g fill="#EEE">
+      <path d="M11 229h74.47v74H11zM11 312.736h74.47v74H11zM11 396.435h74.47v73.2H11zM95.272 229h74.47v74H95.27zM95 312.736h74.47v74H95zM95 396.435h74.47v73.2H95zM179.53 229H254v74h-74.47zM180 312.736h74.47v74H180zM180 396.435h74.47v73.2H180z"/>
+    </g>
+    <path fill="#F55D54" d="M1 0h263.212v47.705H1z"/>
+    <path fill="#E7E7E7" d="M66.563 65.52h69.934v6.99H66.563zM66.563 81.245h120v6.99h-120z"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="26.238" cy="23.213" rx="12.238" ry="12.213"/>
+    <path fill="#EEE" d="M67 137h184v26H67zM.788 177H264v42H.788z"/>
+    <path fill="#E0E0E0" d="M1 177h69.934v42H1z"/>
+  </g>
+</svg>

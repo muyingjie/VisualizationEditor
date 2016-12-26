@@ -1,0 +1,28 @@
+*{background:none;}
+html{padding:0px;margin: 0px;text-decoration: none;background:#edf9f8;}
+html,html body{width: 100%;height: 100%;top: 0;left: 0;margin: 0;overflow:hidden;font-family:'Microsoft Yahei';}
+
+a{text-decoration: none;cursor: pointer;}
+dl{padding:0px;margin:0px;}
+.signup{width:280px;height: 180px;position:absolute;left:40%;top:24%;text-align: center;}
+.signup .logo{padding:0px 10px;width:96px;height:66px;background:#04b5a5;color:#fff;font-size:26px;line-height:66px;vertical-align:middle;display: inline-block;}
+.signup .nav{padding:10px;}
+.signup .nav span{padding:0px 20px;}
+.signup .nav a{padding:4px 2px;display: inline-block;}
+.signup .nav .sel{border-bottom: 2px solid #04b5a5;}
+.signup .area{width:280px;height:180px;display:none;}
+.signup .show{display: inline-block;}
+.signup .area span{padding: 6px 0px;display:block;color:#5c687b;font-size:14px;}
+.signup .area input{width:258px;height:15px;padding:10px;border: 1px solid #d1d1d1;outline: none;}
+.signup .area input:focus{border:1px solid #04b5a5;background:#fff;}
+.signup .area input:hover{border:1px solid #04b5a5;background:#fff;}
+.signup .area label{display:inline-block;padding:6px 0px;width:100%;color:#04b5a5;text-align:left;}
+.signup .area .yzmBtn{width:280px;padding:10px 0px;background:#e3e6e5;border:0px solid;display:inline-block;color:#04b5a5;font-size:16px;}
+.signup .area .yzmBtn:hover{background:#ccece2;}
+.signup .area .signupBtn{width:280px;padding:10px 0px;background:#04b5a5;border:0px solid;display:inline-block;color:#fff;font-size:16px;}
+.signup .area .signupBtn:hover{background:#46c7bc;}
+.signup .area .psw,.signup .area .psw:link{color:#8f8f8f;font-size:14px;}
+.signup .area .psw:hover{color:#5c687b;}
+.signup .area .reg,.signup .area .reg:link{color:#04b5a5;font-size:14px;}
+.area .reg:hover{color:#0a92b1;}
+

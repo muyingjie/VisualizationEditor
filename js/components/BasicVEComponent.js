@@ -7,9 +7,9 @@ function BasicVEComponent(config) {
     var args = [].slice.call(arguments, 0);
     VEComponent.apply(this, args);
 
-    this.setControlItem({
-        propLevel1: "css",
-        propLevel2: "backgroundColor",
-        propVal: "#ff0"
-    });
+    // this.setControlItem({
+    //     propLevel1: "css",
+    //     propLevel2: "backgroundColor",
+    //     propVal: "#ddd"
+    // });
 }

@@ -1,35 +1,53 @@
-*{ margin: 0; padding: 0; list-style: none;}
+*{ margin: 0; padding: 0; list-style: none; font-family: 微软雅黑;}
 a{ text-decoration: none; color: #333;}
-input{ outline: none;}
+input{ outline: none; border: 1px solid #ccc;}
+select{ outline: none;}
 
 .il-par{ font-size: 0;}
-.il{ display: inline-block; font-size: 12px; vertical-align: top;}
+.il{ display: inline-block; font-size: 12px; vertical-align:top;}
 
-.clear{ clear: both;}
+.clear:after{ clear: both; display: block; content: "";}
 .fl{ float: left;}
 .fr{ float: right;}
 
 .ft12{ font-size: 12px;}
+.ft14{ font-size: 14px;}
 
-.wrap{ margin: 10px; border: 1px solid #ccc;}
-.wrap .top{ width: 100%; height: 30px; background: #eee; padding: 0 5px; box-sizing: border-box;}
-.wrap .top input[type="button"]{ width: 40px; height: 20px; margin-top: 5px;}
+.pr5{ padding-right: 5px;}
+.pr8{ padding-right: 8px;}
+
+.wrap{ margin:0px;}
+.wrap>.top{ width: 100%; height: 38px; background:#e3e8ea; padding: 0 5px; box-sizing: border-box;border-bottom: 1px solid #c1c1c1; }
+.wrap>.top input[type="button"]{ width: 40px; height: 20px; margin-top: 5px;}
+.top dl{height:38px;display:inline-block;line-height:38px;}
+.top .app_name{width:170px;color:#333;padding-left:10px;}
+.top .toolbar{width:auto;}
 
 .whole-style-wrap{ width: 100%;}
-.whole-style-wrap .whole-style-list{ border-bottom: 1px solid #ccc;}
-.whole-style-wrap .whole-style-list .item a{ display: block; width: 80px; height: 60px; text-align: center; line-height: 60px; border: 1px solid #ccc; margin: 5px;}
+.whole-style-wrap .whole-style-list{ border-bottom: 1px solid #ccc;line-height: 38px;vertical-align: middle;}
+.whole-style-wrap .whole-style-list .item a{ display:inline-block; width:auto; height: 32px; text-align: center; line-height: 32px; border: 1px solid #ccc; margin:3px;}
 
-.main-panel{ position: relative;}
-.main-panel .widget-list{ margin: 10px; margin-top: 0;}
+.main-panel{ position: relative; background: #666; padding-bottom: 5px;}
+.main-panel .widget-list{ margin: 10px; margin-top: 0; position: absolute; left: 0;}
 .main-panel .list-cate-item{ margin-bottom: 5px;}
 .main-panel .list-cate-item .name{ height: 30px; background: #eeefff; line-height: 30px; text-align: center;}
 .main-panel .list-cate-item .list{ width: 200px; }
 .main-panel .list-cate-item .list .item{ width: 50%; height: 40px; background: #fff; border: 1px solid #eee; box-sizing: border-box;}
 .main-panel .list-cate-item .list .item .txt{ display: block; line-height: 40px; text-align: center; }
 
-.main-panel .stage{ min-height: 600px; border: 1px solid #eee111; margin: 10px 350px 10px 250px; position: relative;}
-.main-panel .widget-list{ position: absolute; left: 0; top: 0;}
-.main-panel .prop-list-wrap{ position: absolute; right: 0; top: 0; margin-right: 10px; width: 300px; height: 600px; overflow-y: scroll;}
+.main-panel .stage-wrap{ position: relative; padding-top: 30px;}
+.main-panel .ratio-list-wrap{ position: absolute; top: 0;}
+.main-panel .ratio-list-wrap .select-ratio{ width: 200px; height: 20px; line-height: 20px; background: #eee; margin-top: 5px;}
+.main-panel .ratio-list-wrap .select-ratio .txt{ padding-left: 10px;}
+.main-panel .ratio-list-wrap .select-ratio .sign{ padding-right: 10px;}
+.main-panel .ratio-list-wrap .ratio-list{ width: 200px; border: 1px solid #eee; box-sizing: border-box;}
+.main-panel .ratio-list-wrap .ratio-list.hide{ display: none;}
+.main-panel .ratio-list-wrap .item{ padding: 5px 10px; cursor: pointer;}
+.main-panel .ratio-list-wrap .item:hover,.main-panel .ratio-list-wrap .item.active{ background: #eee;}
+
+.main-panel .stage{ border: 1px solid #eee111; background: #fff;}
+.main-panel .widget-list{ margin-top: 5px;}
+.main-panel .prop-list-wrap{ margin-right: 10px; width: 330px; height: 600px; overflow-y: auto; position: absolute; right: 0; top: 0;}
 .main-panel .prop-list{ }
 .main-panel .prop-list .one-component{ border:1px solid #ccc; padding: 5px;width:300px;}
 .main-panel .prop-list .item{ margin-bottom: 5px;}
@@ -39,18 +57,6 @@ input{ outline: none;}
 /* 移动过程中创建出来的虚拟div */
 .moveVirtualObj{ width: 100px; height: 40px; border: 2px solid #dddeee; color: #ddd; position: absolute; z-index: 9999;}
 .componentContainer{}
-.active-component-frame{ position: absolute; border: 1px solid #03e; z-index: -1;}
-
-
-/*.one-component-propList{width:300px;height: auto;}*/
-.one-component-propList .row{height:auto;padding:6px;background:#eee;margin:5px 0px; }
-.one-component-propList .row h5{font-size:12px;padding: 0px;margin: 0px;height:20px;color:#666;}
-.one-component-propList .row .area{height: auto;padding:3px 0px;display: inline-block;margin: 0px;line-height:22px;}
-.one-component-propList .row .area label{display: inline-block;text-align: right}
-.one-component-propList .row .area .label1{color:#666;font-size:12px;width:50px;}
-.one-component-propList .row .area .label2{color:#666;font-size:12px;width:50px;}
-.one-component-propList .row .area .label4{color:#666;font-size:12px;width:20px;}
-.one-component-propList .row .area .input2{color:#666;font-size:12px;width:76px;}
-.one-component-propList .row .area .input4{color:#666;font-size:12px;width:34px;}
-.one-component-propList .row .area .select1{color:#666;font-sze:12px;width:220px;}
-.one-component-propList .row .area .select2{color:#666;font-sze:12px;width:76px;}
+.active-component-frame{ position: absolute; width: 1px; height: 1px; left: 10000px;}
+.component-too-bigger-propmt{ width: 308px; height: 20px; color: #f00; font-weight: bold; background: #fff; line-height: 20px; position: absolute; left: 50%; top: 50%; margin-left: -154px; margin-top: -300px; z-index: 100000;}
+.direction-sign{ width: 4px; height: 4px; border: 1px solid #000; background: #fff; position: absolute; z-index: 10000;}

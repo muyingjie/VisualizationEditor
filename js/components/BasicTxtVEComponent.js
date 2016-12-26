@@ -11,12 +11,25 @@ function BasicTxtVEComponent(config){
         propLevel1: "aloneExec",
         propLevel2: "text"
     });
-    if(!text){
+    if(!text.propVal){
         this.setControlItem({
             propLevel1: "aloneExec",
             propLevel2: "text",
             propName: "文本",
-            propVal: "文本"
+            propVal: "文本",
+            isShow: true
         })
     }
+    //文本元件特有属性
+    this.setControlItem({
+        propLevel1: "otherAttrs",
+        propLevel2: "clickEvent",
+        propName: "点击事件",
+        classSize: "2"
+    },{
+        propLevel1: "otherAttrs",
+        propLevel2: "componentAssignment",
+        propName: "元件赋值",
+        classSize: "2"
+    });
 }

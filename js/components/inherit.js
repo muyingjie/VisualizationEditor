@@ -7,14 +7,34 @@ inheritAllMethod();
 function inheritAllMethod(){
     var constructors = [BasicVEComponent, StandardVEComponent, ContainerVEComponent];
     goThroughInherit(constructors, VEComponent);
-
-    var basicConstructors = [BasicTxtVEComponent, BasicImgVEComponent, BasicIconVEComponent];
+    //基本组件
+    var basicConstructors = [
+        BasicTxtVEComponent,
+        BasicImgVEComponent,
+        BasicIconVEComponent,
+        BasicInputTextVEComponent,
+        BasicInputButtonVEComponent,
+        BasicInputCheckboxVEComponent,
+        BasicInputRadioVEComponent,
+        BasicInputDateVEComponent,
+        BasicInputTimeVEComponent,
+        BasicTextareaVEComponent,
+        BasicSelectVEComponent
+    ];
     goThroughInherit(basicConstructors, BasicVEComponent);
 
+    var basicTxtConstructors = [BasicTxtBannerVEComponent];
+    goThroughInherit(basicTxtConstructors, BasicTxtVEComponent);
+
+    //标准组件
     var standardConstructors = [StandardListVEComponent, StandardTxtImgVerticalVEComponent];
     goThroughInherit(standardConstructors, StandardVEComponent);
 
-    var containerConstructors = [ContainerVerticalVEComponent];
+    var standardListConstructors = [StandardListBannerVEComponent];
+    goThroughInherit(standardListConstructors, StandardListVEComponent);
+
+    //容器组件
+    var containerConstructors = [ContainerVerticalVEComponent, ContainerPositionVEComponent, ContainerSuspensionVEComponent];
     goThroughInherit(containerConstructors, ContainerVEComponent);
 }
 function goThroughInherit(constructors, parentConstructor){

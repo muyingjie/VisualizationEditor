@@ -1,0 +1,51 @@
+<svg id="screen-1" width="303" viewBox="0 0 303 508" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Group 4
+  </title>
+  <style>
+    #use{
+      transition: all .5s ease-in;
+    }
+    .hideShadow #use{
+      fill: #FFF;
+      transform: scale(0);
+    }
+
+  </style>
+  <defs>
+    <path id="b" d="M0 1.747h263.212V469.61H0z"/>
+    <filter class="hahaha" x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a">
+      <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <path id="c" d="M0 0h236.026v235.874H0z"/>
+  </defs>
+  <g transform="translate(20 12)" fill="none" fill-rule="evenodd">
+    <use id="use" fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#F9F9F9" xlink:href="#b"/>
+    <path fill-opacity=".06" fill="#000" d="M13.987 399.238h236.026v34.944H13.987z"/>
+    <path fill="#FFF" d="M0 48.048h263.212v57.658H0z"/>
+    <ellipse fill-opacity=".2" fill="#04b5a5" cx="33.11" cy="77.069" rx="20.11" ry="20.069"/>
+    <ellipse fill-opacity=".2" fill="#04b5a5" cx="229.911" cy="370.385" rx="20.11" ry="20.069"/>
+    <path fill="#04b5a5" d="M0 0h263.212v47.705H0zM0 421.952h263.212v47.705H0z"/>
+    <g transform="translate(13.987 105.706)">
+      <mask id="d" fill="#fff">
+        <use xlink:href="#c"/>
+      </mask>
+      <use fill="#F2F2F2" xlink:href="#c"/>
+      <path fill="#E3E3E3" mask="url(#d)" d="M-49.828 199.355L51.77 71.635l97.075 87.038 44.375-49.928 92.945 86.632.76 49.437-310.907.896"/>
+    </g>
+    <ellipse fill="#E7E7E7" cx="190.369" cy="154.559" rx="24.46" ry="24.404"/>
+    <path fill="#E7E7E7" d="M65.563 65.52h69.934v6.99H65.563z"/>
+    <g fill="#EAEAEA">
+      <path d="M13.987 359.052h152.106v6.99H13.987zM13.987 374.777h89.166v6.99H13.987z"/>
+    </g>
+    <path fill="#E7E7E7" d="M65.563 81.245h34.967v6.99H65.563z"/>
+    <path d="M38.464 456.86c6.76 0 12.238-5.467 12.238-12.212s-5.48-12.213-12.238-12.213c-6.76 0-12.24 5.468-12.24 12.213 0 6.745 5.48 12.213 12.24 12.213z" fill-opacity=".1" fill="#B00000"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="100.53" cy="444.648" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="224.662" cy="444.648" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="237.775" cy="23.57" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="162.596" cy="444.648" rx="12.238" ry="12.213"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+	#ruler{ border: 1px solid #ccc; }
+	</style>
+</head>
+<body>
+	<canvas width="1200" height="40" id="ruler"></canvas>
+</body>
+<script>
+	var oRuler = document.getElementById("ruler");
+	var ctx = oRuler.getContext("2d");
+
+	for(var i=0;i<1200;i+=5){
+		drawLine(i);
+	}
+
+	function drawLine(){
+		ctx.beginPath();
+		ctx.strokeStyle = "#000";
+		ctx.moveTo(i, 40);
+		if(i % 50 == 0){
+			ctx.fillText(i, i, 15);
+			ctx.lineTo(i, 20);
+		}else{
+			ctx.lineTo(i, 30);
+		}
+		ctx.stroke();
+		ctx.closePath();
+	}
+</script>
+</html>

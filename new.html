@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设计器</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="js/page.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/MyjDrag.js"></script>
+
+    <!-- 所有组件的父类 -->
+    <script src="js/components/VEComponent.js"></script>
+    <!-- 基本组件 -->
+    <script src="js/components/BasicVEComponent.js"></script><!-- 基本组件的父类 -->
+    <script src="js/components/BasicTxtVEComponent.js"></script>
+    <script src="js/components/BasicTxtBannerVEComponent.js"></script>
+    <script src="js/components/BasicImgVEComponent.js"></script>
+    <script src="js/components/BasicIconVEComponent.js"></script>
+    <script src="js/components/BasicInputTextVEComponent.js"></script>
+    <script src="js/components/BasicInputButtonVEComponent.js"></script>
+    <script src="js/components/BasicInputCheckboxVEComponent.js"></script>
+    <script src="js/components/BasicInputRadioVEComponent.js"></script>
+    <script src="js/components/BasicInputDateVEComponent.js"></script>
+    <script src="js/components/BasicInputTimeVEComponent.js"></script>
+    <script src="js/components/BasicTextareaVEComponent.js"></script>
+    <script src="js/components/BasicSelectVEComponent.js"></script>
+    <!-- 标准组件 -->
+    <script src="js/components/StandardVEComponent.js"></script>
+    <script src="js/components/StandardListVEComponent.js"></script>
+    <script src="js/components/StandardListBannerVEComponent.js"></script>
+    <script src="js/components/StandardTxtImgVerticalVEComponent.js"></script>
+    <!-- 容器组件 -->
+    <script src="js/components/ContainerVEComponent.js"></script><!-- 容器组件父类 -->
+    <script src="js/components/ContainerVerticalVEComponent.js"></script>
+    <script src="js/components/ContainerPositionVEComponent.js"></script>
+    <script src="js/components/ContainerSuspensionVEComponent.js"></script>
+    <!-- 业务组件 -->
+
+    <script src="js/components/inherit.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+<div class="toolbar">
+   <dl class="appName">我的应用</dl>
+   <dl class="goBack"><a>返回</a></dl>
+   <dl class="toolsBtn">
+       <a class="icon iconfont icon-save" title="保存"></a>
+       <a class="icon iconfont icon-delete" title="删除元件"></a>
+       <a class="icon iconfont icon-upload" title="上传文件"></a>
+   </dl>
+   <dl class="assistBtn">
+     <a class="icon iconfont icon-download" title="下载应用"></a>
+     <a class="icon iconfont icon-app" title="返回上面"></a>
+   </dl>
+</div>
+
+<div class="components">
+    <div class="top"><a>返回上页</a></div>
+    <div class="nav">
+        <a class="active icon iconfont icon-component1"></a>
+        <a class="icon iconfont icon-component"></a>
+        <a class="icon iconfont icon-componentcopy"></a>
+    </div>
+    <div class="area widget-list active">
+        <!--<dl><a class="icon iconfont icon-layoutcol" title="绝对容器"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-layout2" title="相对容器"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-defaultform" title="表单"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-txt" title="单行文本"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-txt1" title="多行文本"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-img" title="图片"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-a2" title="标签"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-input" title="单行输入"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-input1" title="多行输入"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-1402liebiaokuangkongjian" title="下拉列表框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-button" title="按钮"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-iconradiobox" title="单选框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-checkbox" title="多选框"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-date" title="日期"></a></dl>-->
+        <!--<dl><a class="icon iconfont icon-time" title="时间"></a></dl>-->
+
+    </div>
+    <div class="area">
+
+    </div>
+    <div class="area">
+
+    </div>
+
+    <div class="bot">
+        <dl><a class="icon iconfont icon-help" title="帮助"></a></dl>
+        <dl><a class="icon iconfont icon-bbs" title="讨论"></a></dl>
+    </div>
+</div>
+
+<div class="screens">
+   <div class="workbench">
+       <canvas  height="30" width="1600" id="upRuler" class="canvas_up"></canvas>
+       <canvas  width="30"  height="1600" id="dowRuler" class="canvas_dow" ></canvas>
+       <div class="design">
+           <div class="box">
+               <div class="canvas">
+
+               </div>
+               <div class="bar">
+                   <a class="color icon iconfont icon-color" title="背景颜色"></a>
+                   <a class="size icon iconfont icon-drag" title="调整高度"></a>
+                   <a class="img icon iconfont icon-img" title="背景图片"></a>
+               </div>
+           </div>
+       </div>
+   </div>
+
+
+
+</div>
+<div class="panel">
+    <div class="nav">
+        <a class="active icon iconfont icon-option" title="属性面板"></a>
+        <a class="icon iconfont icon-layout" title="元件"></a>
+        <a class="icon iconfont icon-app" title="项目文件"></a>
+    </div>
+    <div class="area active">
+        <div class="top">
+            <div class="componentAttribute">
+                <div class="row">
+                    <h5>尺寸位置</h5>
+                    <dd class="group"><label class="label4">高</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">宽</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">X</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">Y</label> <input type="text" value="" class="input4"></dd>
+                </div>
+                <div class="row">
+                    <h5>内边距</h5>
+                    <dd class="group"><label class="label4">上</label><input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">右</label><input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">下</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">左</label> <input type="text" value="" class="input4"></dd>
+                </div>
+
+                <div class="row">
+                    <h5>外边距</h5>
+                    <dd class="group"><label class="label4">上</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">右</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">下</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">左</label> <input type="text" value="" class="input4"></dd>
+                </div>
+
+                <div class="row">
+                    <h5>边框线条</h5>
+                    <dd class="group"><label class="label2">样式</label>
+                        <select class="select2">
+                            <option value="">无线</option>
+                            <option value="solid">实线</option>
+                            <option value="dashed">虚线</option>
+                            <option value="dotted">点线</option>
+                        </select>
+                    </dd>
+                    <dd class="group"><label class="label2">线粗</label> <input type="text" value="" class="input2"></dd>
+                    <dd class="group"><label class="label2">圆角</label> <input type="text" value="" class="input2"></dd>
+                    <dd class="group"><label class="label2">颜色</label> <input type="text" value="" class="input2"></dd>
+                    <dd class="group"><label class="label4">上</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">右</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">下</label> <input type="text" value="" class="input4"></dd>
+                    <dd class="group"><label class="label4">左</label> <input type="text" value="" class="input4"></dd>
+                </div>
+                <div class="row">
+                    <h5>背景样式</h5>
+                    <dd class="group"><label class="label2">图片</label> <input type="text" value="" class="input2"></dd>
+                    <dd class="group"><label class="label2">样式</label>
+                        <select class="select2">
+                            <option value="">不平铺</option>
+                            <option value="solid">逐行平铺</option>
+                            <option value="dashed">水平平铺</option>
+                            <option value="dotted">垂直平铺</option>
+                        </select>
+                    </dd>
+                    <dd class="group"><label class="label2">水平</label>
+                        <select class="select2">
+                            <option value="">无</option>
+                            <option value="solid">居左</option>
+                            <option value="dashed">居中</option>
+                            <option value="dotted">居右</option>
+                        </select>
+                    </dd>
+                    <dd class="group"><label class="label2">垂直</label>
+                        <select class="select2">
+                            <option value="">无</option>
+                            <option value="solid">居上</option>
+                            <option value="dashed">居中</option>
+                            <option value="dotted">居下</option>
+                        </select>
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <h5>文字样式</h5>
+                    <dd class="group">
+                        <label class="label2">字体</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                    <dd class="group">
+                        <label class="label2">字号</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                    <dd class="group">
+                        <label class="label2">行高</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                    <dd class="group">
+                        <label class="label2">颜色</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <h5>自定属性</h5>
+                    <dd class="group">
+                        <label class="label2">键名</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                    <dd class="group">
+                        <label class="label2">键值</label>
+                        <input type="text" value="" class="input2">
+                    </dd>
+                </div>
+
+                <div class="row">
+                    <h5>元件</h5>
+                    <dd >
+                        <label class="label2">元件名称</label>
+                        <input type="text" id="name" value="" class="input2">
+                    </dd>
+                    <dd >
+                        <label class="label2">点击事件</label>
+                        <input type="text" id="bindtap" value="" class="input2">
+                    </dd>
+                    <dd >
+                        <label class="label2">加载事件</label>
+                        <input type="text" id="binderror" value="" class="input2">
+                    </dd>
+                    <dd >
+                        <label class="label2">错误事件</label>
+                        <input type="text" id="bindload" value="" class="input2">
+                    </dd>
+                </div>
+                <div class="row">
+                    <h5>数据</h5>
+                    <dd ><label class="label2">赋值</label>
+                        <select class="select2" id="data_type">
+                            <option value="1">常量</option>
+                            <option value="2">变量</option>
+                        </select>
+                    </dd>
+                    <dd >
+                        <label class="label2">选图</label>
+                        <input type="text" id="src_url" value="" class="input2">
+                    </dd>
+                    <dd  style="display:none;">
+                        <label class="label2">键名</label>
+                        <input type="text" id="src_key" value="" class="input2">
+                    </dd>
+                    <dd><label class="label1">模式</label>
+                        <select class="select1" id="mode">
+                            <option value="scaleToFill">无比例,完全拉伸</option>
+                            <option value="aspectFit">同比缩放,完整展示</option>
+                            <option value="aspectFill">同比缩放,短边展示</option>
+                            <option value="top">不缩放,只显示顶部</option>
+                            <option value="bottom">不缩放,只显示底部</option>
+                            <option value="center">不缩放,只显示中间</option>
+                            <option value="left">不缩放,只显示左边</option>
+                            <option value="right">不缩放,只显示右边</option>
+                            <option value="top left">不缩放,只显示左上</option>
+                            <option value="bottom left">不缩放,只显示左下</option>
+                            <option value="top right">不缩放,只显示右上</option>
+                            <option value="bottom right">不缩放,只显示右下</option>
+                        </select>
+                    </dd>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="bot">
+            <dl><a class="icon iconfont icon-add" title="新建自定义属性"></a></dl>
+            <dl><a class="icon iconfont icon-delete" title="删除自定义属性"></a></dl>
+        </div>
+    </div>
+    <div class="area">
+        <div class="top">
+
+        </div>
+        <div class="bot">
+            <dl><a class="icon iconfont icon-delete" title="删除组件"></a></dl>
+        </div>
+    </div>
+    <div class="area">
+        <div class="top">
+
+        </div>
+        <div class="bot">
+            <dl><a class="icon iconfont icon-add" title="新建文件"></a></dl>
+            <dl><a class="icon iconfont icon-delete1" title="删除文件"></a></dl>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function(){
+        $.ins();
+        $(window).resize(function(){
+            $.autoWindow();
+        });
+    })
+</script>
+</body>
+</html>

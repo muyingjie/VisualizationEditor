@@ -1,0 +1,38 @@
+<svg width="303" height="508" viewBox="0 0 303 508" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Group 8
+  </title>
+  <defs>
+    <path id="b" d="M0 2h263.212v467.863H0z"/>
+    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a">
+      <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <path id="c" d="M0 0h263.158v263.045H0z"/>
+  </defs>
+  <g transform="translate(20 12)" fill="none" fill-rule="evenodd">
+    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#F9F9F9" xlink:href="#b"/>
+    <path fill="#EAEAEA" d="M48 387h53v8H48zM48 405h134v8H48z"/>
+    <path fill="#FFF" d="M0 48.048h263.212v57.658H0z"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="33.11" cy="77.069" rx="20.11" ry="20.069"/>
+    <path fill="#F55D54" d="M0 0h263.212v47.705H0z"/>
+    <g transform="translate(.043 105.787)">
+      <mask id="d" fill="#fff">
+        <use xlink:href="#c"/>
+      </mask>
+      <use fill="#F2F2F2" xlink:href="#c"/>
+      <path fill="#E3E3E3" mask="url(#d)" d="M-55.556 222.32L57.72 79.887l108.235 97.063 49.476-55.678 103.63 96.612.846 55.13-346.645 1"/>
+    </g>
+    <ellipse fill="#E7E7E7" cx="196.476" cy="160.205" rx="27.24" ry="27.184"/>
+    <path fill="#E7E7E7" d="M65.563 65.52h69.934v6.99H65.563zM65.563 81.245h34.967v6.99H65.563z"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="25.238" cy="24.213" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".1" fill="#FFF" cx="238.238" cy="24.213" rx="12.238" ry="12.213"/>
+    <ellipse fill-opacity=".2" fill="#F55D54" cx="25.238" cy="391.213" rx="12.238" ry="12.213"/>
+    <path fill="#F4F4F4" d="M0 422h263.212v47.705H0z"/>
+    <path fill="#FFF" d="M13 432h138v28H13z"/>
+    <path fill-opacity=".2" fill="#F55D54" d="M151 432h58v28h-58z"/>
+    <path d="M236 460c7.732 0 14-6.268 14-14s-6.268-14-14-14-14 6.268-14 14 6.268 14 14 14z" fill="#F55D54"/>
+  </g>
+</svg>
